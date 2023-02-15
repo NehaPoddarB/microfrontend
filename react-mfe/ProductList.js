@@ -1,17 +1,32 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { Button, styled } from '@mui/material'
+import {Button} from '@mui/material'
 
 
 export default function ProductList() {
     const [data, setData] = useState([])
-    const data1=[{productImage: "https://www.knoldus.com/wp-content/uploads/2022/02/noida-office-2.jpg", productName: "knoldus", description: "knoldus LLP"}, {productImage: "https://www.knoldus.com/wp-content/uploads/2022/02/noida-office-2.jpg", productName: "knoldus", description: "knoldus LLP"}, {productImage: "https://www.knoldus.com/wp-content/uploads/2022/02/noida-office-2.jpg", productName: "knoldus", description: "knoldus LLP"}, {productImage: "https://www.knoldus.com/wp-content/uploads/2022/02/noida-office-2.jpg", productName: "knoldus", description: "knoldus LLP"}]
+    const data1 = [{
+        productImage: "https://i.postimg.cc/Lst521y3/topGirls.jpg",
+        productName: "Girls Top",
+        description: "Lorem ipsum dolor sit amet. Id numquam sunt et tempora neque eum sunt rerum est explicabo dicta est iste accusantium"
+    }, {
+        productImage: "https://i.postimg.cc/B6ZS3wPJ/shirt.jpg",
+        productName: "Shirt",
+        description: "Lorem ipsum dolor sit amet. Id numquam sunt et tempora neque eum sunt rerum est explicabo dicta est iste accusantium"
+    }, {
+        productImage: "https://i.postimg.cc/dDPgsLNG/kurti.jpg",
+        productName: "Kurti",
+        description: "Lorem ipsum dolor sit amet. Id numquam sunt et tempora neque eum sunt rerum est explicabo dicta est iste accusantium"
+    }, {
+        productImage: "https://i.postimg.cc/brH4vq7M/jacket.png",
+        productName: "Jacket",
+        description: "Lorem ipsum dolor sit amet. Id numquam sunt et tempora neque eum sunt rerum est explicabo dicta est iste accusantium"
+    }]
     useEffect(() => {
         const getInfo = function getInfo1() {
             return new Promise((resolve, reject) => {
@@ -41,14 +56,15 @@ export default function ProductList() {
     return (
         <Box>
             <a
-                style={{ textDecoration: 'none' }}
-                href='http://localhost:4200'
+                style={{textDecoration: 'none'}}
+                href='/'
             >
-                <Button id='back'>BACK</Button>
+               {/* <Button id='back'>BACK</Button>*/}
             </a>
-            <Grid container sx={{ paddingLeft: "2rem", flexWrap: "wrap", flexDirection: "row", marginTop: '5.5rem'}}>
+            <h1 style={{textAlign: "center"}}>Our Products</h1>
+            <Grid container sx={{paddingLeft: "2rem", flexWrap: "wrap", flexDirection: "row", marginTop: '1.5rem'}}>
                 {data1.map(card => (
-                    <Grid item xs={4} sm={4} md={4} lg={3} sx={{ marginTop: "40px" }}>
+                    <Grid item xs={4} sm={4} md={4} lg={3} sx={{marginTop: "40px"}}>
                         <Card
                             sx={{
                                 backgroundColor: '#FFFFFF',
@@ -69,9 +85,16 @@ export default function ProductList() {
                                     component='img'
                                     image={card.productImage}
                                     alt='random'
-                                    sx={{ height: '15rem' }}
+                                    sx={{height: '15rem'}}
                                 />
-                                <CardContent sx={{ display: "flex",flexDirection: "column", alignItems: "center", width: "100%", marginTop: "6px", padding: "0px"}}>
+                                <CardContent sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    width: "100%",
+                                    marginTop: "6px",
+                                    padding: "0px"
+                                }}>
                                     <Typography
                                         gutterBottom
                                         variant='h4'
@@ -86,10 +109,10 @@ export default function ProductList() {
                                         {card.productName}
                                     </Typography>
                                     <Typography paragraph
-                                        sx={{
-                                       marginX:'18px'
-                                      }}
-                                  >
+                                                sx={{
+                                                    marginX: '18px'
+                                                }}
+                                    >
                                         {card.description}
                                     </Typography>
 
@@ -97,7 +120,7 @@ export default function ProductList() {
                             </div>
                         </Card>
                     </Grid>
-                 ))} 
+                ))}
             </Grid>
         </Box>
     );
