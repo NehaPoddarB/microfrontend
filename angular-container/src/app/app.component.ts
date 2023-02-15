@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  value: string = '';
   title = 'angular-container';
+
+  setValue(text: string){
+    this.value = text;
+  }
+
 }

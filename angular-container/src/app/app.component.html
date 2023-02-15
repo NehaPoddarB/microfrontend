@@ -1,13 +1,7 @@
-<div class="parent">
-  <div class="main">
-    <div class="box" routerLink="/angular">
-      <h3>Load Angular MFE</h3>
-    </div>
-  </div>
-  <div class="main">
-    <div class="box" routerLink="/react">
-      <h3>Load React MFE</h3>
-    </div>
+<div class="header">
+  <div class="header-right">
+    <a routerLink="/angular" [ngClass]="value ==='Home'? 'active':''" (click)="setValue('Home')">Home</a>
+    <a routerLink="/react" [ngClass]="value ==='List'? 'active':''" (click)="setValue('List')">Product List</a>
   </div>
 </div>
 
