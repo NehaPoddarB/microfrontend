@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appVersion: '1.0.0',
+  api: {
+    baseUrl: 'https://pvfck6n0jj.execute-api.ap-south-1.amazonaws.com/dev/',
+    routes: {
+      adminFetch: {endpoint: 'tenants/get', method: 'GET'},
+    }
+  }
 };
 
 /*
