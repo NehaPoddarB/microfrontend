@@ -1,4 +1,59 @@
-.angular-mfe {
-    display: flex;
-    flex-direction: row;
+.home{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+ .home .content{
+  flex:1 400px;
+  padding-top: 280px;
+}
+
+.home .image img{
+  width:80%;
+  padding:20px;
+  animation:float 3s linear infinite;
+}
+.home .image:hover{
+  cursor: pointer;
+}
+
+/* @keyframes float{
+  0%, 100%{
+    transform: translateY(0rem);
+  }
+  50%{
+    transform: translateY(3rem);
+  }
+} */
+
+.home .content h1{
+  margin-left: 20px;
+  font-size: 60px;
+  color:rgb(255, 86, 80);
+}
+
+.home .content p{
+  font-size: 25px;
+  color:gray;
+  padding:20px 0;
+}
+
+@media screen and (max-width: 800px){
+  .home{
+    flex-direction: column;
+
+  }
+  .home .content{
+    flex:1 200px;
+    padding-top: 100px;
+  }
+
+  .home .content h3{
+    font-size: 38px;
+  }
+
+  .home .content p{
+    font-size: 20px;
+  }
+
 }
