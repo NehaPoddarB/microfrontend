@@ -112,3 +112,6 @@ angular-container/.vscode
 angular-mfe/.angular
 angular-mfe/.vscode
 react-mfe/public
+angular-mfe/package-lock.json
+angular-container/package-lock.json
+react-mfe/package-lock.json
