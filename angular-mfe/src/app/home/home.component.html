@@ -1,4 +1,4 @@
-<section class="home">
+<!-- <section class="home">
 
   <div class="content ">
     <h1><em>Shopaholics</em></h1>
@@ -11,4 +11,53 @@
   <div class="image">
     <img src="https://i.postimg.cc/Qx1QKDDd/sp.png" style="height: 600px; width: 800px;border-radius: 10%;margin-top: 30px;">
   </div>
+</section> -->
+<section class="login-screen" style="background-color: #e8bdb2;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-8">
+        <div class="card" style="border-radius: 1rem;">
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="card-body p-4 p-lg-5 text-black col-6">
+
+                <form [formGroup]="createTenantForm">
+
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example17" >Tanent Name</label>
+                    <input formControlName="tenant_name" type="email" id="form2Example17" class="form-control form-control-lg" />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example17" >Tanent Email</label>
+                    <input formControlName="tenant_email" type="email" id="form2Example17" class="form-control form-control-lg" />
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example17" >Tanent Code</label>
+                    <input formControlName="tenant_code" type="email" id="form2Example17" class="form-control form-control-lg" />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example27">Password</label>
+                    <input formControlName="password" type="password" id="form2Example27" class="form-control form-control-lg" />
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-lg btn-block submit-btn" type="button" (click)="submit()">Login</button>
+                  </div>
+
+                  <!-- <a class="small text-muted" href="#!">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
+                      style="color: #393f81;">Register here</a></p>
+                  <a href="#!" class="small text-muted">Terms of use.</a>
+                  <a href="#!" class="small text-muted">Privacy policy</a> -->
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </section>

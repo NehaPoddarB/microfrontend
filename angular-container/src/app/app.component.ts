@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from './service/api.service';
 
 @Component({
@@ -9,6 +10,13 @@ import { ApiService } from './service/api.service';
 export class AppComponent {
   value: string = '';
   title = 'angular-container';
+  error: string ='';
+
+  form: FormGroup = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
 constructor(private apiService:ApiService){
 
 }
@@ -22,5 +30,14 @@ console.log(res);
 })
 
 }
+
+
+
+submit() {
+  if (this.form.valid) {
+   console.log(this.form.value);
+  }
+}
+
 
 }

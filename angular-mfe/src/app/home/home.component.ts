@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { TanentService } from '../sevice/tanent.service';
 declare const require: any;
 
 import {ApiService} from './../../../../angular-container/src/app/service/api.service'
@@ -9,14 +11,27 @@ import {ApiService} from './../../../../angular-container/src/app/service/api.se
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  angularVersion = require('./../../../package.json').dependencies['@angular/core'];
 
-  constructor(private apiService: ApiService) { }
+  createTenantForm: FormGroup = new FormGroup({
+    tenant_name: new FormControl(''),
+    tenant_email: new FormControl(''),
+    tenant_code: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  constructor(private tanentService: TanentService) { }
 
   ngOnInit(): void {
-    this.apiService.getCreateToken().subscribe((res: any)=>{
-      console.log(res);
-  });
+
   }
 
+
+submit() {
+  if (this.createTenantForm.valid) {
+    this.tanentService.createNewTenant(this.createTenantForm.value).subscribe((res: any)=>{
+      console.log(res);
+      this.createTenantForm.reset()
+    });
+  }
+}
 }

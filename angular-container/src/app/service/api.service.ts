@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,6 @@ export class ApiService {
 
   constructor(private httpClient:HttpClient) { }
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
 
   getCreateToken(): Observable<any> {
     return this.httpClient.get<any>(
