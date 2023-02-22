@@ -1,54 +1,73 @@
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
+const deps = require("./package.json").dependencies;
 module.exports = options => {
-  return {
-    entry: './index.js',
-  output: {
-      filename: 'bundle.js',
+  return{
+  entry: './src/index.js',
+    output: {
+    filename: 'bundle.js',
       publicPath: "auto",
-      uniqueName: "mfe4"
+        uniqueName: "mfe4"
   },
+
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
+
+  devServer: {
+    port: 4204,
+      historyApiFallback: true,
+  },
+
   module: {
-      rules: [{
+    rules: [
+      {
+        test: /\.m?js/,
+        type: "javascript/auto",
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
+        test: /\.(css|s[ac]ss)$/i,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+      {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: [{
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             cacheDirectory: true,
-            presets: ['@babel/react', '@babel/env', '@babel/preset-flow']
-          }
-        }, ],
-      }, ],
-        },
+            presets: ['@babel/react', '@babel/env']
+          },
+        }],
+      },
+    ],
+  },
+
   plugins: [
     new ModuleFederationPlugin({
-
-        // For remotes (please adjust)
-        name: "react",
-        library: {
-          type: "var",
-          name: "react"
+      name: "react_mfe",
+      filename: "remoteEntry.js",
+      remotes: {},
+      exposes: { './web-components': './src/app.js' },
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+          requiredVersion: deps.react,
         },
-        filename: "remoteEntry.js", // <-- Meta Data
-      exposes: {
-        './web-components': './app.js',
-          './react-component-1': './reactComponentOne.js',
+        "react-dom": {
+          singleton: true,
+          requiredVersion: deps["react-dom"],
+        },
       },
-        shared: ["react", "react-dom"]
     }),
-    new CopyWebpackPlugin({
-      patterns: [{
-        from: './*.html'
-      }]
-      })
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+    }),
   ],
-    devServer: {
-      port: 4204
-    }
-  }
 }
+};

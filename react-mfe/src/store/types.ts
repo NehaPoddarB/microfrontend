@@ -12,8 +12,8 @@ export interface DataState<T> {
 }
 
 export type RootState = {
-  readonly studio: StudioState;
-  readonly employee: EmployeeState;
+   studio: StudioState;
+   employee: EmployeeState;
 };
 
 export type ActionCompleteResponse = {
