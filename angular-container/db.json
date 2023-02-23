@@ -1,0 +1,46 @@
+{
+  "createTanent": [
+    {
+      "tenant_name": "leaderboard",
+      "tenant_email": "lb@knoldus.com",
+      "tenant_code": "LB_01",
+      "password": "abcefd",
+      "id": 1
+    },
+    {
+      "tenant_name": "Nashtech",
+      "tenant_email": "nash@nashtechglobal.com",
+      "tenant_code": "NS_01",
+      "password": "1234jjj",
+      "id": 2
+    },
+    {
+      "tenant_name": "abc",
+      "tenant_email": "abc@gmail.com",
+      "tenant_code": "abc_012",
+      "password": "111111",
+      "id": 3
+    }
+  ],
+  "createStudio": [
+    {
+      "studio_name": "pizzaa",
+      "studio_email": "2 hr",
+      "studio_code": "abc",
+      "studio_password": "assets/pizza.jpg",
+      "id": 0
+    }
+  ],
+  "createEmployee": [
+    {
+      "employee_name": "pizzaa",
+      "employee_email": "2 hr",
+      "employee_code": "abc",
+      "employee_password": "assets/pizza.jpg",
+      "id": 0
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

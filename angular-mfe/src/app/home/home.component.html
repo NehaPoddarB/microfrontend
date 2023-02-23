@@ -1,50 +1,54 @@
+<div class="d-flex justify-content-between m-5">
+<h3 class="fw-bold title">Tanent Management</h3>
+<button class="btn btn-primary" (click)="openModal(myModal)">+Add Tanent</button>
+</div>
 
-<section class="login-screen" >
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-6 col-lg-6 col-md-8 col-sm-10 col-xs-12">
-        <div class="card" style="border-radius: 1rem;background-color: #f5f5f5;">
-            <div class="d-flex align-items-center justify-content-center">
-              <div class="card-body p-4 p-lg-5 text-black col-6">
-
-                <form [formGroup]="createTenantForm">
-
-                  <h5 class="fw-normal mb-3 pb-3 text-bold" style="letter-spacing: 1px;">Sign into your account</h5>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example17" >Tenant Name</label>
-                    <input formControlName="tenant_name" type="email" id="form2Example17" class="form-control form-control-lg" />
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example17" >Tenant Email</label>
-                    <input formControlName="tenant_email" type="email" id="form2Example17" class="form-control form-control-lg" />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example17" >Tenant Code</label>
-                    <input formControlName="tenant_code" type="email" id="form2Example17" class="form-control form-control-lg" />
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form2Example27">Password</label>
-                    <input formControlName="password" type="password" id="form2Example27" class="form-control form-control-lg" />
-                  </div>
-
-                  <div class="pt-1 mb-4">
-                    <button class="btn btn-lg btn-block submit-btn" type="button" (click)="submit()">Login</button>
-                  </div>
-
-                  <!-- <a class="small text-muted" href="#!">Forgot password?</a>
-                  <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
-                      style="color: #393f81;">Register here</a></p>
-                  <a href="#!" class="small text-muted">Terms of use.</a>
-                  <a href="#!" class="small text-muted">Privacy policy</a> -->
-                </form>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="card mx-5 mb-3 px-3" style="border-radius: 1rem;">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 my-2 px-3">
+    <div class="col-xxl-3 d-flex">
+        <span class="fw-bold">NAME</span>
     </div>
 
-</section>
+    <div class="col-xxl-4 d-flex">
+      <span class="fw-bold">Code</span>
+
+    </div>
+    <div class="col-xxl-3 d-flex">
+      <span class="fw-bold">Email</span>
+
+    </div>
+    <div class="col-xxl-2 d-flex justify-content-around">
+      <span class="fw-bold">Actions</span>
+    </div>
+  </div>
+<div class="mb-2">
+<ng-container *ngIf="tableRow.length">
+  <div class="report-body cursor-pointer px-3" *ngFor="let row of tableRow">
+    <hr>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="col-xxl-3 d-flex">
+        <span>{{row?.tenant_name}}</span>
+    </div>
+
+    <div class="col-xxl-4 d-flex">
+      <span>{{row.tenant_code}}</span>
+
+    </div>
+    <div class="col-xxl-3 d-flex">
+      <span>{{row.tenant_email}}</span>
+
+    </div>
+    <div class="col-xxl-2 d-flex justify-content-around">
+            <button class="btn btn-warning" (click)="openModal(myModal,row.id)">edit</button>
+             <button class="btn btn-danger" (click)="deleteTanent(row.id)">delete</button>
+
+    </div>
+  </div>
+</div>
+</ng-container>
+</div>
+
+<ng-template #myModal>
+<app-create-tanent [tanentId]="tanentId" (submitSuccess)="submited($event)"></app-create-tanent>
+</ng-template>
+</div>

@@ -5,11 +5,16 @@ import {
   WebComponentWrapper, WebComponentWrapperOptions
 } from '@angular-architects/module-federation-tools';
 import { MainComponent } from './main/main.component';
+import { AppComponent } from './app.component';
+import { LoginService } from './service/login.service';
+import { SuperAdminAuthGuard } from './service/super-admin-auth.guard';
+import { CompanyGuard } from './service/company.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component:MainComponent,
+   // canActivate: [CompanyGuard],
     children: [  {
       path: 'angular',
       loadChildren: () =>
@@ -18,7 +23,8 @@ const routes: Routes = [
           remoteEntry: 'http://localhost:4201/remoteEntry.js',
           exposedModule: './angularMFE'
         })
-          .then((m: any) => m.AppModule)
+          .then((m: any) => m.AppModule),
+        //  canActivate: [SuperAdminAuthGuard],
     },
     {
       path: 'react',

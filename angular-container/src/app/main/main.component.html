@@ -1,10 +1,15 @@
-
-
 <div class="header">
-  <div class="header-right">
-    <a routerLink="angular" [ngClass]="value ==='Home'? 'active':''" (click)="setValue('Home')">Home</a>
-    <a routerLink="react" [ngClass]="value ==='List'? 'active':''" (click)="setValue('List')">Product List</a>
-  </div>
+  <div class="header-div d-flex justify-content-between mx-4 my-2">
+<div>
+  <a routerLink="/dashboard" [ngClass]="value ==='dashboard'? 'active':''" (click)="setValue('dashboard')">Dashboard</a>
+  <a routerLink="angular" [ngClass]="value ==='Tanent'? 'active':''" (click)="setValue('Tanent')">Tanent</a>
+  <a routerLink="react" [ngClass]="value ==='Company'? 'active':''" (click)="setValue('Company')">Company</a>
+</div>
+<div>
+  <a routerLink="/" [ngClass]="value ==='logOut'? 'active':''" (click)="logOut()">logOut</a>
+</div>
+
+</div>
 </div>
 <ng-container *ngIf="isActiveRoute('/dashboard'); else elseTemplate">
   <div class="d-flex justify-content-between cont row p-3">
