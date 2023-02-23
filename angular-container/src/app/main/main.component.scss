@@ -71,6 +71,14 @@
   padding:20px 0;
 }
 
+.image-border{
+  border-radius: 8px;
+}
+
+.cont{
+  margin-top: 50px;
+}
+
 @media screen and (max-width: 800px){
   .home{
     flex-direction: column;
