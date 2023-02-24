@@ -9,12 +9,19 @@ import { AppComponent } from './app.component';
 import { LoginService } from './service/login.service';
 import { SuperAdminAuthGuard } from './service/super-admin-auth.guard';
 import { CompanyGuard } from './service/company.guard';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 const routes: Routes = [
+  { path:'', redirectTo:'login' , pathMatch:'full'},
   {
+      path: 'login',
+      component: LoginPageComponent,
+      data: {title: "Admin Login"},
+  },
+    {
     path: 'dashboard',
     component:MainComponent,
-   // canActivate: [CompanyGuard],
+    canActivate: [CompanyGuard],
     children: [  {
       path: 'angular',
       loadChildren: () =>
@@ -24,7 +31,7 @@ const routes: Routes = [
           exposedModule: './angularMFE'
         })
           .then((m: any) => m.AppModule),
-        //  canActivate: [SuperAdminAuthGuard],
+          canActivate: [SuperAdminAuthGuard],
     },
     {
       path: 'react',

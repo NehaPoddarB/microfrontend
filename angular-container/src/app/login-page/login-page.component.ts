@@ -20,6 +20,6 @@ constructor(private loginService:LoginService)
 
 login() {
   this.loginService.checkCredentials(this.loginForm?.value)
-  this.isValid = localStorage.getItem('admin');
+  this.isValid = localStorage.getItem('auth');
 }
 }

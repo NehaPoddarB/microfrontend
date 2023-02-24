@@ -1,9 +1,4 @@
-
-<ng-container *ngIf=" isLoggedIn$|async else elseTemplate">
   <router-outlet></router-outlet>
-</ng-container>
-<ng-template #elseTemplate>
-  <app-login-page></app-login-page>
-</ng-template>
+
 
 

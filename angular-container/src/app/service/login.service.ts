@@ -8,8 +8,6 @@ import { ApiService } from './api.service';
 })
 export class LoginService {
 
-  private isUserLoggedIn = new BehaviorSubject(false);
-  isUserLoggedIn$ = this.isUserLoggedIn.asObservable();
 
   constructor(private router:Router,private apiService:ApiService) { }
 
@@ -28,23 +26,21 @@ export class LoginService {
 //             this.router.navigate(['/']);
 //         }
 // );
-    if (event.email === 'super@gmail.com' && event.password === '123@abc') {
-       this.isUserLoggedIn.next(true);
-       localStorage.setItem('admin', String(true));
+    if (event.email === 'super@gmail.com' && event.password === '123') {
+      localStorage.setItem('auth',String(true))
+      localStorage.setItem('admin', String(true));
        this.router.navigate(['/dashboard'])
-    }else if (event.email === 'tanent@gmail.com' && event.password === '123@abc') {
-      this.isUserLoggedIn.next(true);
-      localStorage.setItem('super', String(true));
+    }else if (event.email === 'tanent@gmail.com' && event.password === '123') {
+      localStorage.setItem('auth',String(true))
       this.router.navigate(['/dashboard'])
     }else{
       localStorage.setItem('admin', String(false));
-      localStorage.setItem('super', String(false));
+      localStorage.setItem('auth', String(false));
     }
   }
 
-  logout() {
-    this.isUserLoggedIn.next(false);
+  logout(){
     localStorage.setItem('admin', String(false));
-    localStorage.setItem('super', String(false));
+    localStorage.setItem('auth', String(false));
   }
 }

@@ -16,10 +16,12 @@ export class MainComponent {
     fragment: 'ignored'
   };
 
+auth=localStorage.getItem('admin');
   constructor(private router:Router,private loginService:LoginService) { }
   isActiveRoute(routeUrl: string): boolean {
     return this.router.isActive(routeUrl, this.matchOptions);
   }
+
   setValue(text: string){
     this.value = text;
   }

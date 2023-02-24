@@ -13,30 +13,8 @@ import { LoginService } from './service/login.service';
 export class AppComponent {
   title = 'angular-container';
 
-isLoggedIn$= this.loginService.isUserLoggedIn$;
-isValid = localStorage.getItem('admin') || localStorage.getItem('super') ||false;
-
-constructor(private loginService:LoginService,
-  private router :Router){
-
-}
-
-
-
 ngOnInit() {
-  console.log(this.isValid)
-  this.isLoggedIn$
-  .pipe(distinctUntilChanged())
-  .subscribe(async (loggedIn) => {
-    // Queue the navigation after initialNavigation blocking is completed
-    setTimeout(() => {
-      if (!loggedIn) {
-        this.router.navigate(['/']);
-      } else {
-        this.router.navigate(['/dashboard']);
-      }
-    });
-  });
+
  }
 
 }

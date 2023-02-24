@@ -2,7 +2,7 @@
   <div class="header-div d-flex justify-content-between mx-4 my-2">
 <div>
   <a routerLink="/dashboard" [ngClass]="value ==='dashboard'? 'active':''" (click)="setValue('dashboard')">Dashboard</a>
-  <a routerLink="angular" [ngClass]="value ==='Tanent'? 'active':''" (click)="setValue('Tanent')">Tanent</a>
+  <a routerLink="angular" [ngClass]="value ==='Tanent'? 'active':''" (click)="setValue('Tanent')" [hidden]="auth ==='false'">Tanent</a>
   <a routerLink="react" [ngClass]="value ==='Company'? 'active':''" (click)="setValue('Company')">Company</a>
 </div>
 <div>
