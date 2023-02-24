@@ -1,9 +1,6 @@
-
-
-
-// .card{
-// margin-top: 200px;
-// }
+.btn-width{
+  width:80px;
+}
 .title{
   color:rgb(255, 86, 80);
 }
@@ -15,5 +12,19 @@
         top:0;
        }
     .modal-body{
-   box-shadow: none;}}
+   box-shadow: none;
+  }
+}
+
+::ng-deep .delete-modal{
+  top: 30%;
+   width: 30% !important;
+    min-height: 50%;
+     .modal-content{
+        top:0;
+       }
+    .modal-body{
+   box-shadow: none;
+  }
+}
 

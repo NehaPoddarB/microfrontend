@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   });
   modalRef: BsModalRef | undefined;
   tanentId: string | undefined;
+  deleteId: any = '';
 
   constructor(private tanentService: TanentService, private modalService: BsModalService) { }
 
@@ -49,13 +50,27 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  deleteTanent(id: any) {
-    this.tanentService.deleteTanentById(id).subscribe(res => {
+  openDeleteModal(template: TemplateRef<any>, id: any) {
+    this.deleteId = id;
+    this.modalRef = this.modalService.show(template, {
+      animated: true,
+      class: 'delete-modal'
+    });
+  }
+
+  deleteTanent() {
+    this.tanentService.deleteTanentById(this.deleteId).subscribe(res => {
       if (res) {
         this.getAllTenentData();
+        this.modalRef?.hide();
         alert('Successfully Deleted')
       }
     });
+  }
+
+  closeModal(){
+    this.deleteId = '';
+    this.modalRef?.hide();
   }
 
 }
