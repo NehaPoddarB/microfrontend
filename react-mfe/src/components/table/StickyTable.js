@@ -7,37 +7,26 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Box, Button, Container, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 
 export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
   return (
     <>
       <Box sx={{
-        display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 2, background: "linear-gradient(195deg, #49a3f1, #1A73E8)",
-        // margin: "48px",
+        display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 2,
         borderRadius: "1rem",
         position: 'relative',
-        marginLeft: '11rem',
-        marginRight: '11rem',
-        marginTop:"10rem"
+        marginLeft: '5rem',
+        marginRight: '5rem',
+        marginTop: "3rem"
       }}>
-        <Typography variant="h4" sx={{
-          marginLeft: 4,
+        <Typography variant="h2" sx={{
           fontWeight: "bold",
-          color: '#fff',
+          color: 'rgb(255, 86, 80)',
           marginTop: 2.5,
           fontSize: "1.75rem",
           lineHeight: 1.625,
@@ -47,38 +36,25 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
         </Typography>
         <Button
           variant='contained'
+          color='info'
           size='medium'
           onClick={
-            // setOpenAdd(true);
             handleOpenAdd
           }
           sx={{
-            marginRight: 4, marginTop: 3, marginBottom: 3, color: "#6c757d", backgroundColor: " #fff", width: '7rem', borderRadius: 2,
-            color: "black", ':hover': {
-              boxShadow: 10,
-              backgroundColor: " #fff"
-            },
+            marginTop: 3, marginBottom: 3, width: '100 %', borderRadius: '0.25rem', height: '3rem', backgroundColor: '#0d6efd'
           }}
         >
-          + {"Add"}
+          + {"Add"} {label}
         </Button>
-        {/* {openAdd && (
-            <AddDialog
-              handleAddClose={handleAddClose}
-              openAdd={openAdd}
-              onAddQuestionComplete={(event) => handleCompleteAdd(event)}
-            />
-          )} */}
       </Box>
       <Paper sx={{
-        color: '#fff', backgroundColor: "#202940", border: " 0 solid rgba(0, 0, 0, 0.125)",
-        borderRadius: "0.75rem", marginTop: '-3%',
-        marginLeft: "11rem",
-        marginRight: "11rem",
-        paddingTop:'1.5rem'
+        color: '#fff', border: " 0 solid rgba(0, 0, 0, 0.125)",
+        borderRadius: "0.75rem",
+        marginLeft: "5rem",
+        marginRight: "5rem",
       }}>
         <TableContainer sx={{
-          maxHeight: 440,
           width: "max-content",
           marginLeft: "auto",
           marginRight: "auto",
@@ -86,23 +62,24 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
           borderRadius: 2,
           width: "100%",
           overflowX: "auto",
-          backgroundColor: '#202940'
         }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead sx={{ backgroundColor: '#202940'}}>
-              <TableRow sx={{"& th": {
-                fontSize: "1rem",
-                color: "#b1acacd1",
-                backgroundColor: "#202940",
-                textTransform:'uppercase',
-                opacity:1
-              },
+          <Table stickyHeader aria-label="sticky table" sx={{ padding: '17px' }}>
+            <TableHead >
+              <TableRow sx={{
+                "& th": {
+                  fontSize: "1rem",
+                  fontWeight: '700',
+                  border: " 1 solid rgba(0, 0, 0, 0.125)",
+                  // color: "#b1acacd1",
+                  textTransform: 'uppercase',
+                  opacity: 1
+                },
               }}>
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth, fontSize: "1.25rem" }}
+                    style={{ minWidth: column.minWidth, fontSize: "0.875rem" }}
                   >
                     {column.label}
                   </TableCell>
@@ -118,7 +95,7 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                          <TableCell key={column.id} align={column.align} sx={{color:"#fff"}}>
+                          <TableCell key={column.id} align={column.align} sx={{ fontSize: '1rem' }} >
                             {column.format && typeof value === 'number'
                               ? column.format(value)
                               : value}
@@ -132,7 +109,6 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
           </Table>
         </TableContainer>
       </Paper>
-      </>
-    // </Paper>
+    </>
   );
 }

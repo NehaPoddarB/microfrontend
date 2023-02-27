@@ -63,11 +63,11 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
             >
                 <Box pt={3} pb={3} px={3}>
                     <Typography
-                        variant="h3"
+                        variant="h4"
                         fontWeight="medium"
                         alignItems="center"
                         alignContent="center"
-                    sx={{  width: "100%", fontWeight:'bold', color: '#1A73E8' }}
+                    sx={{  width: "100%", fontWeight:'bold', color: 'rgb(255, 86, 80)' }}
                     >
                         Add Employee
                     </Typography>
@@ -109,9 +109,9 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
                             sx={{
-                                color: 'black', fontWeight: "700", ':hover': {
+                                color: '#fff',backgroundColor:'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
-                                    backgroundColor:'#1A73E8'
+                                    backgroundColor:'rgb(255, 86, 80)'
                                 }
                             }}
                         >
@@ -121,7 +121,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                             color="primary"
                             variant="contained"
                             onClick={handleAddClose}
-                            sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "700", ':hover': {
+                            sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
                                 boxShadow: 10,
                                 backgroundColor:'black'
                             } }}

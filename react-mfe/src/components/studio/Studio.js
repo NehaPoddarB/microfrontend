@@ -9,13 +9,14 @@ import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import SimpleSnackbar from '../snackbar/SimpleSnackbar';
+import ModeRoundedIcon from '@mui/icons-material/ModeRounded';
 
 const Studio = () => {
   const columns = [
-    { id: 'studio_name', label: 'Name', minWidth: 170 },
-    { id: 'studio_code', label: 'Code', minWidth: 170 },
-    { id: 'studioAdmin_email', label: 'Email', minWidth: 170 },
-    { id: 'actions', label: '', minWidth: 170 }
+    { id: 'studio_name', label: 'Name', minWidth: 300 },
+    { id: 'studio_code', label: 'Code', minWidth: 300 },
+    { id: 'studioAdmin_email', label: 'Email', minWidth: 300 },
+    { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
 
   const rows = [
@@ -123,7 +124,7 @@ const Studio = () => {
         studio_code,
         studioAdmin_email,
         actions: (
-          <Container sx={{ paddingLeft: "3px", marginLeft: "-1.2rem", display: 'flex' }}>
+          <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
             <Button
               size="large"
               variant="text"
@@ -132,11 +133,18 @@ const Studio = () => {
                 setOpenEdit(true);
                 editData(item);
               }}
-              sx={{ padding: "1rem", paddingTop: "0px", paddingBottom: "0px" }}
+              sx={{ paddingTop: "0px", paddingBottom: "0px" }}
               aria-label="edit"
             >
               <Tooltip title={"Edit"}>
-                <EditIcon />
+                <Box sx={{
+                  display: "inline-block",
+                  borderRadius: "60px",
+                  boxShadow: "0 0 2px #888",
+                  padding: "0.5em 0.6em"
+                }} >
+                  <ModeRoundedIcon />
+                </Box>
               </Tooltip>
             </Button>
             <Button
@@ -147,13 +155,20 @@ const Studio = () => {
                 openConfirmationDialogHandler();
                 setDeleteQuestion(item);
               }}
-              sx={{ padding: "1rem", paddingTop: "0px", paddingBottom: "0px" }}
+              sx={{ paddingTop: "0px", paddingBottom: "0px", color:'rgb(255, 86, 80)' }}
             >
               <Tooltip title={"Delete"}>
-                <DeleteIcon />
+                <Box sx={{
+                  display: "inline-block",
+                  borderRadius: "60px",
+                  boxShadow: "0 0 2px #888",
+                  padding: "0.5em 0.6em"
+                }} >
+                  <DeleteIcon />
+                </Box>
               </Tooltip>
             </Button>
-          </Container>
+          </Box>
         )
       };
     }
