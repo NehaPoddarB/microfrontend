@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between m-5">
-<h3 class="fw-bold title">Tanent Management</h3>
-<button class="btn btn-primary" (click)="openModal(myModal)">+Add Tanent</button>
+<h3 class="fw-bold title">Tenant Management</h3>
+<button class="btn btn-primary" (click)="openModal(myModal)">+Add Tenant</button>
 </div>
 
 <div class="card mx-5 mb-3 px-3" style="border-radius: 1rem;">
@@ -40,7 +40,7 @@
     </div>
     <div class="col-xxl-2 d-flex justify-content-around">
             <button class="btn btn-warning" (click)="openModal(myModal,row.id)">edit</button>
-             <button class="btn btn-danger" (click)="deleteTanent(row.id)">delete</button>
+             <button class="btn btn-danger" (click)="openDeleteModal(myDeleteModal, row.id)">delete</button>
 
     </div>
   </div>
@@ -50,5 +50,15 @@
 
 <ng-template #myModal>
 <app-create-tanent [tanentId]="tanentId" (submitSuccess)="submited($event)"></app-create-tanent>
+</ng-template>
+
+<ng-template #myDeleteModal>
+  <div class="mt-4 mb-4 p-4 d-flex flex-column justify-content-center align-items-center">
+    <span class="text-bold">Are you sure you want to delete?</span>
+    <div class="mt-4 d-flex justify-content-between">
+      <button class="btn btn-primary mx-2 btn-width" (click)="deleteTanent()">Yes</button>
+      <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button>
+    </div>
+  </div>
 </ng-template>
 </div>
