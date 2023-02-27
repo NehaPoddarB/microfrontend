@@ -12,18 +12,18 @@ import SimpleSnackbar from '../snackbar/SimpleSnackbar';
 
 const Employee = () => {
   const columns = [
-    { id: 'employee_name', label: 'Name', minWidth: 170 },
-    { id: 'studio_code', label: 'Code', minWidth: 170 },
-    { id: 'employee_email', label: 'Email', minWidth: 170 },
-    { id: 'actions', label: '', minWidth: 170 }
+    { id: 'employee_name', label: 'Name', minWidth: 300 },
+    { id: 'studio_code', label: 'Code', minWidth: 300 },
+    { id: 'employee_email', label: 'Email', minWidth: 300 },
+    { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
 
   const rows = [
-    { employee_name: "test-1", studio_code: 'FE', employee_email: 'test@gmail.com' },
-    { employee_name: "test-2", studio_code: 'DevOps', employee_email: 'test@gmail.com' },
-    { employee_name: "test-3", studio_code: 'AI', employee_email: 'test@gmail.com' },
-    { employee_name: "test-4", studio_code: 'SCALA', employee_email: 'test@gmail.com' },
-    { employee_name: "test-5", studio_code: 'JAVA', employee_email: 'test@gmail.com' },
+    { employee_name: "employee-1", studio_code: 'FE', employee_email: 'test@gmail.com' },
+    { employee_name: "employee-2", studio_code: 'DevOps', employee_email: 'test@gmail.com' },
+    { employee_name: "employee-3", studio_code: 'AI', employee_email: 'test@gmail.com' },
+    { employee_name: "employee-4", studio_code: 'SCALA', employee_email: 'test@gmail.com' },
+    { employee_name: "employee-5", studio_code: 'JAVA', employee_email: 'test@gmail.com' },
   ]
   const [openEdit, setOpenEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState([]);
@@ -123,7 +123,7 @@ const Employee = () => {
         studio_code,
         employee_email,
         actions: (
-          <Container sx={{ paddingLeft: "3px", marginLeft: "-1.2rem", display: 'flex' }}>
+          <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
             <Button
               size="large"
               variant="text"
@@ -132,11 +132,18 @@ const Employee = () => {
                 setOpenEdit(true);
                 editData(item);
               }}
-              sx={{ padding: "1rem", paddingTop: "0px", paddingBottom: "0px" }}
+              sx={{ paddingTop: "0px", paddingBottom: "0px" }}
               aria-label="edit"
             >
               <Tooltip title={"Edit"}>
-                <EditIcon />
+                <Box sx={{
+                  display: "inline-block",
+                  borderRadius: "60px",
+                  boxShadow: "0 0 2px #888",
+                  padding: "0.5em 0.6em"
+                }} >
+                  <EditIcon />
+                </Box>
               </Tooltip>
             </Button>
             <Button
@@ -147,13 +154,20 @@ const Employee = () => {
                 openConfirmationDialogHandler();
                 setDeleteQuestion(item);
               }}
-              sx={{ padding: "1rem", paddingTop: "0px", paddingBottom: "0px" }}
+              sx={{ paddingTop: "0px", paddingBottom: "0px", color:'rgb(255, 86, 80)'}}
             >
               <Tooltip title={"Delete"}>
-                <DeleteIcon />
+                <Box sx={{
+                  display: "inline-block",
+                  borderRadius: "60px",
+                  boxShadow: "0 0 2px #888",
+                  padding: "0.5em 0.6em"
+                }} >
+                  <DeleteIcon sx={{color:'red'}}/>
+                </Box>
               </Tooltip>
             </Button>
-          </Container>
+          </Box>
         )
       };
     }

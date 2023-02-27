@@ -20,7 +20,7 @@ export default function ConfirmationDialog({ title, body, open, onConfirmAction,
                 >
                     <Box pt={3} pb={3} px={3}>
                         <Typography
-                            variant="h3"
+                            variant="h4"
                             fontWeight="bold"
                             mb={0.5}
                             alignItems="left"
@@ -41,9 +41,9 @@ export default function ConfirmationDialog({ title, body, open, onConfirmAction,
                                 variant="contained"
                                 color="primary"
                                 onClick={onConfirmHandler}
-                                sx={{ innerWidth: "10",backgroundColor: "#1A73E8", color: 'black', fontWeight: "700", ':hover': {
+                                sx={{ innerWidth: "10",backgroundColor: 'rgb(255, 86, 80)', color: '#fff', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
-                                    backgroundColor:'#1A73E8'
+                                    backgroundColor:'rgb(255, 86, 80)'
                                 }}}
                             >
                                 {confirmLabel}
@@ -52,7 +52,7 @@ export default function ConfirmationDialog({ title, body, open, onConfirmAction,
                                 variant="contained"
                                 color="primary"
                                 onClick={onCancelAction}
-                                sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "700", ':hover': {
+                                sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
                                     backgroundColor:'black'
                                 } }}

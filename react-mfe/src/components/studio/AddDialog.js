@@ -12,6 +12,10 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
     const [inputCode, setCode] = useState("")
     const [inputEmail, setEmail] = useState("")
     const [open, setOpen] = useState(false);
+    const [validName, setValidName] = useState(false);
+    const [validEmail, setValidEmail] = useState(false);
+    const [validCode, setValidCode] = useState(false);
+    const [touched, setTouched] = useState(false);
     // const dispatch = useDispatch();
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -37,6 +41,16 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
 
     const onEmailChange = (event) => {
         setEmail(event.target.value)
+        if (!isValidEmail(event.target.value)) {
+            setValidEmail(false)
+        } else {
+            setValidEmail(true)
+        }
+    }
+    console.log(validEmail)
+
+    function isValidEmail(email) {
+        return /\S+@\S+\.\S+/.test(email);
     }
 
     const confirmEditActionHandler = () => {
@@ -63,12 +77,12 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
             >
                 <Box pt={3} pb={3} px={3}>
                     <Typography
-                        variant="h3"
+                        variant="h4"
                         color="info"
                         fontWeight="medium"
                         alignItems="center"
                         alignContent="center"
-                        sx={{ width: "100%", fontWeight: 'bold', color: '#1A73E8'}}
+                        sx={{ width: "100%", fontWeight: 'bold', color: 'rgb(255, 86, 80)' }}
                     >
                         Add Studio
                     </Typography>
@@ -82,7 +96,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         onChange={onNameChange}
                     />
                     <TextField
-                        id="title"
+                        id="code"
                         label="Studio Code"
                         type="text"
                         color="info"
@@ -91,7 +105,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         onChange={onCodeChange}
                     />
                     <TextField
-                        id="description"
+                        id="email"
                         label="Studio Email"
                         type="email"
                         color="info"
@@ -106,13 +120,13 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         sx={{ display: "flex", alignItems: "center", marginTop: 2 }}
                     >
                         <Button
-                            color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
+                            disabled={!inputName || !inputCode || !inputEmail || !validEmail}
                             sx={{
-                                color: 'black', fontWeight: "700", ':hover': {
+                                color: '#fff', fontWeight: "500", backgroundColor: 'rgb(255, 86, 80)', ':hover': {
                                     boxShadow: 10,
-                                    backgroundColor:'#1A73E8'
+                                    backgroundColor: 'rgb(255, 86, 80)'
                                 }
                             }}
                         >
@@ -122,10 +136,12 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                             color="primary"
                             variant="contained"
                             onClick={handleAddClose}
-                            sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "700", ':hover': {
-                                boxShadow: 10,
-                                backgroundColor:'black'
-                            } }}
+                            sx={{
+                                margin: "20", backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
+                                    boxShadow: 10,
+                                    backgroundColor: 'black'
+                                }
+                            }}
                         >
                             Cancel
                         </Button>

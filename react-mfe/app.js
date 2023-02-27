@@ -8,7 +8,7 @@ import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route, Routes } from 'react-router-dom';
 
-const themeDark = createTheme({ palette: { background: { default: "#1a2035", }, } });
+const themeDark = createTheme({ palette: { background: { default: "#fff", }, } });
 const App = () => (
   <div>
     <Header />

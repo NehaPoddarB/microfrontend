@@ -53,11 +53,11 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
             >
                 <Box pt={3} pb={3} px={3}>
                     <Typography
-                        variant="h3"
+                        variant="h4"
                         fontWeight="medium"
                         alignItems="center"
                         alignContent="center"
-                        sx={{ fontWeight: 'bold', width: "100%", color: "#1A73E8" }}
+                        sx={{ fontWeight: 'bold', width: "100%", color: 'rgb(255, 86, 80)' }}
                     >
                         Edit Employee
                     </Typography>
@@ -98,9 +98,9 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
                             sx={{
-                                color: 'black', fontWeight: "700", ':hover': {
+                                color: '#fff',backgroundColor:'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
-                                    backgroundColor:'#1A73E8'
+                                    backgroundColor:'rgb(255, 86, 80)'
                                 }
                             }}
                         >
@@ -111,7 +111,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
                             variant="contained"
 
                             onClick={handleEditClose}
-                            sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "700", ':hover': {
+                            sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
                                 boxShadow: 10,
                                 backgroundColor:'black'
                             } }}
