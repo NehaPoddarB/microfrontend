@@ -3,8 +3,8 @@
     {
       "tenant_name": "leaderboard",
       "tenant_email": "lb@knoldus.com",
-      "tenant_code": "LB_01",
-      "password": "abcefd",
+      "tenant_code": "LB_019",
+      "password": "abcefdjnmn",
       "id": 1
     },
     {
@@ -36,6 +36,7 @@
       "employee_name": "pizzaa",
       "employee_email": "2 hr",
       "employee_code": "abc",
+      "studio_code": "abc",
       "employee_password": "assets/pizza.jpg",
       "id": 0
     }

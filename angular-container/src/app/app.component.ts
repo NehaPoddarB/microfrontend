@@ -1,9 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiService } from './service/api.service';
-import { ActivatedRoute, IsActiveMatchOptions, Router } from '@angular/router';
-import { distinctUntilChanged } from 'rxjs';
-import { LoginService } from './service/login.service';
+import { Component} from '@angular/core';
+
 
 @Component({
   selector: 'app-root',

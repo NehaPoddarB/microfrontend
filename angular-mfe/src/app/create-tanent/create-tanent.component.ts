@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TanentService } from '../sevice/tanent.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class CreateTanentComponent implements OnInit {
   });
   @Input() tanentId: string | undefined;
   @Output() submitSuccess = new EventEmitter();
-  constructor(private tanentService: TanentService, private modalService: BsModalService
+  constructor(private tanentService: TanentService, private modalService: BsModalService,private toastr:ToastrService
   ) { }
 
   ngOnInit() {
@@ -41,12 +42,19 @@ export class CreateTanentComponent implements OnInit {
           this.createTenantForm.reset()
           this.cancelModal()
           this.submitSuccess.emit(true)
+          this.toastr.success("Tanent Updated successfully!")
+        },(error)=>{
+          this.toastr.success("something went wront")
         });
       } else {
         this.tanentService.postTanent(this.createTenantForm.value).subscribe((res: any) => {
+          console.log(this.createTenantForm.value)
           this.createTenantForm.reset()
           this.cancelModal()
           this.submitSuccess.emit(true)
+          this.toastr.success("Tanent created successfully!")
+        },(error)=>{
+          this.toastr.success("something went wront")
         });
       }
     }
@@ -55,5 +63,4 @@ export class CreateTanentComponent implements OnInit {
   cancelModal() {
     this.modalService.hide()
   }
-
 }

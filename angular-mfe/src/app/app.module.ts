@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
- import { HttpClientModule } from '@angular/common/http';
- import { ModalModule } from 'ngx-bootstrap/modal';
+import { HttpClientModule } from '@angular/common/http';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateTanentComponent } from './create-tanent/create-tanent.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -23,10 +23,11 @@ import { CreateTanentComponent } from './create-tanent/create-tanent.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ModalModule.forRoot()
+   ModalModule.forRoot(),
+   ToastrModule.forRoot({"positionClass": "toast-top-center"})
   ],
 schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
-  bootstrap: [AppComponent],
+providers: [],
+ bootstrap: [AppComponent],
 })
 export class AppModule { }

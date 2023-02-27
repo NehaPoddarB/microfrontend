@@ -5,8 +5,6 @@ import {
   WebComponentWrapper, WebComponentWrapperOptions
 } from '@angular-architects/module-federation-tools';
 import { MainComponent } from './main/main.component';
-import { AppComponent } from './app.component';
-import { LoginService } from './service/login.service';
 import { SuperAdminAuthGuard } from './service/super-admin-auth.guard';
 import { CompanyGuard } from './service/company.guard';
 import { LoginPageComponent } from './login-page/login-page.component';
