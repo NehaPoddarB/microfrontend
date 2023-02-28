@@ -7,17 +7,17 @@
 .header a {
   color: black;
   text-align: center;
-  padding: 12px;
+  padding: 8px;
   text-decoration: none;
   font-size: 18px;
-  line-height: 20px;
+  line-height: 10px;
   border-radius: 4px;
   margin: 0 10px;
 }
 
 .header a:hover {
-  background-color: rgb(255, 86, 80);
-  color: white;
+  background-color: #d2def2;
+  color: black;
 }
 
 .header a.active {
@@ -96,4 +96,18 @@
     font-size: 20px;
   }
 
+}
+.btn-width{
+  width:80px;
+}
+::ng-deep .logOut-modal{
+  top: 30%;
+   width: 30% !important;
+    min-height: 50%;
+     .modal-content{
+        top:0;
+       }
+    .modal-body{
+   box-shadow: none;
+  }
 }

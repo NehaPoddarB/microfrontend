@@ -2,9 +2,9 @@
   "createTanent": [
     {
       "tenant_name": "leaderboard",
-      "tenant_email": "lb@knoldus.com",
+      "tenant_email": "lb@knoldus.comm",
       "tenant_code": "LB_019",
-      "password": "abcefdjnmn",
+      "password": "abcefdjnmnn",
       "id": 1
     },
     {
@@ -20,6 +20,13 @@
       "tenant_code": "abc_012",
       "password": "111111",
       "id": 3
+    },
+    {
+      "tenant_name": "abc",
+      "tenant_email": "nehakumari@gmail.com",
+      "tenant_code": "111",
+      "password": "1111",
+      "id": 4
     }
   ],
   "createStudio": [
