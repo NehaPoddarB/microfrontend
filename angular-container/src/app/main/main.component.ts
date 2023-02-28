@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IsActiveMatchOptions, Router} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../service/login.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class MainComponent {
   };
 
 auth=localStorage.getItem('admin');
-  constructor(private router:Router,private loginService:LoginService) { }
+  constructor(private router:Router,private loginService:LoginService , private toastr:ToastrService) { }
   isActiveRoute(routeUrl: string): boolean {
     return this.router.isActive(routeUrl, this.matchOptions);
   }
@@ -28,7 +29,7 @@ auth=localStorage.getItem('admin');
 
   logOut(){
     this.value='logOut'
-    this.loginService.logout()
+     this.loginService.logout()
   }
 
 }

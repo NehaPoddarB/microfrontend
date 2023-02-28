@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ApiService } from './../../../../angular-container/src/app/service/api.service'
 import { TanentService } from '../sevice/tanent.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   tanentId: string | undefined;
   deleteId: any = '';
 
-  constructor(private tanentService: TanentService, private modalService: BsModalService) { }
+  constructor(private tanentService: TanentService, private modalService: BsModalService ,private toastr:ToastrService) { }
 
   ngOnInit() {
     this.getAllTenentData()
@@ -63,8 +63,10 @@ export class HomeComponent implements OnInit {
       if (res) {
         this.getAllTenentData();
         this.modalRef?.hide();
-        alert('Successfully Deleted')
+        this.toastr.success("Tanent Deleted successfully!")
       }
+    },(error)=>{
+      this.toastr.success("something went wront")
     });
   }
 
