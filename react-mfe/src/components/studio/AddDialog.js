@@ -12,10 +12,10 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
     const [inputCode, setCode] = useState("")
     const [inputEmail, setEmail] = useState("")
     const [open, setOpen] = useState(false);
+    const [correctEmail, setCorrectEmail]= useState(true);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
-    const [touched, setTouched] = useState(false);
     // const dispatch = useDispatch();
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -33,26 +33,74 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
 
     const onCodeChange = (event) => {
         setCode(event.target.value)
+        if (!stringPatternValidation(event.target.value)) {
+            setValidCode(false)
+        } else if (event.target.value.length>=0) {
+            setValidCode(true)
+        }
+        else {
+            setValidCode(true)
+        }
     }
 
     const onNameChange = (event) => {
         setName(event.target.value)
+        if (!stringPatternValidation(event.target.value)) {
+            setValidName(false)
+        } else if (event.target.value.length>=0) {
+            setValidName(true)
+        }
+        else {
+            setValidName(true)
+        }
     }
 
     const onEmailChange = (event) => {
         setEmail(event.target.value)
         if (!isValidEmail(event.target.value)) {
+            setCorrectEmail(false)
+        }
+        else if (event.target.value.length<=0) {
+            setCorrectEmail(false)
+        }
+        else{
+            setCorrectEmail(true)
+        }
+        if (!stringPatternValidation(event.target.value)) {
             setValidEmail(false)
-        } else {
+        } else if (event.target.value.length>=0) {
             setValidEmail(true)
         }
+        else {
+            setValidEmail(true)
+        }
+
     }
-    console.log(validEmail)
+    function onBlurNameHandler() {
+        if (inputName.length<=0) {
+            setValidName(true);
+        }
+    }
+
+    function onBlurCodeHandler() {
+        if (inputCode.length<=0) {
+            setValidCode(true);
+        }
+    }
+
+    function onBlurEmailHandler() {
+        if (inputEmail.length<=0) {
+            setValidEmail(true);
+        }
+    }
 
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
 
+    function stringPatternValidation(stringVal) {
+        return /\s/g.test(stringVal);
+    };
     const confirmEditActionHandler = () => {
         const newData = { code: inputCode, name: inputName, description: inputEmail };
         // dispatch(addQuestion(newData)).then((res: any) => {
@@ -93,8 +141,13 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         color="info"
                         fullWidth
                         sx={{ mt: "2rem" }}
+                        value={inputName}
                         onChange={onNameChange}
+                        onBlur={onBlurNameHandler}
                     />
+                    <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
+                        {validName && "Please enter studio name"}
+                    </Typography>
                     <TextField
                         id="code"
                         label="Studio Code"
@@ -102,8 +155,14 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         color="info"
                         fullWidth
                         sx={{ mt: "2rem" }}
+                        value={inputCode}
                         onChange={onCodeChange}
+                        onBlur={onBlurCodeHandler}
+
                     />
+                     <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
+                        {validCode && "Please enter studio Code"}
+                    </Typography>
                     <TextField
                         id="email"
                         label="Studio Email"
@@ -112,7 +171,14 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         fullWidth
                         sx={{ mt: "2rem" }}
                         onChange={onEmailChange}
+                        onBlur={onBlurEmailHandler}
                     />
+                     <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
+                        {validEmail && "Please enter studio email"}
+                    </Typography>
+                    <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
+                        {!correctEmail && "Please enter valid studio email"}
+                    </Typography>
 
                     <Stack
                         direction="row"
@@ -122,7 +188,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         <Button
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || !validEmail}
+                            disabled={!inputName || !inputCode || !inputEmail || validEmail || !correctEmail }
                             sx={{
                                 color: '#fff', fontWeight: "500", backgroundColor: 'rgb(255, 86, 80)', ':hover': {
                                     boxShadow: 10,
