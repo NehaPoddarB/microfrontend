@@ -8,8 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
-import SimpleSnackbar from '../snackbar/SimpleSnackbar';
 import ModeRoundedIcon from '@mui/icons-material/ModeRounded';
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
+import MuiAlert from '@mui/material/Alert';
+import ToastMessage from '../snackbar/ToastMessage';
 
 const Studio = () => {
   const columns = [
@@ -23,10 +26,13 @@ const Studio = () => {
   const [open, setOpen] = useState(false);
   const [deleteQuestions, setDeleteQuestion] = useState();
   const [openAdd, setOpenAdd] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const [message, setMessage] = useState("");
-  const [severity, setSeverity] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [data, setData] = useState([])
+  const [message, setMessage] = useState('');
+  const [severitySnackbar, setSeveritySnackbar] = useState('');
+  const handleClose =() =>{
+    setOpenSnackbar(false)
+  }
   const handleOpenAdd = () => {
     setOpenAdd(true)
   }
@@ -40,35 +46,44 @@ const Studio = () => {
     setDataEdit(item);
   };
   const handleCompleteAdd = (e) => {
-    if (e.success) {
-      // dispatch(fetchQuestion());
+    if (e.ok) {
       setOpenSnackbar(true);
-      setSeverity("success")
-      setMessage("Question Added Successfully");
+      setMessage("Studio Added Successfully");
+      setSeveritySnackbar('success');
     }
     else {
-      setOpenSnackbar(false);
-      setSeverity("error")
-      setMessage("Question not Added")
+      setOpenSnackbar(true);
+      setSeveritySnackbar("error");
+      setMessage("Studio not Added");
     }
   }
   const handleCompleteEdit = (res) => {
-    if (res.success) {
-      // dispatch(fetchQuestion());
+    if (res.ok) {
       setOpenSnackbar(true);
-      setSeverity("success")
-      setMessage("Question edited successfully")
+      setMessage("Studio edited Successfully");
+      setSeveritySnackbar('success');
     }
     else {
-      setOpenSnackbar(false);
-      setSeverity("error")
-      setMessage("Question not edited")
+      setOpenSnackbar(true);
+      setSeveritySnackbar("error");
+      setMessage("Studio not edited Successfully");
     }
   }
   const confirmDeleteActionHandler = async () => {
     await fetch(`http://localhost:3000/createStudio/${deleteQuestions}`, {
       method: 'DELETE',
     })
+    .then((e) => {
+      if (e.ok) {
+        setSeveritySnackbar("success")
+        setOpenSnackbar(true);
+        setMessage('Studio Deleted Successfully')
+      } else {
+        setOpenSnackbar(true);
+        setSeverity("error")
+        setMessage('Studio not deleted')
+      }
+    });
     getInfo();
   };
   const openConfirmationDialogHandler = () => {
@@ -169,7 +184,7 @@ const Studio = () => {
   }
   return (
     <>
-      <StickyTable columns={columns} rows={studioStateList} label="Studio" handleOpenAdd={handleOpenAdd} />
+      <StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio"/>
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}
@@ -188,8 +203,13 @@ const Studio = () => {
         handleEditClose={handleEditClose}
         onEditQuestionComplete={(e) => handleCompleteEdit(e)}
       />)}
-      {open && <ConfirmationDialog title={`Are You Sure`} body={`You want to delete this question? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
-      {openSnackbar && <SimpleSnackbar open={openSnackbar} message={message} handleClose={handleClose} severity={severity} />}
+      {open && <ConfirmationDialog title={`Are You Sure`} body={`You want to delete this studio? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
+      {openSnackbar && <ToastMessage
+       openSnackbar={openSnackbar}
+       severitySnackbar={severitySnackbar}
+       handleClose={handleClose}
+       message={message}
+     />}
     </>
   )
 }

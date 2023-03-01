@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import { Box, Button, Typography } from '@mui/material';
 
 
-export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
+export default function StickyTable({ columns, rows, label, handleOpenAdd, tableName }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -22,7 +22,7 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
         position: 'relative',
         marginLeft: '5rem',
         marginRight: '5rem',
-        marginTop: "3rem"
+        marginTop: "2rem"
       }}>
         <Typography variant="h2" sx={{
           fontWeight: "bold",
@@ -45,7 +45,7 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
             marginTop: 3, marginBottom: 3, width: '100 %', borderRadius: '0.25rem', height: '3rem', backgroundColor: '#0d6efd'
           }}
         >
-          + {"Add"} {label}
+          + {"Add"} {tableName}
         </Button>
       </Box>
       <Paper sx={{
@@ -53,6 +53,7 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd }) {
         borderRadius: "0.75rem",
         marginLeft: "5rem",
         marginRight: "5rem",
+        marginTop:'-1rem'
       }}>
         <TableContainer sx={{
           width: "max-content",

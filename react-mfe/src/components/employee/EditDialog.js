@@ -1,7 +1,5 @@
 import { Box, Button, Card, Dialog, Input, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
-// import { useDispatch } from "react-redux"
-// import { editQuestion } from "../store/questions"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
 
@@ -86,6 +84,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
+            setCorrectEmail(true);
         }
     }
     function onBlurPasswordHandler() {
@@ -105,7 +104,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
             method: 'Put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
-        })
+        }).then((response)=>{ onEditQuestionComplete(response)})
         getInfo();
         handleEditClose();
     };
@@ -137,7 +136,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                         label="Employee Name"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputName}
                         onChange={onNameChange}
                         onBlur={onBlurNameHandler}
@@ -150,7 +149,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                         label="Employee Code"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputCode}
                         onChange={onCodeChange}
                         onBlur={onBlurCodeHandler}
@@ -163,7 +162,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                         label="Employee Email"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputEmail}
                         onChange={onEmailChange}
                         onBlur={onBlurEmailHandler}
@@ -179,7 +178,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                         label="Employee Password"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputPassword}
                         onChange={onPasswordChange}
                         onBlur={onBlurPasswordHandler}
@@ -190,7 +189,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                     <Stack
                         direction="row"
                         spacing={2}
-                        sx={{ display: "flex", alignItems: "center", marginTop: 2 }}
+                        sx={{ display: "flex", alignItems: "center", marginTop: 3 }}
                     >
                         <Button
                             color="primary"

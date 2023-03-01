@@ -1,7 +1,5 @@
 import { Box, Button, Card, Dialog, Input, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
-// import { useDispatch } from "react-redux"
-// import { editQuestion } from "../store/questions"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
 
@@ -74,6 +72,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
+            setCorrectEmail(true);
         }
     }
     function onBlurPasswordHandler() {
@@ -104,7 +103,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
             method: 'Put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
-        })
+        }).then((response)=>{ onEditQuestionComplete(response)})
         getInfo();
         handleEditClose();
     };
@@ -135,7 +134,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         label="Studio Name"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputName}
                         onChange={onNameChange}
                         onBlur={onBlurNameHandler}
@@ -148,7 +147,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         label="Studio Code"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputCode}
                         onBlur={onBlurCodeHandler}
                         onChange={onCodeChange}
@@ -161,7 +160,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         label="Studio Email"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputEmail}
                         onBlur={onBlurEmailHandler}
                         onChange={onEmailChange}
@@ -177,7 +176,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         label="Studio Password"
                         type="text"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         value={inputPassword}
                         onBlur={onBlurPasswordHandler}
                         onChange={onPasswordChange}
@@ -188,7 +187,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                     <Stack
                         direction="row"
                         spacing={2}
-                        sx={{ display: "flex", alignItems: "center", marginTop: 2 }}
+                        sx={{ display: "flex", alignItems: "center", marginTop: 3 }}
                     >
                         <Button
                             color="primary"

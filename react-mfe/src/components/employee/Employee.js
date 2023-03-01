@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
-import SimpleSnackbar from '../snackbar/SimpleSnackbar';
+import ToastMessage from '../snackbar/ToastMessage';
 
 const Employee = () => {
   const columns = [
@@ -24,8 +24,11 @@ const Employee = () => {
   const [openAdd, setOpenAdd] = useState(false);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [message, setMessage] = useState("");
-  const [severity, setSeverity] = useState("");
+  const [severitySnackbar, setSeveritySnackbar] = useState("");
   const [data, setData] = useState([])
+  const handleClose = () => {
+    setOpenSnackbar(false)
+  }
   const handleOpenAdd = () => {
     setOpenAdd(true)
   }
@@ -39,35 +42,44 @@ const Employee = () => {
     setDataEdit(item);
   };
   const handleCompleteAdd = (e) => {
-    if (e.success) {
-      // dispatch(fetchQuestion());
+    if (e.ok) {
       setOpenSnackbar(true);
-      setSeverity("success")
-      setMessage("Question Added Successfully");
+      setSeveritySnackbar("success")
+      setMessage("Employee Added Successfully");
     }
     else {
-      setOpenSnackbar(false);
-      setSeverity("error")
-      setMessage("Question not Added")
+      setOpenSnackbar(true);
+      setSeveritySnackbar("error")
+      setMessage("Employee not Added")
     }
   }
   const handleCompleteEdit = (res) => {
-    if (res.success) {
-      // dispatch(fetchQuestion());
+    if (res.ok) {
       setOpenSnackbar(true);
-      setSeverity("success")
-      setMessage("Question edited successfully")
+      setSeveritySnackbar("success")
+      setMessage("Employee edited successfully")
     }
     else {
-      setOpenSnackbar(false);
-      setSeverity("error")
-      setMessage("Question not edited")
+      setOpenSnackbar(true);
+      setSeveritySnackbar("error")
+      setMessage("Employee not Edited")
     }
   }
   const confirmDeleteActionHandler = async () => {
     await fetch(`http://localhost:3000/createEmployee/${deleteQuestions}`, {
       method: 'DELETE',
-    })
+    }).then((e) => {
+      if (e.ok) {
+        setSeveritySnackbar("success")
+        setOpenSnackbar(true);
+        setMessage('Employee Deleted Successfully')
+
+      } else {
+        setOpenSnackbar(true);
+        setSeveritySnackbar("error")
+        setMessage('Employee not deleted')
+      }
+    });
     getInfo()
   };
   const openConfirmationDialogHandler = () => {
@@ -166,7 +178,7 @@ const Employee = () => {
   }
   return (
     <>
-      <StickyTable columns={columns} rows={employeeStateList} label="Employee" handleOpenAdd={handleOpenAdd} />
+      <StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee"/>
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}
@@ -185,8 +197,13 @@ const Employee = () => {
         handleEditClose={handleEditClose}
         onEditQuestionComplete={(e) => handleCompleteEdit(e)}
       />)}
-      {open && <ConfirmationDialog title={`Are You Sure`} body={`You want to delete this question? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
-      {openSnackbar && <SimpleSnackbar open={openSnackbar} message={message} handleClose={handleClose} severity={severity} />}
+      {open && <ConfirmationDialog title={`Are You Sure`} body={`You want to delete this employee? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
+      {openSnackbar && <ToastMessage
+        openSnackbar={openSnackbar}
+        severitySnackbar={severitySnackbar}
+        handleClose={handleClose}
+        message={message}
+      />}
     </>
   )
 }

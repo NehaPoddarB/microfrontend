@@ -1,9 +1,6 @@
 import { Box, Button, Card, Dialog, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
-// import { useDispatch } from "react-redux"
-// import { addQuestion, fetchQuestion } from "../store/questions"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
-import SimpleSnackbar from "../snackbar/SimpleSnackbar"
 import React from "react"
 
 const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) => {
@@ -17,7 +14,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
-    const [openSnackbar, setOpenSnackbar] = useState(false);
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
@@ -93,6 +89,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
+            setCorrectEmail(true);
         }
     }
     function onBlurPasswordHandler() {
@@ -112,7 +109,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
-        })
+        }).then((response)=>{ onAddQuestionComplete(response)})
         getInfo()
         handleAddClose();
     };
@@ -145,7 +142,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         type="text"
                         color="info"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         onChange={onNameChange}
                         onBlur={onBlurNameHandler}
                     />
@@ -158,7 +155,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         type="text"
                         color="info"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         onChange={onCodeChange}
                         onBlur={onBlurCodeHandler}
                     />
@@ -171,7 +168,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         type="email"
                         color="info"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         onChange={onEmailChange}
                         onBlur={onBlurEmailHandler}
                     />
@@ -187,7 +184,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         type="password"
                         color="info"
                         fullWidth
-                        sx={{ mt: "2rem" }}
+                        sx={{ mt: "1.5rem" }}
                         onChange={onPasswordChange}
                         onBlur={onBlurPasswordHandler}
                     />
@@ -198,7 +195,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                     <Stack
                         direction="row"
                         spacing={2}
-                        sx={{ display: "flex", alignItems: "center", marginTop: 2 }}
+                        sx={{ display: "flex", alignItems: "center", marginTop: 3 }}
                     >
                         <Button
                             color="primary"
