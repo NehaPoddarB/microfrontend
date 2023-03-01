@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import StickyTable from '../table/StickyTable';
 // import { useDispatch, useSelector } from "react-redux";
 // import { getStudio, fetchStudio } from '../../store/studio'
@@ -15,17 +15,9 @@ const Studio = () => {
   const columns = [
     { id: 'studio_name', label: 'Name', minWidth: 300 },
     { id: 'studio_code', label: 'Code', minWidth: 300 },
-    { id: 'studioAdmin_email', label: 'Email', minWidth: 300 },
+    { id: 'studio_email', label: 'Email', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
-
-  const rows = [
-    { studio_name: "test-1", studio_code: 'FE', studioAdmin_email: 'test@gmail.com' },
-    { studio_name: "test-2", studio_code: 'DevOps', studioAdmin_email: 'test@gmail.com' },
-    { studio_name: "test-3", studio_code: 'AI', studioAdmin_email: 'test@gmail.com' },
-    { studio_name: "test-4", studio_code: 'SCALA', studioAdmin_email: 'test@gmail.com' },
-    { studio_name: "test-5", studio_code: 'JAVA', studioAdmin_email: 'test@gmail.com' },
-  ]
   const [openEdit, setOpenEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState([]);
   const [open, setOpen] = useState(false);
@@ -34,6 +26,7 @@ const Studio = () => {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("");
+  const [data, setData] = useState([])
   // const studioState = useSelector(getStudio);
   // const dispatch = useDispatch();
 
@@ -86,19 +79,22 @@ const Studio = () => {
   }
 
   const confirmDeleteActionHandler = () => {
-    dispatch().then((e) => {
-      if (e.success) {
-        dispatch(fetchQuestion());
-        setSeverity("success")
-        setOpenSnackbar(true);
-        setMessage('Question Deleted Successfully')
+    fetch(`http://localhost:3000/createStudio/${deleteQuestions}`, {
+      method: 'DELETE',
+    })
+    // dispatch().then((e) => {
+    //   if (e.success) {
+    //     dispatch(fetchQuestion());
+    //     setSeverity("success")
+    //     setOpenSnackbar(true);
+    //     setMessage('Question Deleted Successfully')
 
-      } else {
-        setOpenSnackbar(true);
-        setSeverity("error")
-        setMessage('Question not deleted')
-      }
-    });
+    //   } else {
+    //     setOpenSnackbar(true);
+    //     setSeverity("error")
+    //     setMessage('Question not deleted')
+    //   }
+    // });
   };
 
   const openConfirmationDialogHandler = () => {
@@ -109,20 +105,44 @@ const Studio = () => {
     setOpen(false);
     setOpenSnackbar(false);
   };
+  const getInfo = function getInfo1() {
+    return new Promise((resolve, reject) => {
+      fetch("http://localhost:3000/createStudio/", {
+        method: 'GET',
+      })
+        .then(
+          response => response.json(),
+          () => {
+            reject()
+            return null
+          }
+        )
+        .then(data1 => {
+          if (data1) {
+            setData(data1)
+            resolve(data1)
+          }
+        })
+    })
+  }
+  useEffect(() => {
+    getInfo()
+  }, [])
 
   // let studioStateData = studioState?.data;
-  let studioStateData = rows;
+  let studioStateData = data;
   let studioStateList = [];
   if (studioStateData != null) {
-    studioStateList = studioStateData.map((item, id) => {
+    studioStateList = studioStateData.map((item) => {
       const studio_name = item.studio_name;
       const studio_code = item.studio_code;
-      const studioAdmin_email = item.studioAdmin_email;
+      const studio_email = item.studio_email;
+      const studio_password = item.studio_password;
       return {
         ...item,
         studio_name,
         studio_code,
-        studioAdmin_email,
+        studio_email,
         actions: (
           <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
             <Button
@@ -153,9 +173,9 @@ const Studio = () => {
               color="info"
               onClick={() => {
                 openConfirmationDialogHandler();
-                setDeleteQuestion(item);
+                setDeleteQuestion(item.id);
               }}
-              sx={{ paddingTop: "0px", paddingBottom: "0px", color:'rgb(255, 86, 80)' }}
+              sx={{ paddingTop: "0px", paddingBottom: "0px", color: 'rgb(255, 86, 80)' }}
             >
               <Tooltip title={"Delete"}>
                 <Box sx={{
@@ -180,14 +200,18 @@ const Studio = () => {
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}
+        getInfo={getInfo}
         onAddQuestionComplete={(event) => handleCompleteAdd(event)}
       />
       )}
       {openEdit && (<EditDialog
         code={dataEdit.studio_code}
         name={dataEdit.studio_name}
-        email={dataEdit.studioAdmin_email}
+        email={dataEdit.studio_email}
+        password={dataEdit.studio_password}
+        id={dataEdit.id}
         openEdit={openEdit}
+        getInfo={getInfo}
         handleEditClose={handleEditClose}
         onEditQuestionComplete={(e) => handleCompleteEdit(e)}
       />)}
