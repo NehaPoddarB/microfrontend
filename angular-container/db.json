@@ -20,6 +20,13 @@
       "tenant_code": "abc_012",
       "password": "111111",
       "id": 3
+    },
+    {
+      "tenant_name": "sdf",
+      "tenant_email": "sdfsd@gmail.com",
+      "tenant_code": "csd",
+      "password": "sdvsd",
+      "id": 4
     }
   ],
   "createStudio": [
@@ -29,6 +36,27 @@
       "studio_code": "abc",
       "studio_password": "assets/pizza.jpg",
       "id": 0
+    },
+    {
+      "studio_name": "pizzaa",
+      "studio_email": "2 hr",
+      "studio_code": "abc",
+      "studio_password": "assets/pizza.jpg",
+      "id": 1
+    },
+    {
+      "studio_code": "abc",
+      "studio_name": "pizzaa",
+      "studio_email": "2 hr",
+      "studio_password": "assets/pizza.jpg",
+      "id": 2
+    },
+    {
+      "studio_code": "svsdv",
+      "studio_name": "fsvsv",
+      "studio_email": "dvss@gmail.com",
+      "studio_password": "vsdvsdv",
+      "id": 3
     }
   ],
   "createEmployee": [
@@ -39,6 +67,27 @@
       "studio_code": "abc",
       "employee_password": "assets/pizza.jpg",
       "id": 0
+    },
+    {
+      "employee_code": "dfg",
+      "employee_name": "dev",
+      "employee_email": "5 hr",
+      "employee_password": "assets/pizza.jpg",
+      "id": 1
+    },
+    {
+      "employee_code": "abc",
+      "employee_name": "sdfsdf",
+      "employee_email": "dfdsf",
+      "employee_password": "sdffsdf",
+      "id": 2
+    },
+    {
+      "employee_name": "fgdfgd",
+      "employee_email": "gdfgdsfg",
+      "employee_code": "fgdfgd",
+      "employee_password": "dfgsdfgdsfg",
+      "id": 3
     }
   ],
   "profile": {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import StickyTable from '../table/StickyTable';
 // import { useDispatch, useSelector } from "react-redux";
 // import { getStudio, fetchStudio } from '../../store/studio'
@@ -13,26 +13,19 @@ import SimpleSnackbar from '../snackbar/SimpleSnackbar';
 const Employee = () => {
   const columns = [
     { id: 'employee_name', label: 'Name', minWidth: 300 },
-    { id: 'studio_code', label: 'Code', minWidth: 300 },
+    { id: 'employee_code', label: 'Code', minWidth: 300 },
     { id: 'employee_email', label: 'Email', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
-
-  const rows = [
-    { employee_name: "employee-1", studio_code: 'FE', employee_email: 'test@gmail.com' },
-    { employee_name: "employee-2", studio_code: 'DevOps', employee_email: 'test@gmail.com' },
-    { employee_name: "employee-3", studio_code: 'AI', employee_email: 'test@gmail.com' },
-    { employee_name: "employee-4", studio_code: 'SCALA', employee_email: 'test@gmail.com' },
-    { employee_name: "employee-5", studio_code: 'JAVA', employee_email: 'test@gmail.com' },
-  ]
   const [openEdit, setOpenEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState([]);
   const [open, setOpen] = useState(false);
-  const [deleteQuestions, setDeleteQuestion] = useState();
+  const [deleteQuestions, setDeleteQuestion] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("");
+  const [data, setData] = useState([])
   // const studioState = useSelector(getStudio);
   // const dispatch = useDispatch();
 
@@ -85,19 +78,22 @@ const Employee = () => {
   }
 
   const confirmDeleteActionHandler = () => {
-    dispatch().then((e) => {
-      if (e.success) {
-        dispatch(fetchQuestion());
-        setSeverity("success")
-        setOpenSnackbar(true);
-        setMessage('Question Deleted Successfully')
+    fetch(`http://localhost:3000/createEmployee/${deleteQuestions}`, {
+      method: 'DELETE',
+    })
+    // dispatch().then((e) => {
+    //   if (e.success) {
+    //     dispatch(fetchQuestion());
+    //     setSeverity("success")
+    //     setOpenSnackbar(true);
+    //     setMessage('Question Deleted Successfully')
 
-      } else {
-        setOpenSnackbar(true);
-        setSeverity("error")
-        setMessage('Question not deleted')
-      }
-    });
+    //   } else {
+    //     setOpenSnackbar(true);
+    //     setSeverity("error")
+    //     setMessage('Question not deleted')
+    //   }
+    // });
   };
 
   const openConfirmationDialogHandler = () => {
@@ -108,19 +104,42 @@ const Employee = () => {
     setOpen(false);
     setOpenSnackbar(false);
   };
+  const getInfo = function getInfo1() {
+    return new Promise((resolve, reject) => {
+      fetch("http://localhost:3000/createEmployee/", {
+        method: 'GET',
+      })
+        .then(
+          response => response.json(),
+          () => {
+            reject()
+            return null
+          }
+        )
+        .then(data1 => {
+          if (data1) {
+            setData(data1)
+            resolve(data1)
+          }
+        })
+    })
+  }
+  useEffect(() => {
+    getInfo()
+  }, [])
 
   // let studioStateData = studioState?.data;
-  let employeeStateData = rows;
+  let employeeStateData = data;
   let employeeStateList = [];
   if (employeeStateData != null) {
-    employeeStateList = employeeStateData.map((item, id) => {
+    employeeStateList = employeeStateData.map((item) => {
       const employee_name = item.employee_name;
-      const studio_code = item.studio_code;
+      const employee_code = item.employee_code;
       const employee_email = item.employee_email;
       return {
         ...item,
         employee_name,
-        studio_code,
+        employee_code,
         employee_email,
         actions: (
           <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
@@ -152,9 +171,9 @@ const Employee = () => {
               color="info"
               onClick={() => {
                 openConfirmationDialogHandler();
-                setDeleteQuestion(item);
+                setDeleteQuestion(item.id);
               }}
-              sx={{ paddingTop: "0px", paddingBottom: "0px", color:'rgb(255, 86, 80)'}}
+              sx={{ paddingTop: "0px", paddingBottom: "0px", color: 'rgb(255, 86, 80)' }}
             >
               <Tooltip title={"Delete"}>
                 <Box sx={{
@@ -163,7 +182,7 @@ const Employee = () => {
                   boxShadow: "0 0 2px #888",
                   padding: "0.5em 0.6em"
                 }} >
-                  <DeleteIcon sx={{color:'red'}}/>
+                  <DeleteIcon sx={{ color: 'red' }} />
                 </Box>
               </Tooltip>
             </Button>
@@ -180,13 +199,17 @@ const Employee = () => {
         handleAddClose={handleAddClose}
         openAdd={openAdd}
         onAddQuestionComplete={(event) => handleCompleteAdd(event)}
+        getInfo={getInfo}
       />
       )}
       {openEdit && (<EditDialog
-        code={dataEdit.studio_code}
+        code={dataEdit.employee_code}
         name={dataEdit.employee_name}
         email={dataEdit.employee_email}
+        password={dataEdit.employee_password}
+        id={dataEdit.id}
         openEdit={openEdit}
+        getInfo={getInfo}
         handleEditClose={handleEditClose}
         onEditQuestionComplete={(e) => handleCompleteEdit(e)}
       />)}

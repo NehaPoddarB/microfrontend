@@ -6,10 +6,11 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
 
 
-const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuestionComplete }) => {
+const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password, getInfo, onEditQuestionComplete }) => {
     const [inputName, setName] = useState(name)
     const [inputCode, setCode] = useState(code)
     const [inputEmail, setEmail] = useState(email)
+    const [inputPassword, setPassword] = useState(password)
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail]= useState(true);
     const [validName, setValidName] = useState(false);
@@ -33,7 +34,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
         }
     }
 
-    const onCodehange = (event) => {
+    const onCodeChange = (event) => {
         setCode(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
             setValidCode(false)
@@ -45,7 +46,11 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
         }
     }
 
-    const onEmailhange = (event) => {
+    const onEmailChange = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const onPasswordChange = (event) => {
         setEmail(event.target.value)
         if (!isValidEmail(event.target.value)) {
             setCorrectEmail(false)
@@ -94,11 +99,13 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
 
 
     const confirmEditActionHandler = () => {
-        const newData = { code: inputCode, name: inputName, email: inputEmail };
-        // dispatch(editQuestion(newData)).then((res: any) => {
-        //     onEditQuestionComplete(res)
-        // })
-        // onEdtiDialogComplete(res);
+        const newData = { employee_code: inputCode, employee_name: inputName, employee_email: inputEmail, employee_password: inputPassword };
+        fetch(`http://localhost:3000/createEmployee/${id}`, {
+            method: 'Put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newData)
+        })
+        getInfo();
         handleEditClose();
     };
 
@@ -144,7 +151,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
                         fullWidth
                         sx={{ mt: "2rem" }}
                         value={inputCode}
-                        onChange={onCodehange}
+                        onChange={onCodeChange}
                         onBlur={onBlurCodeHandler}
                         />
                         <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
@@ -157,7 +164,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
                         fullWidth
                         sx={{ mt: "2rem" }}
                         value={inputEmail}
-                        onChange={onEmailhange}
+                        onChange={onEmailChange}
                         onBlur={onBlurEmailHandler}
                         />
                         <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
@@ -166,6 +173,15 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, onEditQuesti
                         <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
                             {!correctEmail && "Please enter valid studio email"}
                         </Typography>
+                    <TextField
+                        id="password"
+                        label="Employee Password"
+                        type="text"
+                        fullWidth
+                        sx={{ mt: "2rem" }}
+                        value={inputPassword}
+                        onChange={onPasswordChange}
+                    />
                     <Stack
                         direction="row"
                         spacing={2}

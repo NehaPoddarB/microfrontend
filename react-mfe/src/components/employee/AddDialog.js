@@ -7,10 +7,11 @@ import SimpleSnackbar from "../snackbar/SimpleSnackbar"
 import React from "react"
 
 
-const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
+const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) => {
     const [inputName, setName] = useState("")
     const [inputCode, setCode] = useState("")
     const [inputEmail, setEmail] = useState("")
+    const [inputPassword, setPassword] = useState("")
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail]= useState(true);
     const [validName, setValidName] = useState(false);
@@ -53,6 +54,10 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
         else {
             setValidName(true)
         }
+    }
+
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value)
     }
 
     const onEmailChange = (event) => {
@@ -103,11 +108,13 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
     };
 
     const confirmEditActionHandler = () => {
-        const newData = { code: inputCode, name: inputName, description: inputEmail};
-        // dispatch(addQuestion(newData)).then((res: any) => {
-        //     onAddQuestionComplete(res)
-        // });
-        // onEdtiDialogComplete(res);
+        const newData = { employee_name: inputName, employee_email: inputEmail, employee_code: inputCode, employee_password: inputPassword }
+        fetch("http://localhost:3000/createEmployee/", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newData)
+        })
+        getInfo()
         handleAddClose();
     };
 
@@ -130,7 +137,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         fontWeight="medium"
                         alignItems="center"
                         alignContent="center"
-                    sx={{  width: "100%", fontWeight:'bold', color: 'rgb(255, 86, 80)' }}
+                        sx={{ width: "100%", fontWeight: 'bold', color: 'rgb(255, 86, 80)' }}
                     >
                         Add Employee
                     </Typography>
@@ -176,20 +183,29 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                         <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
                             {!correctEmail && "Please enter valid studio email"}
                         </Typography>
-                 
+                    <TextField
+                        id="password"
+                        label="Employee password"
+                        type="password"
+                        color="info"
+                        fullWidth
+                        sx={{ mt: "2rem" }}
+                        onChange={onPasswordChange}
+                    />
+
                     <Stack
                         direction="row"
                         spacing={2}
-                        sx={{ display: "flex", alignItems: "center", marginTop:2 }}
+                        sx={{ display: "flex", alignItems: "center", marginTop: 2 }}
                     >
                         <Button
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
                             sx={{
-                                color: '#fff',backgroundColor:'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
+                                color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
-                                    backgroundColor:'rgb(255, 86, 80)'
+                                    backgroundColor: 'rgb(255, 86, 80)'
                                 }
                             }}
                         >

@@ -7,10 +7,11 @@ import SimpleSnackbar from "../snackbar/SimpleSnackbar"
 import React from "react"
 
 
-const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
+const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) => {
     const [inputName, setName] = useState("")
     const [inputCode, setCode] = useState("")
     const [inputEmail, setEmail] = useState("")
+    const [inputPassword, setPassword] = useState("")
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail]= useState(true);
     const [validName, setValidName] = useState(false);
@@ -41,6 +42,10 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
         else {
             setValidCode(true)
         }
+    }
+
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value)
     }
 
     const onNameChange = (event) => {
@@ -97,16 +102,17 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
-
     function stringPatternValidation(stringVal) {
         return /\s/g.test(stringVal);
     };
-    const confirmEditActionHandler = () => {
-        const newData = { code: inputCode, name: inputName, description: inputEmail };
-        // dispatch(addQuestion(newData)).then((res: any) => {
-        //     onAddQuestionComplete(res)
-        // });
-        // onEdtiDialogComplete(res);
+    const confirmAddActionHandler = () => {
+        const newData = { studio_code: inputCode, studio_name: inputName, studio_email: inputEmail, studio_password: inputPassword };
+        fetch("http://localhost:3000/createStudio/", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newData) 
+            })
+        getInfo()
         handleAddClose();
     };
 
@@ -179,6 +185,15 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                     <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
                         {!correctEmail && "Please enter valid studio email"}
                     </Typography>
+                    <TextField
+                        id="Password"
+                        label="Studio Password"
+                        type="Password"
+                        color="info"
+                        fullWidth
+                        sx={{ mt: "2rem" }}
+                        onChange={onPasswordChange}
+                    />
 
                     <Stack
                         direction="row"
@@ -212,7 +227,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete }) => {
                             Cancel
                         </Button>
                     </Stack>
-                    {open && <ConfirmationDialog title={"Are You Sure"} body={"You want to Add this?"} open={open} onConfirmAction={confirmEditActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={"Cancel"} confirmLabel={"Confirm"} />}
+                    {open && <ConfirmationDialog title={"Are You Sure"} body={"You want to Add this?"} open={open} onConfirmAction={confirmAddActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={"Cancel"} confirmLabel={"Confirm"} />}
                 </Box>
             </Card>
         </Dialog>
