@@ -5,7 +5,6 @@ import { useState } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
 
-
 const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, getInfo, id, onEditQuestionComplete }) => {
     const [inputName, setName] = useState(name)
     const [inputCode, setCode] = useState(code)
@@ -17,9 +16,6 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
     const [inputPassword, setPassword] = useState(password)
     const [open, setOpen] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
-    // const dispatch = useDispatch();
-
-
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
@@ -34,7 +30,6 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
             setValidName(true)
         }
     }
-
     const onCodeChange = (event) => {
         setCode(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -46,7 +41,6 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
             setValidCode(true)
         }
     }
-
     const onEmailChange = (event) => {
         setEmail(event.target.value)
         if (!isValidEmail(event.target.value)) {
@@ -67,36 +61,29 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
             setValidEmail(true)
         }
     }
-
     function onBlurNameHandler() {
         if (inputName.length <= 0) {
             setValidName(true);
         }
     }
-
     function onBlurCodeHandler() {
         if (inputCode.length <= 0) {
             setValidCode(true);
         }
     }
-
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
         }
     }
-
-
     function onBlurPasswordHandler() {
         if (inputPassword.length <= 0) {
             setValidPassword(true);
         }
     }
-
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
-
     function stringPatternValidation(stringVal) {
         return /\s/g.test(stringVal);
     };
@@ -111,11 +98,9 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
             setValidPassword(true)
         }
     }
-
-
-    const confirmEditActionHandler = () => {
+    const confirmEditActionHandler = async () => {
         const newData = { studio_code: inputCode, studio_name: inputName, studio_email: inputEmail, studio_password: inputPassword };
-        fetch(`http://localhost:3000/createStudio/${id}`, {
+        await fetch(`http://localhost:3000/createStudio/${id}`, {
             method: 'Put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
@@ -123,7 +108,6 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
         getInfo();
         handleEditClose();
     };
-
     const closeDeleteActionHandler = () => {
         setOpen(false);
     };
