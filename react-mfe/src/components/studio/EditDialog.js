@@ -10,12 +10,13 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
     const [inputName, setName] = useState(name)
     const [inputCode, setCode] = useState(code)
     const [inputEmail, setEmail] = useState(email)
-    const [correctEmail, setCorrectEmail]= useState(true);
+    const [correctEmail, setCorrectEmail] = useState(true);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
     const [inputPassword, setPassword] = useState(password)
     const [open, setOpen] = useState(false);
+    const [validPassword, setValidPassword] = useState(false);
     // const dispatch = useDispatch();
 
 
@@ -26,7 +27,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
         setName(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
             setValidName(false)
-        } else if (event.target.value.length>=0) {
+        } else if (event.target.value.length >= 0) {
             setValidName(true)
         }
         else {
@@ -38,7 +39,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
         setCode(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
             setValidCode(false)
-        } else if (event.target.value.length>=0) {
+        } else if (event.target.value.length >= 0) {
             setValidCode(true)
         }
         else {
@@ -51,15 +52,15 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
         if (!isValidEmail(event.target.value)) {
             setCorrectEmail(false)
         }
-        else if (event.target.value.length<=0) {
+        else if (event.target.value.length <= 0) {
             setCorrectEmail(false)
         }
-        else{
+        else {
             setCorrectEmail(true)
         }
         if (!stringPatternValidation(event.target.value)) {
             setValidEmail(false)
-        } else if (event.target.value.length>=0) {
+        } else if (event.target.value.length >= 0) {
             setValidEmail(true)
         }
         else {
@@ -68,20 +69,27 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
     }
 
     function onBlurNameHandler() {
-        if (inputName.length<=0) {
+        if (inputName.length <= 0) {
             setValidName(true);
         }
     }
 
     function onBlurCodeHandler() {
-        if (inputCode.length<=0) {
+        if (inputCode.length <= 0) {
             setValidCode(true);
         }
     }
 
     function onBlurEmailHandler() {
-        if (inputEmail.length<=0) {
+        if (inputEmail.length <= 0) {
             setValidEmail(true);
+        }
+    }
+
+
+    function onBlurPasswordHandler() {
+        if (inputPassword.length <= 0) {
+            setValidPassword(true);
         }
     }
 
@@ -94,6 +102,14 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
     };
     const onPasswordChange = (event) => {
         setPassword(event.target.value)
+        if (!stringPatternValidation(event.target.value)) {
+            setValidPassword(false)
+        } else if (event.target.value.length >= 0) {
+            setValidPassword(true)
+        }
+        else {
+            setValidPassword(true)
+        }
     }
 
 
@@ -126,7 +142,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         fontWeight="medium"
                         alignItems="center"
                         alignContent="center"
-                        sx={{ fontWeight: 'bold', width: "100%", color: 'rgb(255, 86, 80)'}}
+                        sx={{ fontWeight: 'bold', width: "100%", color: 'rgb(255, 86, 80)' }}
                     >
                         Edit Studio
                     </Typography>
@@ -140,7 +156,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         onChange={onNameChange}
                         onBlur={onBlurNameHandler}
                     />
-                    <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validName && "Please enter studio name"}
                     </Typography>
                     <TextField
@@ -153,7 +169,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         onBlur={onBlurCodeHandler}
                         onChange={onCodeChange}
                     />
-                    <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validCode && "Please enter studio Code"}
                     </Typography>
                     <TextField
@@ -166,6 +182,12 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         onBlur={onBlurEmailHandler}
                         onChange={onEmailChange}
                     />
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
+                        {validEmail && "Please enter studio email"}
+                    </Typography>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
+                        {!correctEmail && "Please enter valid studio email"}
+                    </Typography>
                     <TextField
                         id="password"
                         label="Studio Password"
@@ -173,13 +195,11 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                         fullWidth
                         sx={{ mt: "2rem" }}
                         value={inputPassword}
+                        onBlur={onBlurPasswordHandler}
                         onChange={onPasswordChange}
                     />
-                    <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
-                        {validEmail && "Please enter studio email"}
-                    </Typography>
-                    <Typography variant="body2" color="error" sx={{ mb: "0.5rem", mt: "0.5rem" }}>
-                        {!correctEmail && "Please enter valid studio email"}
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
+                        {validPassword && "Please enter Password"}
                     </Typography>
                     <Stack
                         direction="row"
@@ -190,11 +210,11 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || validEmail || !correctEmail }
+                            disabled={!inputName || !inputCode || !inputEmail || !inputPassword || validEmail || !correctEmail || validPassword}
                             sx={{
-                                color: '#fff',backgroundColor:'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
+                                color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
-                                    backgroundColor:'rgb(255, 86, 80)'
+                                    backgroundColor: 'rgb(255, 86, 80)'
                                 }
                             }}
                         >
@@ -205,10 +225,12 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, password, ge
                             variant="contained"
 
                             onClick={handleEditClose}
-                            sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
-                                boxShadow: 10,
-                                backgroundColor:'black'
-                            } }}
+                            sx={{
+                                margin: "20", backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
+                                    boxShadow: 10,
+                                    backgroundColor: 'black'
+                                }
+                            }}
                         >
                             Cancel
                         </Button>
