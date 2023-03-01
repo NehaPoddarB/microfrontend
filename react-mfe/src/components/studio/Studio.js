@@ -27,29 +27,18 @@ const Studio = () => {
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("");
   const [data, setData] = useState([])
-  // const studioState = useSelector(getStudio);
-  // const dispatch = useDispatch();
-
-  // React.useEffect(() => {
-  //   dispatch(fetchStudio())
-  // }, [dispatch]);
-
   const handleOpenAdd = () => {
     setOpenAdd(true)
   }
-
   const handleAddClose = () => {
     setOpenAdd(false);
   };
-
   const handleEditClose = () => {
     setOpenEdit(false);
   };
-
   const editData = (item) => {
     setDataEdit(item);
   };
-
   const handleCompleteAdd = (e) => {
     if (e.success) {
       // dispatch(fetchQuestion());
@@ -63,7 +52,6 @@ const Studio = () => {
       setMessage("Question not Added")
     }
   }
-
   const handleCompleteEdit = (res) => {
     if (res.success) {
       // dispatch(fetchQuestion());
@@ -77,30 +65,15 @@ const Studio = () => {
       setMessage("Question not edited")
     }
   }
-
-  const confirmDeleteActionHandler = () => {
-    fetch(`http://localhost:3000/createStudio/${deleteQuestions}`, {
+  const confirmDeleteActionHandler = async () => {
+    await fetch(`http://localhost:3000/createStudio/${deleteQuestions}`, {
       method: 'DELETE',
     })
-    // dispatch().then((e) => {
-    //   if (e.success) {
-    //     dispatch(fetchQuestion());
-    //     setSeverity("success")
-    //     setOpenSnackbar(true);
-    //     setMessage('Question Deleted Successfully')
-
-    //   } else {
-    //     setOpenSnackbar(true);
-    //     setSeverity("error")
-    //     setMessage('Question not deleted')
-    //   }
-    // });
+    getInfo();
   };
-
   const openConfirmationDialogHandler = () => {
     setOpen(true);
   };
-
   const closeDeleteActionHandler = () => {
     setOpen(false);
     setOpenSnackbar(false);

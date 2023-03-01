@@ -6,7 +6,6 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import SimpleSnackbar from "../snackbar/SimpleSnackbar"
 import React from "react"
 
-
 const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) => {
     const [inputName, setName] = useState("")
     const [inputCode, setCode] = useState("")
@@ -18,21 +17,16 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
-    // const dispatch = useDispatch();
     const [openSnackbar, setOpenSnackbar] = useState(false);
-
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setOpenSnackbar(false);
     };
-
-
     const onCodeChange = (event) => {
         setCode(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -44,7 +38,6 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
             setValidCode(true)
         }
     }
-
     const onPasswordChange = (event) => {
         setPassword(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -56,7 +49,6 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
             setValidPassword(true)
         }
     }
-
     const onNameChange = (event) => {
         setName(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -68,7 +60,6 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
             setValidName(true)
         }
     }
-
     const onEmailChange = (event) => {
         setEmail(event.target.value)
         if (!isValidEmail(event.target.value)) {
@@ -95,42 +86,37 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
             setValidName(true);
         }
     }
-
     function onBlurCodeHandler() {
         if (inputCode.length <= 0) {
             setValidCode(true);
         }
     }
-
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
         }
     }
-
     function onBlurPasswordHandler() {
         if (inputPassword.length <= 0) {
             setValidPassword(true);
         }
     }
-
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
     function stringPatternValidation(stringVal) {
         return /\s/g.test(stringVal);
     };
-    const confirmAddActionHandler = () => {
+    const confirmAddActionHandler = async () => {
         const newData = { studio_code: inputCode, studio_name: inputName, studio_email: inputEmail, studio_password: inputPassword };
-        fetch("http://localhost:3000/createStudio/", {
+        await fetch("http://localhost:3000/createStudio/", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
         })
-        getInfo()
+        getInfo();
         handleAddClose();
     };
-
     const closeDeleteActionHandler = () => {
         setOpen(false);
         setOpenSnackbar(false);

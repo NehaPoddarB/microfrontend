@@ -6,7 +6,6 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import SimpleSnackbar from "../snackbar/SimpleSnackbar"
 import React from "react"
 
-
 const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) => {
     const [inputName, setName] = useState("")
     const [inputCode, setCode] = useState("")
@@ -18,21 +17,16 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
-    // const dispatch = useDispatch();
     const [openSnackbar, setOpenSnackbar] = useState(false);
-
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setOpenSnackbar(false);
     };
-
-
     const onCodeChange = (event) => {
         setCode(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -44,7 +38,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             setValidCode(true)
         }
     }
-
     const onNameChange = (event) => {
         setName(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -56,7 +49,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             setValidName(true)
         }
     }
-
     const onPasswordChange = (event) => {
         setPassword(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
@@ -68,7 +60,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             setValidPassword(true)
         }
     }
-
     const onEmailChange = (event) => {
         setEmail(event.target.value)
         if (!isValidEmail(event.target.value)) {
@@ -89,42 +80,35 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             setValidEmail(true)
         }
     }
-
     function onBlurNameHandler() {
         if (inputName.length <= 0) {
             setValidName(true);
         }
     }
-
     function onBlurCodeHandler() {
         if (inputCode.length <= 0) {
             setValidCode(true);
         }
     }
-
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
         }
     }
-
     function onBlurPasswordHandler() {
         if (inputPassword.length <= 0) {
             setValidPassword(true);
         }
     }
-
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
-
     function stringPatternValidation(stringVal) {
         return /\s/g.test(stringVal);
     };
-
-    const confirmEditActionHandler = () => {
+    const confirmEditActionHandler = async () => {
         const newData = { employee_name: inputName, employee_email: inputEmail, employee_code: inputCode, employee_password: inputPassword }
-        fetch("http://localhost:3000/createEmployee/", {
+        await fetch("http://localhost:3000/createEmployee/", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
@@ -132,7 +116,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
         getInfo()
         handleAddClose();
     };
-
     const closeDeleteActionHandler = () => {
         setOpen(false);
         setOpenSnackbar(false);
@@ -166,7 +149,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         onChange={onNameChange}
                         onBlur={onBlurNameHandler}
                     />
-                    <Typography variant="body2" color="error" sx={{  mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validName && "Please enter studio name"}
                     </Typography>
                     <TextField
@@ -179,7 +162,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         onChange={onCodeChange}
                         onBlur={onBlurCodeHandler}
                     />
-                    <Typography variant="body2" color="error" sx={{  mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validCode && "Please enter studio Code"}
                     </Typography>
                     <TextField
@@ -192,10 +175,10 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         onChange={onEmailChange}
                         onBlur={onBlurEmailHandler}
                     />
-                    <Typography variant="body2" color="error" sx={{  mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validEmail && "Please enter studio email"}
                     </Typography>
-                    <Typography variant="body2" color="error" sx={{  mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {!correctEmail && "Please enter valid studio email"}
                     </Typography>
                     <TextField
@@ -208,7 +191,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         onChange={onPasswordChange}
                         onBlur={onBlurPasswordHandler}
                     />
-                    <Typography variant="body2" color="error" sx={{  mt: "0.5rem" }}>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validPassword && "Please enter Password"}
                     </Typography>
 

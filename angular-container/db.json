@@ -50,13 +50,20 @@
       "studio_email": "java@gmail.com",
       "studio_password": "66777",
       "id": 2
+    },
+    {
+      "studio_code": "SCALA",
+      "studio_name": "Scala",
+      "studio_email": "scala@gmail.com",
+      "studio_password": "1234",
+      "id": 3
     }
   ],
   "createEmployee": [
     {
+      "employee_code": "01",
       "employee_name": "Neha",
       "employee_email": "neha@gmail.com",
-      "studio_code": "FE",
       "employee_password": "77676",
       "id": 0
     },
