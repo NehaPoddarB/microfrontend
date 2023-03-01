@@ -2,9 +2,9 @@
   "createTanent": [
     {
       "tenant_name": "leaderboard",
-      "tenant_email": "lb@knoldus.com",
+      "tenant_email": "lb@knoldus.comm",
       "tenant_code": "LB_019",
-      "password": "abcefdjnmn",
+      "password": "abcefdjnmnn",
       "id": 1
     },
     {
@@ -15,15 +15,15 @@
       "id": 2
     },
     {
-      "tenant_name": "abc",
-      "tenant_email": "abc@gmail.com",
+      "tenant_name": "go1UP",
+      "tenant_email": "go1@gmail.com",
       "tenant_code": "abc_012",
       "password": "111111",
       "id": 3
     },
     {
-      "tenant_name": "sdf",
-      "tenant_email": "sdfsd@gmail.com",
+      "tenant_name": "acme",
+      "tenant_email": "acme@gmail.com",
       "tenant_code": "csd",
       "password": "sdvsd",
       "id": 4
@@ -31,61 +31,67 @@
   ],
   "createStudio": [
     {
-      "studio_name": "pizzaa",
-      "studio_email": "2 hr",
-      "studio_code": "abc",
-      "studio_password": "assets/pizza.jpg",
+      "studio_code": "DEV",
+      "studio_name": "DevOps",
+      "studio_email": "devOps@gmail.com",
+      "studio_password": "mjhjh",
       "id": 0
     },
     {
-      "studio_name": "pizzaa",
-      "studio_email": "2 hr",
-      "studio_code": "abc",
-      "studio_password": "assets/pizza.jpg",
+      "studio_name": "FE",
+      "studio_email": "fe@gmail.com",
+      "studio_code": "FE",
+      "studio_password": "1234",
       "id": 1
     },
     {
-      "studio_code": "abc",
-      "studio_name": "pizzaa",
-      "studio_email": "2 hr",
-      "studio_password": "assets/pizza.jpg",
+      "studio_code": "JAVA",
+      "studio_name": "Java studio",
+      "studio_email": "java@gmail.com",
+      "studio_password": "66777",
       "id": 2
     },
     {
-      "studio_code": "svsdv",
-      "studio_name": "fsvsv",
-      "studio_email": "dvss@gmail.com",
-      "studio_password": "vsdvsdv",
+      "studio_code": "SCALA",
+      "studio_name": "Scala",
+      "studio_email": "scala@gmail.com",
+      "studio_password": "1234",
       "id": 3
     }
   ],
   "createEmployee": [
     {
-      "employee_name": "pizzaa",
-      "employee_email": "2 hr",
-      "employee_code": "abc",
-      "studio_code": "abc",
-      "employee_password": "assets/pizza.jpg",
+      "employee_code": "01",
+      "employee_name": "Neha",
+      "employee_email": "neha@gmail.com",
+      "employee_password": "77676",
       "id": 0
     },
     {
-      "employee_code": "dfg",
-      "employee_name": "dev",
-      "employee_email": "5 hr",
-      "employee_password": "assets/pizza.jpg",
+      "employee_code": "02",
+      "employee_name": "Alka",
+      "employee_email": "alka@gmail.com",
+      "employee_password": "1234",
       "id": 1
     },
     {
-      "employee_code": "abc",
-      "employee_name": "sdfsdf",
-      "employee_email": "dfdsf",
-      "employee_password": "sdffsdf",
+      "employee_code": "03",
+      "employee_name": "Kiran",
+      "employee_email": "kiran@gmail.com",
+      "employee_password": "abc",
       "id": 2
     },
     {
-      "employee_name": "fgdfgd",
-      "employee_email": "gdfgdsfg",
-      "employee_code": "fgdfgd",
+      "employee_name": "Devansh",
+      "employee_email": "devansh@gmail.com",
+      "employee_code": "05",
+      "employee_password": "dfgsdfgdsfg",
+      "id": 3
+    },
+    {
+      "employee_name": "Anuj",
+      "employee_email": "anuj@gmail.com",
+      "employee_code": "07",
       "employee_password": "dfgsdfgdsfg",
       "id": 3
     }

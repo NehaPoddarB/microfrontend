@@ -4,7 +4,7 @@
 </div>
 
 <div class="card mx-5 mb-3 px-3" style="border-radius: 1rem;">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 my-2 px-3">
+  <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 g-4 my-2 px-3">
     <div class="col-xxl-3 d-flex">
         <span class="fw-bold">NAME</span>
     </div>
@@ -25,7 +25,7 @@
 <ng-container *ngIf="tableRow.length">
   <div class="report-body cursor-pointer px-3" *ngFor="let row of tableRow">
     <hr>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+  <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 g-4">
     <div class="col-xxl-3 d-flex">
         <span>{{row?.tenant_name}}</span>
     </div>
@@ -39,8 +39,8 @@
 
     </div>
     <div class="col-xxl-2 d-flex justify-content-around">
-            <button class="btn btn-warning" (click)="openModal(myModal,row.id)">edit</button>
-             <button class="btn btn-danger" (click)="openDeleteModal(myDeleteModal, row.id)">delete</button>
+            <button class="btn btn-warning" (click)="openModal(myModal,row.id)">Edit</button>
+             <button class="btn btn-danger" (click)="openDeleteModal(myDeleteModal, row.id)">Delete</button>
 
     </div>
   </div>
