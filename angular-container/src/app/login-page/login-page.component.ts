@@ -11,7 +11,7 @@ import { LoginService } from '../service/login.service';
 export class LoginPageComponent {
   isValid:any;
   loginForm: FormGroup = new FormGroup({
-    tenant_email: new FormControl('',[Validators.required,Validators.email]),
+    email: new FormControl('',[Validators.required,Validators.email]),
     password: new FormControl('',[Validators.required]),
   });
 
@@ -20,6 +20,6 @@ constructor(private loginService:LoginService)
 
 login() {
   this.loginService.checkCredentials(this.loginForm?.value)
-  this.isValid = localStorage.getItem('role');
+  this.isValid = localStorage.getItem('auth');
 }
 }

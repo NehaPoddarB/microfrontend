@@ -2,7 +2,7 @@
   <div class="header-div d-flex justify-content-between mx-4 my-2">
 <div>
   <a routerLink="/dashboard" [ngClass]="{'active': isActiveRoute('/dashboard')}">Dashboard</a>
-  <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/dashboard/angular')}" [hidden]="auth ==='client'">Tenant</a>
+  <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/dashboard/angular')}" [hidden]="auth ==='false'">Tanent</a>
   <a routerLink="react" [ngClass]="{'active': isActiveRoute('/dashboard/react')}">Company</a>
 </div>
 <div>

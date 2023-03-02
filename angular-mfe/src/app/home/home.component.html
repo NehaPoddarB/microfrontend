@@ -39,8 +39,8 @@
 
     </div>
     <div class="col-xxl-2 d-flex justify-content-around">
-            <button class="btn btn-warning" (click)="openModal(myModal,row.tenant_id)">Edit</button>
-             <button class="btn btn-danger" (click)="openDeleteModal(myDeleteModal, row.tenant_id)">Disable</button>
+            <button class="btn btn-warning" (click)="openModal(myModal,row.id)">Edit</button>
+             <button class="btn btn-danger" (click)="openDeleteModal(myDeleteModal, row.id)">Delete</button>
 
     </div>
   </div>
@@ -49,14 +49,14 @@
 </div>
 
 <ng-template #myModal>
-<app-create-tenant [TenantId]="TenantId" (submitSuccess)="submited($event)"></app-create-tenant>
+<app-create-tanent [tanentId]="tanentId" (submitSuccess)="submited($event)"></app-create-tanent>
 </ng-template>
 
 <ng-template #myDeleteModal>
   <div class="mt-4 mb-4 p-4 d-flex flex-column justify-content-center align-items-center">
-    <span class="text-bold">Are you sure you want to Disable?</span>
+    <span class="text-bold">Are you sure you want to delete?</span>
     <div class="mt-4 d-flex justify-content-between">
-      <button class="btn btn-primary mx-2 btn-width" (click)="deleteTenant()">Yes</button>
+      <button class="btn btn-primary mx-2 btn-width" (click)="deleteTanent()">Yes</button>
       <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button>
     </div>
   </div>

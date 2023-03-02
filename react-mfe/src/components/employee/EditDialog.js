@@ -2,19 +2,20 @@ import { Box, Button, Card, Dialog, Input, Stack, TextField, Typography } from "
 import { useState } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
+import config from "../../../config.json"
 
 
-const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password, getInfo, onEditQuestionComplete }) => {
+const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, getInfo, onEditQuestionComplete }) => {
     const [inputName, setName] = useState(name)
     const [inputCode, setCode] = useState(code)
     const [inputEmail, setEmail] = useState(email)
-    const [inputPassword, setPassword] = useState(password)
+    const [inputStatus, setInputStatus] = useState(status)
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail] = useState(true);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
-    const [validPassword, setValidPassword] = useState(false);
+    const [validStatus, setValidStatus] = useState(false);
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
@@ -60,15 +61,15 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
             setValidEmail(true)
         }
     }
-    const onPasswordChange = (event) => {
-        setPassword(event.target.value)
+    const onStatusChange = (event) => {
+        setInputStatus(event.target.value)
         if (!stringPatternValidation(event.target.value)) {
-            setValidPassword(false)
+            setValidStatus(false)
         } else if (event.target.value.length >= 0) {
-            setValidPassword(true)
+            setValidStatus(true)
         }
         else {
-            setValidPassword(true)
+            setValidStatus(true)
         }
     }
     function onBlurNameHandler() {
@@ -87,9 +88,9 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
             setCorrectEmail(true);
         }
     }
-    function onBlurPasswordHandler() {
+    function onBlurStatusHandler() {
         if (inputPassword.length <= 0) {
-            setValidPassword(true);
+            setValidStatus(true);
         }
     }
     function isValidEmail(email) {
@@ -99,12 +100,15 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
         return /\s/g.test(stringVal);
     };
     const confirmEditActionHandler = async () => {
-        const newData = { employee_code: inputCode, employee_name: inputName, employee_email: inputEmail, employee_password: inputPassword };
-        await fetch(`http://localhost:3000/createEmployee/${id}`, {
-            method: 'Put',
-            headers: { 'Content-Type': 'application/json' },
+        const newData = { studio_code: inputCode, employee_name: inputName, employee_email: inputEmail, status: inputStatus };
+        await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + config.ACCESS_TOKEN
+            },
             body: JSON.stringify(newData)
-        }).then((response)=>{ onEditQuestionComplete(response)})
+        }).then((response) => { onEditQuestionComplete(response) })
         getInfo();
         handleEditClose();
     };
@@ -174,17 +178,17 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                         {!correctEmail && "Please enter valid studio email"}
                     </Typography>
                     <TextField
-                        id="password"
-                        label="Employee Password"
+                        id="status"
+                        label="Status"
                         type="text"
                         fullWidth
                         sx={{ mt: "1.5rem" }}
-                        value={inputPassword}
-                        onChange={onPasswordChange}
-                        onBlur={onBlurPasswordHandler}
+                        value={inputStatus}
+                        onChange={onStatusChange}
+                        onBlur={onBlurStatusHandler}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validPassword && "Please enter Password"}
+                        {validStatus && "Please enter Status"}
                     </Typography>
                     <Stack
                         direction="row"
@@ -195,7 +199,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, password
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || !inputPassword || validEmail || !correctEmail || validPassword}
+                            disabled={!inputName || !inputCode || !inputEmail || !inputStatus || validEmail || !correctEmail || validStatus}
                             sx={{
                                 color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,

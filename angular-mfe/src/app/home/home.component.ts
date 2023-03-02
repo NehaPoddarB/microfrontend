@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { TanentService } from '../sevice/tanent.service';
 import { ToastrService } from 'ngx-toastr';
-import { TenantService } from '../sevice/tenant.service';
 
 @Component({
   selector: 'app-home',
@@ -19,32 +19,32 @@ export class HomeComponent implements OnInit {
     password: new FormControl(''),
   });
   modalRef: BsModalRef | undefined;
-  TenantId: string | undefined;
+  tanentId: string | undefined;
   deleteId: any = '';
 
-  constructor(private TenantService: TenantService, private modalService: BsModalService ,private toastr:ToastrService) { }
+  constructor(private tanentService: TanentService, private modalService: BsModalService ,private toastr:ToastrService) { }
 
   ngOnInit() {
     this.getAllTenentData()
   }
 
   getAllTenentData() {
-    this.TenantService.getTenant().subscribe(res => {
+    this.tanentService.getTanent().subscribe(res => {
       if (res) {
-        this.tableRow = res.tenants;
+        this.tableRow = res;
       }
     })
   }
 
   openModal(template: TemplateRef<any>, id?: string) {
-    this.TenantId = id;
+    this.tanentId = id;
     this.modalRef = this.modalService.show(template, {
       animated: true,
       class: 'create-modal'
     });
   }
 
-  submited(event: any) {
+  submited(event: boolean) {
     if(event){
     this.getAllTenentData();
     }
@@ -58,15 +58,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  deleteTenant() {
-    this.TenantService.deleteTenantById(this.deleteId).subscribe(res => {
+  deleteTanent() {
+    this.tanentService.deleteTanentById(this.deleteId).subscribe(res => {
       if (res) {
         this.getAllTenentData();
         this.modalRef?.hide();
-        this.toastr.success("Tenant Deleted successfully!")
+        this.toastr.success("Tanent Deleted successfully!")
       }
     },(error)=>{
-      this.toastr.error("something went wront")
+      this.toastr.success("something went wront")
     });
   }
 

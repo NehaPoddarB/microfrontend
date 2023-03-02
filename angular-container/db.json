@@ -1,5 +1,5 @@
 {
-  "createTenant": [
+  "createTanent": [
     {
       "tenant_name": "leaderboard",
       "tenant_email": "lb@knoldus.comm",
@@ -32,7 +32,7 @@
   "createStudio": [
     {
       "studio_code": "DEV",
-      "studio_name": "DevOps Studio",
+      "studio_name": "DevOps",
       "studio_email": "devOps@gmail.com",
       "studio_password": "mjhjh",
       "id": 0
@@ -57,13 +57,6 @@
       "studio_email": "scala@gmail.com",
       "studio_password": "1234",
       "id": 3
-    },
-    {
-      "studio_code": "ab",
-      "studio_name": "Scala",
-      "studio_email": "sc@gmail.com",
-      "studio_password": "7878",
-      "id": 4
     }
   ],
   "createEmployee": [

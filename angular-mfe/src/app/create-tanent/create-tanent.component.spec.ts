@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreateTenantComponent } from './create-tenant.component';
 
+import { CreateTanentComponent } from './create-tanent.component';
 
-describe('CreateTenantComponent', () => {
-  let component: CreateTenantComponent;
-  let fixture: ComponentFixture<CreateTenantComponent>;
+describe('CreateTanentComponent', () => {
+  let component: CreateTanentComponent;
+  let fixture: ComponentFixture<CreateTanentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateTenantComponent ]
+      declarations: [ CreateTanentComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateTenantComponent);
+    fixture = TestBed.createComponent(CreateTanentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

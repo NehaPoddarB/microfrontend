@@ -7,12 +7,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private login = `${environment.api.baseUrl}${environment.api.routes.login.endpoint}`;
-
-  constructor(private httpClient:HttpClient) { }
-
-
-postData(data:any){
-  return this.httpClient.post(this.login, data);
-}
+  // private url = `${environment.api.baseUrl}${environment.api.routes.adminFetch.endpoint}`;
+  // getloginData(email:string, password:string){
+  //   let userEmail='abc@gmail.com'
+  //   let userPassword='123@abc'
+  //   if(email===userEmail && password===userPassword){
+  //   this.router.navigate(['/dashboard'])
+  //   console.log('hi')
+  //   }
+    //}
   }

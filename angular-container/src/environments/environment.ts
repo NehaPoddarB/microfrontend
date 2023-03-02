@@ -1,15 +1,14 @@
 
+
 export const environment = {
   production: false,
   appVersion: '1.0.0',
   api: {
-    baseUrl: 'https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/',
+    baseUrl: 'https://pvfck6n0jj.execute-api.ap-south-1.amazonaws.com/dev/',
     routes: {
-      login: {endpoint: 'login', method: 'POST'}
-
+      adminFetch: { endpoint: 'tenants/get', method: 'GET' },
     }
-  }
-};
-
+}
+}
 
 

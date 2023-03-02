@@ -18,7 +18,7 @@ export class MainComponent {
   };
   modalRef: BsModalRef | undefined;
 
-  auth=localStorage.getItem('role');
+   auth=localStorage.getItem('admin');
   constructor(private router:Router,private loginService:LoginService , private toastr:ToastrService,
     private modalService: BsModalService) { }
   isActiveRoute(routeUrl: string): boolean {

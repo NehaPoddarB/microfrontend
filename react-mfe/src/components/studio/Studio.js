@@ -9,16 +9,15 @@ import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import ModeRoundedIcon from '@mui/icons-material/ModeRounded';
-import Snackbar from '@mui/material/Snackbar';
-import CloseIcon from '@mui/icons-material/Close';
-import MuiAlert from '@mui/material/Alert';
 import ToastMessage from '../snackbar/ToastMessage';
+import config from "../../../config.json"
 
 const Studio = () => {
   const columns = [
     { id: 'studio_name', label: 'Name', minWidth: 300 },
     { id: 'studio_code', label: 'Code', minWidth: 300 },
-    { id: 'studio_email', label: 'Email', minWidth: 300 },
+    { id: 'studioAdmin_email', label: 'Email', minWidth: 300 },
+    { id: 'status', label: 'Status', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
   const [openEdit, setOpenEdit] = useState(false);
@@ -30,7 +29,7 @@ const Studio = () => {
   const [data, setData] = useState([])
   const [message, setMessage] = useState('');
   const [severitySnackbar, setSeveritySnackbar] = useState('');
-  const handleClose =() =>{
+  const handleClose = () => {
     setOpenSnackbar(false)
   }
   const handleOpenAdd = () => {
@@ -70,20 +69,26 @@ const Studio = () => {
     }
   }
   const confirmDeleteActionHandler = async () => {
-    await fetch(`http://localhost:3000/createStudio/${deleteQuestions}`, {
-      method: 'DELETE',
+    const newData = { studio_code: deleteQuestions.studio_code, studio_name: deleteQuestions.studio_name, studioAdmin_email: deleteQuestions.studioAdmin_email, status: 'disable' };
+    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/${deleteQuestions.studio_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + config.ACCESS_TOKEN
+    },
+    body: JSON.stringify(newData)
     })
-    .then((e) => {
-      if (e.ok) {
-        setSeveritySnackbar("success")
-        setOpenSnackbar(true);
-        setMessage('Studio Deleted Successfully')
-      } else {
-        setOpenSnackbar(true);
-        setSeverity("error")
-        setMessage('Studio not deleted')
-      }
-    });
+      .then((e) => {
+        if (e.ok) {
+          setSeveritySnackbar("success")
+          setOpenSnackbar(true);
+          setMessage('Studio Deleted Successfully')
+        } else {
+          setOpenSnackbar(true);
+          setSeverity("error")
+          setMessage('Studio not deleted')
+        }
+      });
     getInfo();
   };
   const openConfirmationDialogHandler = () => {
@@ -95,8 +100,12 @@ const Studio = () => {
   };
   const getInfo = function getInfo1() {
     return new Promise((resolve, reject) => {
-      fetch("http://localhost:3000/createStudio/", {
+      fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
         method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + config.ACCESS_TOKEN
+        },
+
       })
         .then(
           response => response.json(),
@@ -107,7 +116,7 @@ const Studio = () => {
         )
         .then(data1 => {
           if (data1) {
-            setData(data1)
+            setData(data1.studios)
             resolve(data1)
           }
         })
@@ -124,13 +133,14 @@ const Studio = () => {
     studioStateList = studioStateData.map((item) => {
       const studio_name = item.studio_name;
       const studio_code = item.studio_code;
-      const studio_email = item.studio_email;
-      const studio_password = item.studio_password;
+      const studioAdmin_email = item.studioAdmin_email;
+      const status = item.status;
       return {
         ...item,
         studio_name,
         studio_code,
-        studio_email,
+        studioAdmin_email,
+        status,
         actions: (
           <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
             <Button
@@ -161,7 +171,7 @@ const Studio = () => {
               color="info"
               onClick={() => {
                 openConfirmationDialogHandler();
-                setDeleteQuestion(item.id);
+                setDeleteQuestion(item);
               }}
               sx={{ paddingTop: "0px", paddingBottom: "0px", color: 'rgb(255, 86, 80)' }}
             >
@@ -184,7 +194,7 @@ const Studio = () => {
   }
   return (
     <>
-      <StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio"/>
+      <StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}
@@ -195,9 +205,9 @@ const Studio = () => {
       {openEdit && (<EditDialog
         code={dataEdit.studio_code}
         name={dataEdit.studio_name}
-        email={dataEdit.studio_email}
-        password={dataEdit.studio_password}
-        id={dataEdit.id}
+        email={dataEdit.studioAdmin_email}
+        status={dataEdit.status}
+        id={dataEdit.studio_id}
         openEdit={openEdit}
         getInfo={getInfo}
         handleEditClose={handleEditClose}
@@ -205,11 +215,11 @@ const Studio = () => {
       />)}
       {open && <ConfirmationDialog title={`Are You Sure`} body={`You want to delete this studio? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
       {openSnackbar && <ToastMessage
-       openSnackbar={openSnackbar}
-       severitySnackbar={severitySnackbar}
-       handleClose={handleClose}
-       message={message}
-     />}
+        openSnackbar={openSnackbar}
+        severitySnackbar={severitySnackbar}
+        handleClose={handleClose}
+        message={message}
+      />}
     </>
   )
 }
