@@ -9,7 +9,7 @@ export class SuperAdminAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(localStorage.getItem('auth')==='true' && localStorage.getItem('admin')==='true'){
+    if(localStorage.getItem('role')==='admin'){
   return true;
 
 }else{

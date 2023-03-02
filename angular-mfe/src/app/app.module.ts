@@ -7,15 +7,15 @@ import { HomeComponent } from './home/home.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { CreateTanentComponent } from './create-tanent/create-tanent.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CreateTenantComponent } from './create-tanent/create-tenant.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CreateTanentComponent
+   CreateTenantComponent
   ],
   imports: [
     BrowserModule,
