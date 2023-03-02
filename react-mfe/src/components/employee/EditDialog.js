@@ -21,10 +21,8 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
     };
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidName(false)
-        } else if (event.target.value.length >= 0) {
-            setValidName(true)
         }
         else {
             setValidName(true)
@@ -32,10 +30,8 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
     }
     const onCodeChange = (event) => {
         setCode(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidCode(false)
-        } else if (event.target.value.length >= 0) {
-            setValidCode(true)
         }
         else {
             setValidCode(true)
@@ -146,11 +142,11 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                         onBlur={onBlurNameHandler}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validName && "Please enter studio name"}
+                        {validName && "Please enter employee name"}
                     </Typography>
                     <TextField
                         id="description"
-                        label="Employee Code"
+                        label="Studio Code"
                         type="text"
                         fullWidth
                         sx={{ mt: "1.5rem" }}
@@ -172,10 +168,10 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                         onBlur={onBlurEmailHandler}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validEmail && "Please enter studio email"}
+                        {validEmail && "Please enter employee email"}
                     </Typography>
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {!correctEmail && "Please enter valid studio email"}
+                        {!correctEmail && "Please enter valid employee email"}
                     </Typography>
                     <TextField
                         id="status"
@@ -186,6 +182,9 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                         value={inputStatus}
                         onChange={onStatusChange}
                         onBlur={onBlurStatusHandler}
+                        InputProps={{
+                            readOnly: true,
+                          }}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validStatus && "Please enter Status"}

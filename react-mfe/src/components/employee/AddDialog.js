@@ -24,10 +24,8 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     };
     const onCodeChange = (event) => {
         setCode(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidCode(false)
-        } else if (event.target.value.length >= 0) {
-            setValidCode(true)
         }
         else {
             setValidCode(true)
@@ -35,10 +33,8 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     }
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidName(false)
-        } else if (event.target.value.length >= 0) {
-            setValidName(true)
         }
         else {
             setValidName(true)
@@ -133,11 +129,11 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         onBlur={onBlurNameHandler}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validName && "Please enter studio name"}
+                        {validName && "Please enter employee name"}
                     </Typography>
                     <TextField
                         id="code"
-                        label="Employee Code"
+                        label="Studio Code"
                         type="text"
                         color="info"
                         fullWidth
@@ -159,10 +155,10 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         onBlur={onBlurEmailHandler}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validEmail && "Please enter studio email"}
+                        {validEmail && "Please enter employee email"}
                     </Typography>
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {!correctEmail && "Please enter valid studio email"}
+                        {!correctEmail && "Please enter valid employee email"}
                     </Typography>
 
                     <Stack

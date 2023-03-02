@@ -20,10 +20,8 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, status, getI
     };
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+         if (event.target.value.length >0) {
             setValidName(false)
-        } else if (event.target.value.length >= 0) {
-            setValidName(true)
         }
         else {
             setValidName(true)
@@ -31,10 +29,8 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, status, getI
     }
     const onCodeChange = (event) => {
         setCode(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidCode(false)
-        } else if (event.target.value.length >= 0) {
-            setValidCode(true)
         }
         else {
             setValidCode(true)
@@ -184,6 +180,10 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, status, getI
                         value={inputStatus}
                         onBlur={onBlurStatusHandler}
                         onChange={onStatusChange}
+                        textTransform='capitalize'
+                        InputProps={{
+                            readOnly: true,
+                          }}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validStatus && "Please enter Status"}

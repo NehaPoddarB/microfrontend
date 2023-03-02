@@ -10,6 +10,9 @@ import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import ToastMessage from '../snackbar/ToastMessage';
 import config from "../../../config.json"
+import { alpha, styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
+import { pink } from '@mui/material/colors';
 
 const Employee = () => {
   const columns = [
@@ -28,6 +31,38 @@ const Employee = () => {
   const [message, setMessage] = useState("");
   const [severitySnackbar, setSeveritySnackbar] = useState("");
   const [data, setData] = useState([])
+
+  let color = "#5cb85c"
+  const GreenSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: `${color} !important`,
+      backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      '&:hover': {
+        backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: `${color} !important`,
+    },
+
+  }));
+  let colorRed = "#c9302c";
+  const RedSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: `${color} !important`,
+      backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      '&:hover': {
+        backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: "#808080 !important",
+    },
+    '& .MuiSwitch-track': {
+      backgroundColor: `${colorRed} !important`,
+      border: "none !important"
+    },
+  }));
   const handleClose = () => {
     setOpenSnackbar(false)
   }
@@ -67,9 +102,18 @@ const Employee = () => {
       setMessage("Employee not Edited")
     }
   }
-  const confirmDeleteActionHandler = async () => {
-    const newData = { studio_code: deleteQuestions.studio_code, employee_name: deleteQuestions.employee_name, employee_email: deleteQuestions.employee_email, status: 'disable' };
-    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${deleteQuestions.employee_id}`, {
+
+  const switchEnableHandler = (value, item) => {
+    if (value === "enable") {
+      confirmDeleteActionHandler(item,value);
+    }
+    else {
+      confirmDeleteActionHandler(item,value);
+    }
+  }
+  const confirmDeleteActionHandler = async (employeeData,value) => {
+    const newData = { studio_code: employeeData.studio_code, employee_name: employeeData.employee_name, employee_email: employeeData.employee_email, status: value==='enable'? "enable" :"disable" };
+    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${employeeData.employee_id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -80,12 +124,11 @@ const Employee = () => {
       if (e.ok) {
         setSeveritySnackbar("success")
         setOpenSnackbar(true);
-        setMessage('Employee Deleted Successfully')
-
+        value==='disable'? setMessage('Employee Disabled Successfully') : setMessage('Studio Enabled Successfully')
       } else {
         setOpenSnackbar(true);
         setSeveritySnackbar("error")
-        setMessage('Employee not deleted')
+        value==='enable'? setMessage('Employee not disabled') : setMessage('Employee not enabled')
       }
     });
     getInfo()
@@ -131,7 +174,12 @@ const Employee = () => {
       const employee_name = item.employee_name;
       const studio_code = item.studio_code;
       const employee_email = item.employee_email;
-      const status= item.status;
+      const status = item.status==='enable' ? (
+        <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked/>
+      ) : (
+        <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
+
+      );
       return {
         ...item,
         employee_name,
@@ -162,7 +210,7 @@ const Employee = () => {
                 </Box>
               </Tooltip>
             </Button>
-            <Button
+            {/* <Button
               size="large"
               variant="text"
               color="info"
@@ -182,7 +230,7 @@ const Employee = () => {
                   <DeleteIcon sx={{ color: 'red' }} />
                 </Box>
               </Tooltip>
-            </Button>
+            </Button> */}
           </Box>
         )
       };

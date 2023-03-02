@@ -11,6 +11,10 @@ import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import ModeRoundedIcon from '@mui/icons-material/ModeRounded';
 import ToastMessage from '../snackbar/ToastMessage';
 import config from "../../../config.json"
+import { alpha, styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
+import { pink } from '@mui/material/colors';
+
 
 const Studio = () => {
   const columns = [
@@ -29,6 +33,39 @@ const Studio = () => {
   const [data, setData] = useState([])
   const [message, setMessage] = useState('');
   const [severitySnackbar, setSeveritySnackbar] = useState('');
+
+  let color = "#5cb85c"
+  const GreenSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: `${color} !important`,
+      backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      '&:hover': {
+        backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: `${color} !important`,
+    },
+
+  }));
+  let colorRed = "#c9302c";
+  const RedSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: `${color} !important`,
+      backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      '&:hover': {
+        backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: "#808080 !important",
+    },
+    '& .MuiSwitch-track': {
+      backgroundColor: `${colorRed} !important`,
+      border: "none !important"
+    },
+
+  }));
   const handleClose = () => {
     setOpenSnackbar(false)
   }
@@ -68,25 +105,25 @@ const Studio = () => {
       setMessage("Studio not edited Successfully");
     }
   }
-  const confirmDeleteActionHandler = async () => {
-    const newData = { studio_code: deleteQuestions.studio_code, studio_name: deleteQuestions.studio_name, studioAdmin_email: deleteQuestions.studioAdmin_email, status: 'disable' };
-    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/${deleteQuestions.studio_id}`, {
+  const confirmDeleteActionHandler = async (studioData,value) => {
+    const newData = { studio_code: studioData.studio_code, studio_name: studioData.studio_name, studioAdmin_email: studioData.studioAdmin_email, status: value==='enable'? "enable" :"disable" };
+    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/${studioData.studio_id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + config.ACCESS_TOKEN
-    },
-    body: JSON.stringify(newData)
+      },
+      body: JSON.stringify(newData)
     })
       .then((e) => {
         if (e.ok) {
           setSeveritySnackbar("success")
           setOpenSnackbar(true);
-          setMessage('Studio Deleted Successfully')
+          value==='disable'? setMessage('Studio Disabled Successfully') : setMessage('Studio Enabled Successfully')
         } else {
           setOpenSnackbar(true);
-          setSeverity("error")
-          setMessage('Studio not deleted')
+          setSeveritySnackbar("error")
+          value==='enable'? setMessage('Studio not disabled') : setMessage('Studio not enabled')
         }
       });
     getInfo();
@@ -94,6 +131,14 @@ const Studio = () => {
   const openConfirmationDialogHandler = () => {
     setOpen(true);
   };
+  const switchEnableHandler = (value, item) => {
+    if (value === "enable") {
+      confirmDeleteActionHandler(item,value);
+    }
+    else {
+      confirmDeleteActionHandler(item,value);
+    }
+  }
   const closeDeleteActionHandler = () => {
     setOpen(false);
     setOpenSnackbar(false);
@@ -134,7 +179,12 @@ const Studio = () => {
       const studio_name = item.studio_name;
       const studio_code = item.studio_code;
       const studioAdmin_email = item.studioAdmin_email;
-      const status = item.status;
+      const status = item.status==='enable' ? (
+        <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked/>
+      ) : (
+        <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
+
+      );
       return {
         ...item,
         studio_name,
@@ -165,12 +215,12 @@ const Studio = () => {
                 </Box>
               </Tooltip>
             </Button>
-            <Button
+            {/* <Button
               size="large"
               variant="text"
               color="info"
               onClick={() => {
-                openConfirmationDialogHandler();
+                // openConfirmationDialogHandler();
                 setDeleteQuestion(item);
               }}
               sx={{ paddingTop: "0px", paddingBottom: "0px", color: 'rgb(255, 86, 80)' }}
@@ -185,7 +235,7 @@ const Studio = () => {
                   <DeleteIcon />
                 </Box>
               </Tooltip>
-            </Button>
+            </Button> */}
           </Box>
         )
       };
@@ -213,7 +263,7 @@ const Studio = () => {
         handleEditClose={handleEditClose}
         onEditQuestionComplete={(e) => handleCompleteEdit(e)}
       />)}
-      {open && <ConfirmationDialog title={`Are You Sure`} body={`You want to delete this studio? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
+      {open && <ConfirmationDialog title={`Are You Sure?`} body={`You want to delete this studio? `} open={open} onConfirmAction={confirmDeleteActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={`Cancel`} confirmLabel={`Confirm`} />}
       {openSnackbar && <ToastMessage
         openSnackbar={openSnackbar}
         severitySnackbar={severitySnackbar}

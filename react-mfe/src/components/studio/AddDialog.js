@@ -27,10 +27,8 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
     };
     const onCodeChange = (event) => {
         setCode(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidCode(false)
-        } else if (event.target.value.length >= 0) {
-            setValidCode(true)
         }
         else {
             setValidCode(true)
@@ -38,10 +36,8 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
     }
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
+        if (event.target.value.length >0) {
             setValidName(false)
-        } else if (event.target.value.length >= 0) {
-            setValidName(true)
         }
         else {
             setValidName(true)
