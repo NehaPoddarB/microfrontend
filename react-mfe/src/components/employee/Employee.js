@@ -9,12 +9,14 @@ import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import ToastMessage from '../snackbar/ToastMessage';
+import config from "../../../config.json"
 
 const Employee = () => {
   const columns = [
     { id: 'employee_name', label: 'Name', minWidth: 300 },
-    { id: 'employee_code', label: 'Code', minWidth: 300 },
+    { id: 'studio_code', label: 'Code', minWidth: 300 },
     { id: 'employee_email', label: 'Email', minWidth: 300 },
+    { id: 'status', label: 'Status', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
   const [openEdit, setOpenEdit] = useState(false);
@@ -66,8 +68,14 @@ const Employee = () => {
     }
   }
   const confirmDeleteActionHandler = async () => {
-    await fetch(`http://localhost:3000/createEmployee/${deleteQuestions}`, {
-      method: 'DELETE',
+    const newData = { studio_code: deleteQuestions.studio_code, employee_name: deleteQuestions.employee_name, employee_email: deleteQuestions.employee_email, status: 'disable' };
+    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${deleteQuestions.employee_id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + config.ACCESS_TOKEN
+    },
+      body: JSON.stringify(newData)
     }).then((e) => {
       if (e.ok) {
         setSeveritySnackbar("success")
@@ -91,8 +99,11 @@ const Employee = () => {
   };
   const getInfo = function getInfo1() {
     return new Promise((resolve, reject) => {
-      fetch("http://localhost:3000/createEmployee/", {
+      fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/", {
         method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + config.ACCESS_TOKEN
+        },
       })
         .then(
           response => response.json(),
@@ -103,7 +114,7 @@ const Employee = () => {
         )
         .then(data1 => {
           if (data1) {
-            setData(data1)
+            setData(data1.users)
             resolve(data1)
           }
         })
@@ -118,13 +129,15 @@ const Employee = () => {
   if (employeeStateData != null) {
     employeeStateList = employeeStateData.map((item) => {
       const employee_name = item.employee_name;
-      const employee_code = item.employee_code;
+      const studio_code = item.studio_code;
       const employee_email = item.employee_email;
+      const status= item.status;
       return {
         ...item,
         employee_name,
-        employee_code,
+        studio_code,
         employee_email,
+        status,
         actions: (
           <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
             <Button
@@ -155,7 +168,7 @@ const Employee = () => {
               color="info"
               onClick={() => {
                 openConfirmationDialogHandler();
-                setDeleteQuestion(item.id);
+                setDeleteQuestion(item);
               }}
               sx={{ paddingTop: "0px", paddingBottom: "0px", color: 'rgb(255, 86, 80)' }}
             >
@@ -187,11 +200,11 @@ const Employee = () => {
       />
       )}
       {openEdit && (<EditDialog
-        code={dataEdit.employee_code}
+        code={dataEdit.studio_code}
         name={dataEdit.employee_name}
         email={dataEdit.employee_email}
-        password={dataEdit.employee_password}
-        id={dataEdit.id}
+        status={dataEdit.status}
+        id={dataEdit.employee_id}
         openEdit={openEdit}
         getInfo={getInfo}
         handleEditClose={handleEditClose}

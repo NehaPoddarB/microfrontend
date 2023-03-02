@@ -2,18 +2,17 @@ import { Box, Button, Card, Dialog, Stack, TextField, Typography } from "@mui/ma
 import { useState } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
+import config from "../../../config.json"
 
 const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) => {
     const [inputName, setName] = useState("")
     const [inputCode, setCode] = useState("")
     const [inputEmail, setEmail] = useState("")
-    const [inputPassword, setPassword] = useState("")
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail] = useState(true);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
-    const [validPassword, setValidPassword] = useState(false);
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
@@ -43,17 +42,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
         }
         else {
             setValidName(true)
-        }
-    }
-    const onPasswordChange = (event) => {
-        setPassword(event.target.value)
-        if (!stringPatternValidation(event.target.value)) {
-            setValidPassword(false)
-        } else if (event.target.value.length >= 0) {
-            setValidPassword(true)
-        }
-        else {
-            setValidPassword(true)
         }
     }
     const onEmailChange = (event) => {
@@ -92,11 +80,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             setCorrectEmail(true);
         }
     }
-    function onBlurPasswordHandler() {
-        if (inputPassword.length <= 0) {
-            setValidPassword(true);
-        }
-    }
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
@@ -104,12 +87,15 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
         return /\s/g.test(stringVal);
     };
     const confirmEditActionHandler = async () => {
-        const newData = { employee_name: inputName, employee_email: inputEmail, employee_code: inputCode, employee_password: inputPassword }
-        await fetch("http://localhost:3000/createEmployee/", {
+        const newData = { employee_name: inputName, employee_email: inputEmail, studio_code: inputCode }
+        await fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/", {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + config.ACCESS_TOKEN
+            },
             body: JSON.stringify(newData)
-        }).then((response)=>{ onAddQuestionComplete(response)})
+        }).then((response) => { onAddQuestionComplete(response) })
         getInfo()
         handleAddClose();
     };
@@ -178,19 +164,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {!correctEmail && "Please enter valid studio email"}
                     </Typography>
-                    <TextField
-                        id="password"
-                        label="Employee password"
-                        type="password"
-                        color="info"
-                        fullWidth
-                        sx={{ mt: "1.5rem" }}
-                        onChange={onPasswordChange}
-                        onBlur={onBlurPasswordHandler}
-                    />
-                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validPassword && "Please enter Password"}
-                    </Typography>
 
                     <Stack
                         direction="row"
@@ -201,7 +174,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || !inputPassword || validEmail || !correctEmail || validPassword}
+                            disabled={!inputName || !inputCode || !inputEmail || validEmail || !correctEmail }
 
                             sx={{
                                 color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
