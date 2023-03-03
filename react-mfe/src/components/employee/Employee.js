@@ -14,7 +14,7 @@ import { pink } from '@mui/material/colors';
 const Employee = () => {
   const columns = [
     { id: 'employee_name', label: 'Name', minWidth: 300 },
-    { id: 'studio_code', label: 'Code', minWidth: 300 },
+    { id: 'studio_code', label: 'Studio Code', minWidth: 300 },
     { id: 'employee_email', label: 'Email', minWidth: 300 },
     { id: 'status', label: 'Status', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
