@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import StickyTable from '../table/StickyTable';
-// import { useDispatch, useSelector } from "react-redux";
-// import { getStudio, fetchStudio } from '../../store/studio'
 import { Box, Button, Container, IconButton, Tooltip, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,7 +8,6 @@ import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import ModeRoundedIcon from '@mui/icons-material/ModeRounded';
 import ToastMessage from '../snackbar/ToastMessage';
-import config from "../../../config.json"
 import { alpha, styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { pink } from '@mui/material/colors';
@@ -111,7 +108,7 @@ const Studio = () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + config.ACCESS_TOKEN
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       },
       body: JSON.stringify(newData)
     })
@@ -148,9 +145,8 @@ const Studio = () => {
       fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
         method: 'GET',
         headers: {
-          Authorization: 'Bearer ' + config.ACCESS_TOKEN
+          Authorization: 'Bearer ' + localStorage.getItem('token')
         },
-
       })
         .then(
           response => response.json(),

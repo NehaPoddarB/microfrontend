@@ -2,8 +2,6 @@ import { Box, Button, Card, Dialog, Stack, TextField, Typography } from "@mui/ma
 import { useState } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
-import config from "../../../config.json"
-
 
 const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) => {
     const [inputName, setName] = useState("")
@@ -92,7 +90,7 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + config.ACCESS_TOKEN
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(newData)
         }).then((response) => { onAddQuestionComplete(response) })

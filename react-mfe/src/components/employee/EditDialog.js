@@ -2,8 +2,6 @@ import { Box, Button, Card, Dialog, Input, Stack, TextField, Typography } from "
 import { useState } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
-import config from "../../../config.json"
-
 
 const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, getInfo, onEditQuestionComplete }) => {
     const [inputName, setName] = useState(name)
@@ -101,7 +99,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + config.ACCESS_TOKEN
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(newData)
         }).then((response) => { onEditQuestionComplete(response) })
