@@ -35,5 +35,7 @@ this.apiService.postData(event).subscribe((res:any)=>{
     this.router.navigate(['/'])
     localStorage.setItem('admin', String(false));
     localStorage.setItem('auth', String(false));
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 }
