@@ -1,40 +1,62 @@
 <div class="header">
-  <div class="header-div d-flex justify-content-between mx-4 my-2">
-<div>
-  <a routerLink="/dashboard" [ngClass]="{'active': isActiveRoute('/dashboard')}">Dashboard</a>
-  <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/dashboard/angular')}" [hidden]="auth ==='client'">Tenant</a>
-  <a routerLink="react" [ngClass]="{'active': isActiveRoute('/dashboard/react')}">Company</a>
-</div>
-<div>
-  <a (click)="openModal(myLogOutModal)">Log Out</a>
-</div>
-<ng-template #myLogOutModal>
-  <div class="mt-4 mb-4 p-4 d-flex flex-column justify-content-center align-items-center">
-    <span class="text-bold">Are you sure you want to Log Out</span>
-    <div class="mt-4 d-flex justify-content-between">
-      <button class="btn btn-primary mx-2 btn-width" (click)="logOut()">Yes</button>
-      <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button>
+  <img class="img-logo" src="https://www.knoldus.com/wp-content/uploads/Knoldus-logo.png" alt="logo" />
+  <div class="header-div d-flex justify-content-between mx-4 "
+    style="margin-top: 0.75rem!important; margin-bottom: 1rem!important; width: 100%;">
+    <div style="display: flex; justify-content: flex-start; width: 70%; flex-wrap: wrap;">
+      <a routerLink="/dashboard" [ngClass]="{'active': isActiveRoute('/dashboard')}">Dashboard</a>
+      <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/dashboard/angular')}"
+        [hidden]="auth ==='client'">Tenant</a>
+      <a routerLink="react" [ngClass]="{'active': isActiveRoute('/dashboard/react')}">Company</a>
     </div>
+      <a (click)="openModal(myLogOutModal)" id="button-logout">
+        <img src="assets/logout.png">
+        <div class="logout">LOGOUT</div>
+      </a>
+    <ng-template #myLogOutModal>
+      <div class="mt-4 mb-4 p-4 d-flex flex-column justify-content-center align-items-center">
+        <span class="text-bold">Are you sure you want to Log Out</span>
+        <div class="mt-4 d-flex justify-content-between">
+          <button class="btn btn-primary mx-2 btn-width" (click)="logOut()">Yes</button>
+          <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button>
+        </div>
+      </div>
+    </ng-template>
   </div>
-</ng-template>
-</div>
 </div>
 <ng-container *ngIf="isActiveRoute('/dashboard'); else elseTemplate">
   <div class="d-flex justify-content-between cont row p-3">
     <div class="d-flex flex-column justify-content-center align-items-center col-lg-4 col-md-4 col-sm-6 col-xs-12 p-5">
-      <img class="image-border w-100" src="https://amazingworkplaces.co/wp-content/uploads/2019/10/Organization_Benefits_When_Its_People_Love_Their_Workplace.jpg" height="250px">
+      <img class="image-border w-100"
+        src="https://amazingworkplaces.co/wp-content/uploads/2019/10/Organization_Benefits_When_Its_People_Love_Their_Workplace.jpg"
+        height="250px">
       <h3 class="mt-3">Empower your company</h3>
-      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</span>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center col-lg-4 col-md-4 col-sm-6 col-xs-12 p-5">
-      <img class="image-border w-100" src="https://image.jimcdn.com/app/cms/image/transf/dimension=1070x10000:format=jpg/path/s0a3083205b0fb738/image/icfdae5346714778c/version/1483360874/image.jpg" height="250px">
+      <img class="image-border w-100"
+        src="https://image.jimcdn.com/app/cms/image/transf/dimension=1070x10000:format=jpg/path/s0a3083205b0fb738/image/icfdae5346714778c/version/1483360874/image.jpg"
+        height="250px">
       <h3 class="mt-3">Create Studios</h3>
-      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.</span>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center col-lg-4 col-md-4 col-sm-6 col-xs-12 p-5">
-      <img class="image-border w-100" src="https://s3.us-east-2.amazonaws.com/files.fisher.osu.edu/leadreadtoday/public/styles/blog_featured_image/public/2020-07/opinion2.jpg?VersionId=bAZpaUV0Hi5pz15bjGN1dqlZnMqO9KAT&h=ffe64dd9&itok=VruC4i-M" height="250px">
+      <img class="image-border w-100"
+        src="https://s3.us-east-2.amazonaws.com/files.fisher.osu.edu/leadreadtoday/public/styles/blog_featured_image/public/2020-07/opinion2.jpg?VersionId=bAZpaUV0Hi5pz15bjGN1dqlZnMqO9KAT&h=ffe64dd9&itok=VruC4i-M"
+        height="250px">
       <h3 class="mt-3">Manage your employees</h3>
-      <span class="text-justify w-100">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+      <span class="text-justify w-100">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+        deserunt mollit anim id est laborum.</span>
     </div>
 
   </div>

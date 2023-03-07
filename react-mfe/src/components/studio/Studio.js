@@ -202,6 +202,7 @@ const Studio = () => {
             >
               <Tooltip title={"Edit"}>
                 <Box sx={{
+                  width:"100%",
                   display: "inline-block",
                   borderRadius: "60px",
                   boxShadow: "0 0 2px #888",

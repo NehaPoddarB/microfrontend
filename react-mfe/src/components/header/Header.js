@@ -18,7 +18,7 @@ export default function Header() {
         exclusive
         onChange={handleChange}
         aria-label="Platform"
-        sx={{marginTop:6, marginLeft:10}}
+        sx={{marginTop:6, marginLeft:'2rem'}}
       >
         <ToggleButton value="studio"><Link to="/dashboard/react/studio" style={{ textDecoration: 'none',color:'black' }}>Studio</Link></ToggleButton>
         <ToggleButton value="employee"><Link to="/dashboard/react/employee" style={{ textDecoration: 'none', color:'black' }}>Employee</Link></ToggleButton>

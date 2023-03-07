@@ -8,11 +8,15 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Box, Button, Typography } from '@mui/material';
+import { useTheme, useMediaQuery } from '@material-ui/core';
+import TableCards from '../TableCard/Tablecards';
 
 
 export default function StickyTable({ columns, rows, label, handleOpenAdd, tableName }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const theme = useTheme();
+  const showText = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <>
@@ -20,8 +24,8 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
         display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 2,
         borderRadius: "1rem",
         position: 'relative',
-        marginLeft: '5rem',
-        marginRight: '5rem',
+        marginLeft: '2rem',
+        marginRight: '2rem',
         marginTop: "2rem"
       }}>
         <Typography variant="h2" sx={{
@@ -51,8 +55,8 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
       <Paper sx={{
         color: '#fff', border: " 0 solid rgba(0, 0, 0, 0.125)",
         borderRadius: "0.75rem",
-        marginLeft: "5rem",
-        marginRight: "5rem",
+        marginLeft: "2rem",
+        marginRight: "2rem",
         marginTop:'-1rem'
       }}>
         <TableContainer sx={{
@@ -63,8 +67,9 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
           borderRadius: 2,
           width: "100%",
           overflowX: "auto",
+          marginBottom:'4rem',
         }}>
-          <Table stickyHeader aria-label="sticky table" sx={{ padding: '17px' }}>
+          {showText ? <Table stickyHeader aria-label="sticky table" sx={{ padding: '17px' }}>
             <TableHead >
               <TableRow sx={{
                 "& th": {
@@ -107,7 +112,9 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
                   );
                 })}
             </TableBody>
-          </Table>
+          </Table>:  (rows.map((row) => (
+          <TableCards rows={row} columns={columns}/>
+        )))}
         </TableContainer>
       </Paper>
     </>
