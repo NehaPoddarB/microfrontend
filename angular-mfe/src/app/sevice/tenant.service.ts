@@ -16,6 +16,8 @@ export class TenantService {
   private createTenant = `${environment.api.baseUrl}${environment.api.routes.createTenant.endpoint}`;
   private getTenantUrl = `${environment.api.baseUrl}${environment.api.routes.getTenant.endpoint}`;
   private updateTenant = `${environment.api.baseUrl}${environment.api.routes.updateTenant.endpoint}`;
+  private deleteTenant = `${environment.api.baseUrl}${environment.api.routes.deleteTenant.endpoint}`;
+
 
 
 private jsonUrl ='http://localhost:3000/createTenant/'
@@ -37,10 +39,12 @@ postTenant(data: any) {
 }
 
 updateTenantById(data: any, id: string) {
+  console.log(this.headers);
+
   return this.httpClient.patch(this.updateTenant + id, data,{'headers':this.headers})
 }
 
-deleteTenantById(id: string) {
-  return this.httpClient.delete(this.updateTenant + id);
+deleteTenantById(id: number) {
+  return this.httpClient.patch(this.deleteTenant + id,'',{'headers':this.headers});
 }
 }

@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   modalRef: BsModalRef | undefined;
   TenantId: string | undefined;
   deleteId: any = '';
-
+  btnText:any='Disable';
   constructor(private TenantService: TenantService, private modalService: BsModalService ,private toastr:ToastrService) { }
 
   ngOnInit() {
@@ -61,16 +61,18 @@ export class HomeComponent implements OnInit {
   deleteTenant() {
     this.TenantService.deleteTenantById(this.deleteId).subscribe(res => {
       if (res) {
+        this.btnText='enable'
         this.getAllTenentData();
         this.modalRef?.hide();
         this.toastr.success("Tenant Deleted successfully!")
       }
     },(error)=>{
-      this.toastr.error("something went wront")
+      this.toastr.error("something went wrong")
     });
   }
 
   closeModal(){
+    this.getAllTenentData();
     this.deleteId = '';
     this.modalRef?.hide();
   }

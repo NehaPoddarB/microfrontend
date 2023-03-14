@@ -9,7 +9,7 @@ export const environment = {
       createTenant: {endpoint: 'tenants', method: 'POST'},
       getTenant: {endpoint: 'tenants/', method: 'GET'},
       updateTenant: {endpoint: 'tenants/', method: 'PATCH'},
-
+      deleteTenant: {endpoint: 'tenants/status/', method: 'PATCH'}
     }
   }
 };

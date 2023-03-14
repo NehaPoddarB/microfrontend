@@ -39,8 +39,11 @@
 
     </div>
     <div class="col-xxl-2 d-flex justify-content-around">
-            <button class="btn btn-warning" (click)="openModal(myModal,row.tenant_id)">Edit</button>
-             <button class="btn btn-danger" (click)="openDeleteModal(myDeleteModal, row.tenant_id)">Disable</button>
+    <button class="btn btn-warning" (click)="openModal(myModal,row.tenant_id)">Edit</button>
+<label class="switch" >
+  <input type="checkbox" [checked]="row.status==='enable'" (click)="openDeleteModal(myDeleteModal, row.tenant_id)" >
+  <span class="slider round" ></span>
+</label>
 
     </div>
   </div>
