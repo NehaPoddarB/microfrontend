@@ -41,7 +41,7 @@
     <div class="col-xxl-2 d-flex justify-content-around">
     <button class="btn btn-warning" (click)="openModal(myModal,row.tenant_id)">Edit</button>
 <label class="switch" >
-  <input type="checkbox" [checked]="row.status==='enable'" (click)="openDeleteModal(myDeleteModal, row.tenant_id)" >
+  <input type="checkbox" [checked]="row.status==='enable'" (click)="openDeleteModal(myDeleteModal, row.tenant_id, row.status)" >
   <span class="slider round" ></span>
 </label>
 
@@ -57,7 +57,7 @@
 
 <ng-template #myDeleteModal>
   <div class="mt-4 mb-4 p-4 d-flex flex-column justify-content-center align-items-center">
-    <span class="text-bold">Are you sure you want to Disable?</span>
+    <span class="text-bold">{{statusMsg}}</span>
     <div class="mt-4 d-flex justify-content-between">
       <button class="btn btn-primary mx-2 btn-width" (click)="deleteTenant()">Yes</button>
       <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button>
