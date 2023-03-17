@@ -17,7 +17,7 @@ const routes: Routes = [
       data: {title: "Admin Login"},
   },
     {
-    path: 'dashboard',
+    path: 'home',
     component:MainComponent,
     canActivate: [CompanyGuard],
     children: [  {

@@ -15,7 +15,7 @@
   height: 45px;
   width: auto;
   margin-left: 30px;
-  margin-top:15px;
+  margin-top: 15px;
   border-radius: 0%;
 }
 
@@ -27,8 +27,8 @@
   font-size: 18px;
   line-height: 33px;
   border-radius: 4px;
-  margin: 0 10px;
-  padding-top: 11px;
+  margin: 4px 10px 0px 8px;
+  height: max-content;
 }
 
 @media screen and (max-width: 800px) {
@@ -70,6 +70,9 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   transform: translateY(-3px) scale(1.1);
   transition: all 0.5s;
+  width: fit-content;
+  height: fit-content;
+  padding:5px;
 }
 
 .header a.active {
