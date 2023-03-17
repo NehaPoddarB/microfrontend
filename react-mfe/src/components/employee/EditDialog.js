@@ -1,19 +1,36 @@
 import { Box, Button, Card, Dialog, Input, Stack, TextField, Typography } from "@mui/material"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, getInfo, onEditQuestionComplete }) => {
     const [inputName, setName] = useState(name)
-    const [inputCode, setCode] = useState(code)
+    const [inputCode, setCode] = useState([])
     const [inputEmail, setEmail] = useState(email)
     const [inputStatus, setInputStatus] = useState(status)
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail] = useState(true);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
-    const [validCode, setValidCode] = useState(false);
     const [validStatus, setValidStatus] = useState(false);
+    const [codeSelect, setCodeSelect] = useState(code);
+    const handleChange = (event) => {
+        setCodeSelect(event.target.value);
+    };
+    let studioCodelist = []
+    if (inputCode.length != 0) {
+        studioCodelist = inputCode.map((item) => {
+            let code
+            if (item.status === 'enable') {
+                code = item.studio_code
+            }
+            return code
+        })
+    }
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
@@ -24,15 +41,6 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
         }
         else {
             setValidName(true)
-        }
-    }
-    const onCodeChange = (event) => {
-        setCode(event.target.value)
-        if (event.target.value.length >0) {
-            setValidCode(false)
-        }
-        else {
-            setValidCode(true)
         }
     }
     const onEmailChange = (event) => {
@@ -71,11 +79,6 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
             setValidName(true);
         }
     }
-    function onBlurCodeHandler() {
-        if (inputCode.length <= 0) {
-            setValidCode(true);
-        }
-    }
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
@@ -93,8 +96,34 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
     function stringPatternValidation(stringVal) {
         return /\s/g.test(stringVal);
     };
+    const getStudioCodeInfo = function getInfo1() {
+        return new Promise((resolve, reject) => {
+            fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+            })
+                .then(
+                    response => response.json(),
+                    () => {
+                        reject()
+                        return null
+                    }
+                )
+                .then(data1 => {
+                    if (data1) {
+                        setCode(data1.studios)
+                        resolve(data1)
+                    }
+                })
+        })
+    }
+    useEffect(() => {
+        getStudioCodeInfo()
+    }, [])
     const confirmEditActionHandler = async () => {
-        const newData = { studio_code: inputCode, employee_name: inputName, employee_email: inputEmail, status: inputStatus };
+        const newData = { studio_code: codeSelect, employee_name: inputName, employee_email: inputEmail, status: inputStatus };
         await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${id}`, {
             method: 'PATCH',
             headers: {
@@ -142,19 +171,21 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validName && "Please enter employee name"}
                     </Typography>
-                    <TextField
-                        id="description"
-                        label="Studio Code"
-                        type="text"
-                        fullWidth
-                        sx={{ mt: "1.5rem" }}
-                        value={inputCode}
-                        onChange={onCodeChange}
-                        onBlur={onBlurCodeHandler}
-                    />
-                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validCode && "Please enter studio Code"}
-                    </Typography>
+                    <Box sx={{ minWidth: 120, mt: "1.5rem" }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Studio</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={codeSelect}
+                                    label="Studio"
+                                    onChange={handleChange}
+                                >
+                                    {studioCodelist.map((item) => item != undefined ? <MenuItem value={item}>{item}</MenuItem> : null)}
+
+                                </Select>
+                        </FormControl>
+                    </Box>
                     <TextField
                         id="description"
                         label="Employee Email"
@@ -182,7 +213,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                         onBlur={onBlurStatusHandler}
                         InputProps={{
                             readOnly: true,
-                          }}
+                        }}
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validStatus && "Please enter Status"}
@@ -196,7 +227,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || !inputStatus || validEmail || !correctEmail || validStatus}
+                            disabled={!inputName || !inputEmail || !inputStatus || validEmail || !correctEmail || validStatus}
                             sx={{
                                 color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,
