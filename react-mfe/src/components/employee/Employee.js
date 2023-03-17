@@ -14,7 +14,7 @@ import { pink } from '@mui/material/colors';
 const Employee = () => {
   const columns = [
     { id: 'employee_name', label: 'Name', minWidth: 300 },
-    { id: 'studio_code', label: 'Studio Code', minWidth: 300 },
+    { id: 'studio_code', label: 'Studio', minWidth: 300 },
     { id: 'employee_email', label: 'Email', minWidth: 300 },
     { id: 'status', label: 'Status', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
@@ -172,10 +172,13 @@ const Employee = () => {
       const studio_code = item.studio_code;
       const employee_email = item.employee_email;
       const status = item.status==='enable' ? (
+        <Tooltip title={"Active"}>
         <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked/>
+        </Tooltip>
       ) : (
+        <Tooltip title={"Inactive"}>
         <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
-
+        </Tooltip>
       );
       return {
         ...item,
