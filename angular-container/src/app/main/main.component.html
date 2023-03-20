@@ -3,10 +3,10 @@
   <div class="header-div d-flex justify-content-between mx-4 "
     style="margin-top: 0.75rem!important; margin-bottom: 1rem!important; width: 100%;">
     <div style="display: flex; justify-content: flex-start; width: 70%; flex-wrap: wrap;">
-      <a routerLink="/dashboard" [ngClass]="{'active': isActiveRoute('/dashboard')}">Dashboard</a>
-      <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/dashboard/angular')}"
-        [hidden]="auth ==='client'">Tenant</a>
-      <a routerLink="react" [ngClass]="{'active': isActiveRoute('/dashboard/react')}">Company</a>
+      <a routerLink="/home" [ngClass]="{'active': isActiveRoute('/home')}">Home</a>
+      <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/home/angular')}"
+        [hidden]="auth ==='client'">Tenant Management</a>
+      <a routerLink="react" [ngClass]="{'active': isActiveRoute('/home/react')}">Company Management</a>
     </div>
       <a (click)="openModal(myLogOutModal)" id="button-logout">
         <img src="assets/logout.png">
@@ -23,7 +23,7 @@
     </ng-template>
   </div>
 </div>
-<ng-container *ngIf="isActiveRoute('/dashboard'); else elseTemplate">
+<ng-container *ngIf="isActiveRoute('/home'); else elseTemplate">
   <div class="d-flex justify-content-between cont row p-3">
     <div class="card d-flex flex-column justify-content-center align-items-center col-lg-4 col-md-4 col-sm-6 col-xs-12 p-3">
       <img class="image-border w-100"

@@ -15,7 +15,7 @@ export class LoginService {
       localStorage.setItem('auth','authenticated')
       localStorage.setItem('token',res.accessToken)
       localStorage.setItem('role',res.tenant_role)
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/home'])
      }else{
       localStorage.setItem('auth','unauthorized')
     }
