@@ -16,26 +16,37 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
-    const [codeSelect, setCodeSelect] = useState('');
+    const [codeSelect, setCodeSelect] = useState(codeSelect);
     const handleChange = (event) => {
         setCodeSelect(event.target.value);
-    };
+        if (event.target.value.length > 0) {
+            setValidCode(false)
+        }
+        else {
+            setValidCode(true)
+        }
+    }
     let studioCodelist = []
     if (studioCode.length != 0) {
         studioCodelist = studioCode.map((item) => {
             let code
-            if(item.status==='enable'){
+            if (item.status === 'enable') {
                 code = item.studio_code
             }
             return code
         })
+    }
+    const onBlurStudioHandler = () => {
+        if (codeSelect === undefined) {
+            setValidCode(true);
+        }
     }
     const openConfirmationDialogHandler = () => {
         setOpen(true);
     };
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (event.target.value.length >0) {
+        if (event.target.value.length > 0) {
             setValidName(false)
         }
         else {
@@ -163,12 +174,16 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                                 value={codeSelect}
                                 label="Studio"
                                 onChange={handleChange}
+                                onBlur={onBlurStudioHandler}
                             >
-                                {studioCodelist.map((item) => item!=undefined ? <MenuItem value={item}>{item}</MenuItem> : null) }
+                                {studioCodelist.map((item) => item != undefined ? <MenuItem value={item}>{item}</MenuItem> : null)}
 
                             </Select>
                         </FormControl>
                     </Box>
+                    <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
+                        {validCode && "Please Select Studio"}
+                    </Typography>
                     <TextField
                         id="email"
                         label="Employee Email"
@@ -195,7 +210,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputEmail || validEmail || !correctEmail}
+                            disabled={!inputName || !inputEmail || !codeSelect || validEmail || validCode || !correctEmail}
 
                             sx={{
                                 color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
