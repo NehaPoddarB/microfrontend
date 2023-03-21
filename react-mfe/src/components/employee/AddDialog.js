@@ -1,38 +1,52 @@
 import { Box, Button, Card, Dialog, Stack, TextField, Typography } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog"
 import React from "react"
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) => {
     const [inputName, setName] = useState("")
-    const [inputCode, setCode] = useState("")
     const [inputEmail, setEmail] = useState("")
+    const [studioCode, setStudioCode] = useState([])
     const [open, setOpen] = useState(false);
     const [correctEmail, setCorrectEmail] = useState(true);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [validCode, setValidCode] = useState(false);
-    const openConfirmationDialogHandler = () => {
-        setOpen(true);
-    };
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpenSnackbar(false);
-    };
-    const onCodeChange = (event) => {
-        setCode(event.target.value)
-        if (event.target.value.length >0) {
+    const [codeSelect, setCodeSelect] = useState(codeSelect);
+    const handleChange = (event) => {
+        setCodeSelect(event.target.value);
+        if (event.target.value.length > 0) {
             setValidCode(false)
         }
         else {
             setValidCode(true)
         }
     }
+    let studioCodelist = []
+    if (studioCode.length != 0) {
+        studioCodelist = studioCode.map((item) => {
+            let code
+            if (item.status === 'enable') {
+                code = item.studio_code
+            }
+            return code
+        })
+    }
+    const onBlurStudioHandler = () => {
+        if (codeSelect === undefined) {
+            setValidCode(true);
+        }
+    }
+    const openConfirmationDialogHandler = () => {
+        setOpen(true);
+    };
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (event.target.value.length >0) {
+        if (event.target.value.length > 0) {
             setValidName(false)
         }
         else {
@@ -64,11 +78,6 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
             setValidName(true);
         }
     }
-    function onBlurCodeHandler() {
-        if (inputCode.length <= 0) {
-            setValidCode(true);
-        }
-    }
     function onBlurEmailHandler() {
         if (inputEmail.length <= 0) {
             setValidEmail(true);
@@ -81,8 +90,34 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     function stringPatternValidation(stringVal) {
         return /\s/g.test(stringVal);
     };
+    const getStudioCodeInfo = function getInfo1() {
+        return new Promise((resolve, reject) => {
+            fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+            })
+                .then(
+                    response => response.json(),
+                    () => {
+                        reject()
+                        return null
+                    }
+                )
+                .then(data1 => {
+                    if (data1) {
+                        setStudioCode(data1.studios)
+                        resolve(data1)
+                    }
+                })
+        })
+    }
+    useEffect(() => {
+        getStudioCodeInfo()
+    }, [])
     const confirmEditActionHandler = async () => {
-        const newData = { employee_name: inputName, employee_email: inputEmail, studio_code: inputCode }
+        const newData = { employee_name: inputName, employee_email: inputEmail, studio_code: codeSelect }
         await fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/", {
             method: 'POST',
             headers: {
@@ -130,18 +165,24 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validName && "Please enter employee name"}
                     </Typography>
-                    <TextField
-                        id="code"
-                        label="Studio Code"
-                        type="text"
-                        color="info"
-                        fullWidth
-                        sx={{ mt: "1.5rem" }}
-                        onChange={onCodeChange}
-                        onBlur={onBlurCodeHandler}
-                    />
+                    <Box sx={{ minWidth: 120, mt: "1.5rem" }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Studio</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={codeSelect}
+                                label="Studio"
+                                onChange={handleChange}
+                                onBlur={onBlurStudioHandler}
+                            >
+                                {studioCodelist.map((item) => item != undefined ? <MenuItem value={item}>{item}</MenuItem> : null)}
+
+                            </Select>
+                        </FormControl>
+                    </Box>
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
-                        {validCode && "Please enter studio Code"}
+                        {validCode && "Please Select Studio"}
                     </Typography>
                     <TextField
                         id="email"
@@ -169,7 +210,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || validEmail || !correctEmail }
+                            disabled={!inputName || !inputEmail || !codeSelect || validEmail || validCode || !correctEmail}
 
                             sx={{
                                 color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {

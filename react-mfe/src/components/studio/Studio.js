@@ -192,7 +192,7 @@ const Studio = () => {
         studioAdmin_email,
         status,
         actions: (
-          <Box sx={{ marginLeft: "-1.2rem", display: 'flex' }}>
+          <Box >
             <Button
               size="large"
               variant="text"
