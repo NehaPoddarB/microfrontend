@@ -36,6 +36,10 @@ module.exports = options => {
           './web-components': './app.js',
           './react-component-1': './reactComponentOne.js',
         },
+        // remoteType: "script",
+        // remotes: {
+        //   button : 'webButton@http://localhost:4205/remoteEntry.js',
+        // },
         shared: ["react", "react-dom"]
       }),
       new CopyWebpackPlugin({

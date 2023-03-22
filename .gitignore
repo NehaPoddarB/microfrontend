@@ -41,6 +41,7 @@ build/Release
 angular-container/node_modules/
 angular-mfe/node_modules/
 react-mfe/node_modules/
+# react-web-mfe/node_modules/
 vue-mfe
 jspm_packages/
 
@@ -115,3 +116,4 @@ react-mfe/public
 angular-mfe/package-lock.json
 angular-container/package-lock.json
 react-mfe/package-lock.json
+# react-web-mfe/package-lock.json

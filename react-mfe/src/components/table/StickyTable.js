@@ -10,6 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import { Box, Button, Typography } from '@mui/material';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import TableCards from '../TableCard/Tablecards';
+// import WebButton from 'button/Button-web-component';
+import '../../../../indexOne';
 
 
 export default function StickyTable({ columns, rows, label, handleOpenAdd, tableName }) {
@@ -38,7 +40,11 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
         }}>
           {label}
         </Typography>
-        <Button
+        {/* <WebButton/> */}
+        <web-button-element onClick={
+            handleOpenAdd
+          }></web-button-element>
+        {/* <Button
           variant='contained'
           color='info'
           size='medium'
@@ -50,7 +56,7 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
           }}
         >
           + {"Add"} {tableName}
-        </Button>
+        </Button> */}
       </Box>
       <Paper sx={{
         color: '#fff', border: " 0 solid rgba(0, 0, 0, 0.125)",
