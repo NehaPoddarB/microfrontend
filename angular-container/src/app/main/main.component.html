@@ -6,7 +6,7 @@
       <a routerLink="/home" [ngClass]="{'active': isActiveRoute('/home')}">Home</a>
       <a routerLink="angular" [ngClass]="{'active': isActiveRoute('/home/angular')}"
         [hidden]="auth ==='client'">Tenant Management</a>
-      <a routerLink="react" [ngClass]="{'active': isActiveRoute('/home/react')}"  [hidden]="auth !=='client'">Company Management</a>
+      <a routerLink="company" [ngClass]="{'active': isActiveRoute('/home/company')}"  [hidden]="auth !=='client'">Company Management</a>
     </div>
       <a (click)="openModal(myLogOutModal)" id="button-logout">
         <img src="assets/logout.png">

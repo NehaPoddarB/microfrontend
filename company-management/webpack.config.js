@@ -7,7 +7,7 @@ module.exports = options => {
     output: {
       filename: 'bundle.js',
       publicPath: "auto",
-      uniqueName: "mfe4"
+      uniqueName: "company"
     },
     module: {
       rules: [{
@@ -34,7 +34,6 @@ module.exports = options => {
         filename: "remoteEntry.js", // <-- Meta Data
         exposes: {
           './web-components': './app.js',
-          './react-component-1': './reactComponentOne.js',
         },
         // remoteType: "script",
         // remotes: {

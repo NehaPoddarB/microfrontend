@@ -19,7 +19,7 @@ export class LoginService {
         this.router.navigate(['/home'])
         setTimeout(() => {
           this.refreshToken()
-        },780000);
+        },600000);
       } else {
         localStorage.setItem('auth', 'unauthorized')
       }

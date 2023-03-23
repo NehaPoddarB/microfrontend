@@ -24,11 +24,12 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
     let studioCodelist = []
     if (inputCode.length != 0) {
         studioCodelist = inputCode.map((item) => {
-            let code
+            let code, studioName
             if (item.status === 'enable') {
                 code = item.studio_code
+                studioName = item.studio_name
             }
-            return code
+            return {code, studioName}
         })
     }
     const openConfirmationDialogHandler = () => {
@@ -181,7 +182,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                                     label="Studio"
                                     onChange={handleChange}
                                 >
-                                    {studioCodelist.map((item) => item != undefined ? <MenuItem value={item}>{item}</MenuItem> : null)}
+                                    {studioCodelist.map((item) => item != undefined ? <MenuItem value={item.code}>{item.studioName}</MenuItem> : null)}
 
                                 </Select>
                         </FormControl>
@@ -202,7 +203,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {!correctEmail && "Please enter valid employee email"}
                     </Typography>
-                    <TextField
+                    {/* <TextField
                         id="status"
                         label="Status"
                         type="text"
@@ -217,7 +218,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                     />
                     <Typography variant="body2" color="error" sx={{ mt: "0.5rem" }}>
                         {validStatus && "Please enter Status"}
-                    </Typography>
+                    </Typography> */}
                     <Stack
                         direction="row"
                         spacing={2}
@@ -227,7 +228,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                             color="primary"
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputEmail || !inputStatus || validEmail || !correctEmail || validStatus}
+                            disabled={!inputName || !inputEmail  || validEmail || !correctEmail }
                             sx={{
                                 color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
                                     boxShadow: 10,

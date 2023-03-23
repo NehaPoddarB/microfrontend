@@ -40,7 +40,7 @@ build/Release
 # Dependency directories
 angular-container/node_modules/
 angular-mfe/node_modules/
-react-mfe/node_modules/
+company-management/node_modules/
 # react-web-mfe/node_modules/
 vue-mfe
 jspm_packages/
@@ -112,8 +112,8 @@ angular-container/.angular
 angular-container/.vscode
 angular-mfe/.angular
 angular-mfe/.vscode
-react-mfe/public
+company-management/public
 angular-mfe/package-lock.json
 angular-container/package-lock.json
-react-mfe/package-lock.json
+company-management/package-lock.json
 # react-web-mfe/package-lock.json

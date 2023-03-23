@@ -20,8 +20,8 @@ export default function Header() {
         aria-label="Platform"
         sx={{marginTop:6, marginLeft:'2rem'}}
       >
-        <ToggleButton value="studio"><Link to="/home/react/studio" style={{ textDecoration: 'none',color:'black' }}>Studio</Link></ToggleButton>
-        <ToggleButton value="employee"><Link to="/home/react/employee" style={{ textDecoration: 'none', color:'black' }}>Employee</Link></ToggleButton>
+        <ToggleButton value="studio"><Link to="/home/company/studio" style={{ textDecoration: 'none',color:'black' }}>Studio</Link></ToggleButton>
+        <ToggleButton value="employee"><Link to="/home/company/employee" style={{ textDecoration: 'none', color:'black' }}>Employee</Link></ToggleButton>
       </ToggleButtonGroup>
     </>
   );

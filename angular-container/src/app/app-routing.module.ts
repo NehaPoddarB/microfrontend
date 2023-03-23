@@ -32,7 +32,7 @@ const routes: Routes = [
           canActivate: [SuperAdminAuthGuard],
     },
     {
-      path: 'react',
+      path: 'company',
       component: WebComponentWrapper,
       data: {
         type: 'script',
