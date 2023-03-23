@@ -38,8 +38,8 @@ bower_components
 build/Release
 
 # Dependency directories
-angular-container/node_modules/
-angular-mfe/node_modules/
+multi-tenant-management/node_modules/
+tenant-management/node_modules/
 company-management/node_modules/
 # react-web-mfe/node_modules/
 vue-mfe
@@ -108,12 +108,12 @@ dist
 .tern-port
 
 #Other unwanted folders
-angular-container/.angular
-angular-container/.vscode
-angular-mfe/.angular
-angular-mfe/.vscode
+multi-tenant-management/.angular
+multi-tenant-management/.vscode
+tenant-management/.angular
+tenant-management/.vscode
 company-management/public
-angular-mfe/package-lock.json
-angular-container/package-lock.json
+tenant-management/package-lock.json
+multi-tenant-management/package-lock.json
 company-management/package-lock.json
 # react-web-mfe/package-lock.json

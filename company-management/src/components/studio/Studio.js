@@ -18,7 +18,7 @@ const Studio = () => {
     { id: 'studio_name', label: 'Studio Name', minWidth: 300 },
     { id: 'studio_code', label: 'Studio Code', minWidth: 300 },
     { id: 'studioAdmin_email', label: 'Email', minWidth: 300 },
-    { id: 'status', label: 'Status', minWidth: 300 },
+    { id: 'status', label: 'Inactive / Active', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
   ];
   const [openEdit, setOpenEdit] = useState(false);
