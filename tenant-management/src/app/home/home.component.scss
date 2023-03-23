@@ -4,6 +4,13 @@
 .title{
   color:rgb(255, 86, 80);
 }
+.edit-icon{
+  color:#0288d1;
+  background-color: transparent;
+  border: 1px solid #e8e5e5;
+  border-radius: 50%;
+  padding: 6px;
+}
 ::ng-deep .create-modal{
   top: 10%;
    width: 50% !important;
