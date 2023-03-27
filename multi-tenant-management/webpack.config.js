@@ -9,6 +9,9 @@ sharedMappings.register(
   [/* mapped paths to share */]);
 
 module.exports = {
+  devServer: {
+    allowedHosts: 'all',
+  },
   output: {
     uniqueName: "multi-tenant-management",
     publicPath: "auto"
