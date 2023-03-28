@@ -29,12 +29,11 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     let studioCodelist = []
     if (studioCode.length != 0) {
         studioCodelist = studioCode.map((item) => {
-            let code,studioName
+            let studioName
             if (item.status === 'enable') {
-                code = item.studio_code
                 studioName=item.studio_name
             }
-            return {code, studioName}
+            return  studioName
         })
     }
     const onBlurStudioHandler = () => {
@@ -93,7 +92,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
     };
     const getStudioCodeInfo = function getInfo1() {
         return new Promise((resolve, reject) => {
-            fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
+            fetch("http://localhost:5000/studios/", {
                 method: 'GET',
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -118,8 +117,8 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
         getStudioCodeInfo()
     }, [])
     const confirmEditActionHandler = async () => {
-        const newData = { employee_name: inputName, employee_email: inputEmail, studio_code: codeSelect }
-        await fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/", {
+        const newData = { employee_name: inputName, employee_email: inputEmail, studio_name: codeSelect}
+        await fetch("http://localhost:5000/employees/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -177,7 +176,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                                 onChange={handleChange}
                                 onBlur={onBlurStudioHandler}
                             >
-                                {studioCodelist.map((item) => item != undefined ? <MenuItem value={item.code}>{item.studioName}</MenuItem> : null)}
+                                {studioCodelist.map((item) => item != undefined ? <MenuItem value={item}>{item}</MenuItem> : null)}
 
                             </Select>
                         </FormControl>

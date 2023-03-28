@@ -7,7 +7,7 @@ import { Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-container';
+  title = 'multi-tenant-management';
 
 ngOnInit() {
 

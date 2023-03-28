@@ -24,12 +24,11 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
     let studioCodelist = []
     if (inputCode.length != 0) {
         studioCodelist = inputCode.map((item) => {
-            let code, studioName
+            let studioName
             if (item.status === 'enable') {
-                code = item.studio_code
                 studioName = item.studio_name
             }
-            return {code, studioName}
+            return studioName
         })
     }
     const openConfirmationDialogHandler = () => {
@@ -99,7 +98,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
     };
     const getStudioCodeInfo = function getInfo1() {
         return new Promise((resolve, reject) => {
-            fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
+            fetch("http://localhost:5000/studios/", {
                 method: 'GET',
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -124,8 +123,8 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
         getStudioCodeInfo()
     }, [])
     const confirmEditActionHandler = async () => {
-        const newData = { studio_code: codeSelect, employee_name: inputName, employee_email: inputEmail, status: inputStatus };
-        await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${id}`, {
+        const newData = { studio_name: codeSelect, employee_name: inputName, employee_email: inputEmail, status: inputStatus };
+        await fetch(`http://localhost:5000/employees/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -182,7 +181,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
                                     label="Studio"
                                     onChange={handleChange}
                                 >
-                                    {studioCodelist.map((item) => item != undefined ? <MenuItem value={item.code}>{item.studioName}</MenuItem> : null)}
+                                    {studioCodelist.map((item) => item != undefined ? <MenuItem value={item}>{item}</MenuItem> : null)}
 
                                 </Select>
                         </FormControl>
