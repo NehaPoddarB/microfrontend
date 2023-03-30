@@ -29,6 +29,7 @@ button {
     height: 3rem;
     background-color: #0d6efd;
     font-size: 0.875rem;
+    cursor: pointer;
 }
 button:hover{
     background-color: #0288d1;
