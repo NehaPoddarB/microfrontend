@@ -23,16 +23,19 @@ export class HomeComponent implements OnInit {
   TenantId: string | undefined;
   deleteId: any = '';
   statusMsg:any=''
+  showLoading: boolean = false;
   constructor(private TenantService: TenantService, private modalService: BsModalService ,private toastr:ToastrService) { }
 
   ngOnInit() {
-    this.getAllTenentData()
+    this.getAllTenentData();
   }
 
   getAllTenentData() {
+    this.showLoading = true;
     this.TenantService.getTenant().subscribe(res => {
       if (res) {
         this.tableRow = res.tenants;
+        this.showLoading = false;
       }
     })
   }
