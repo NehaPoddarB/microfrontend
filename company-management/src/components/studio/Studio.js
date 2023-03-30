@@ -164,7 +164,7 @@ const Studio = () => {
               setData(data1.studios)
               setLoading(false)
               resolve(data1)
-            }, 3000)
+            }, 1000)
           }
         })
     })
@@ -249,9 +249,10 @@ const Studio = () => {
     }
     )
   }
+
   return (
     <>
-      {studioStateList.length > 0 ? (<StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />)
+      {studioStateData.length > 0 ? (<StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />)
         : loading ? (loading && <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
           <ClassicSpinner size={70} color="#000" loading={loading} />
         </Backdrop>

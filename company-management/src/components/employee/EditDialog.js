@@ -260,4 +260,4 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, id, status, 
 
 }
 
-export default EditDialog
+export default EditDialog;

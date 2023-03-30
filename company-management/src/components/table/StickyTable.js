@@ -11,10 +11,10 @@ import { Box, Button, Typography } from '@mui/material';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import TableCards from '../TableCard/Tablecards';
 // import WebButton from 'button/Button-web-component';
-import '../../../../indexOne';
+import '../../../../library/indexOne';
 
 
-export default function StickyTable({ columns, rows, label, handleOpenAdd, tableName }) {
+export default function StickyTable({ columns, rows, label, tableName, handleOpenAdd }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const theme = useTheme();
@@ -40,10 +40,11 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
         }}>
           {label}
         </Typography>
-        {/* <WebButton/> */}
-        <web-button-element onClick={
+        {/* <WebButton onClick={
             handleOpenAdd
-          }></web-button-element>
+          }/> */}
+        <web-button-element onClick={
+            handleOpenAdd} >+ {"Add"} {tableName}</web-button-element>
         {/* <Button
           variant='contained'
           color='info'

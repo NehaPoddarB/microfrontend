@@ -162,7 +162,7 @@ const Employee = () => {
             setTimeout(()=>{
               setData(data1.users)
               setLoading(false)
-              resolve(data1)},3000)
+              resolve(data1)},1000)
           }
         })
     })
@@ -243,9 +243,10 @@ const Employee = () => {
     }
     )
   }
+  console.log(employeeStateData)
   return (
     <>
-      {employeeStateList.length >0 ? (<StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee" />)
+      {employeeStateData.length > 0 ? (<StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee" />)
         : loading ?(loading && <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
           <ClassicSpinner size={70} color="#000" loading={loading} />
         </Backdrop>
