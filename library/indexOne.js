@@ -40,42 +40,29 @@ button:hover{
   </button>`;
 
 class ButtonElement extends HTMLElement {
-    get buttonElement() {
-        return this.shadowRoot.querySelector('button');
-    }
-    static get observedAttributes() {
-        return ['handleOpenAdd'];
-      }
-      _handleOpenAdd = false;
-
-  get closable() {
-    return this._handleOpenAdd;
+  // get buttonElement() {
+  //   return this.shadowRoot.querySelector('button');
+  // }
+  // static get observedAttributes() {
+  //   return ['handleOpenAdd'];
+  // }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    // const handleOpenAdd = this.getAttribute('handleOpenAdd')
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
-
-  set handleOpenAdd(value) {
-    this._handleOpenAdd = value;
-    
-    if (this.buttonElement) {
-      this.buttonElement.hidden = value;
-    }
-  }
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        const handleOpenAdd = this.getAttribute('handleOpenAdd')
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-    // connectedCallback() {
-    //     this.buttonElement.hidden = this._closable;
-    //     this.buttonElement.addEventListener('click', () => this.dispatchEvent(new CustomEvent('handleOpenAdd')));
-    //     // const handleOpenAdd = this.getAttribute('handleOpenAdd')
-    //     // this.buttonElement.addEventListener('click', () => this.dispatchEvent(new CustomEvent('handleOpenAdd')));
-    // }
-    // attributeChangedCallback(attrName, oldValue, newValue) {
-    //     if (attrName === 'handleOpenAdd' && oldValue !== newValue) {
-    //       this.handleOpenAdd = newValue;
-    //     }
-    //   }
+  // connectedCallback() {
+  //     this.buttonElement.hidden = this._closable;
+  //     this.buttonElement.addEventListener('click', () => this.dispatchEvent(new CustomEvent('handleOpenAdd')));
+  //     // const handleOpenAdd = this.getAttribute('handleOpenAdd')
+  //     // this.buttonElement.addEventListener('click', () => this.dispatchEvent(new CustomEvent('handleOpenAdd')));
+  // }
+  // attributeChangedCallback(attrName, oldValue, newValue) {
+  //     if (attrName === 'handleOpenAdd' && oldValue !== newValue) {
+  //       this.handleOpenAdd = newValue;
+  //     }
+  //   }
 
 }
 

@@ -34,8 +34,12 @@ export class HomeComponent implements OnInit {
     this.showLoading = true;
     this.TenantService.getTenant().subscribe(res => {
       if (res) {
-        this.tableRow = res.tenants;
-        this.showLoading = false;
+        setTimeout(()=>{
+          this.tableRow = res.tenants;
+          this.showLoading = false;
+        },1000)
+        // this.tableRow = res.tenants;
+        // this.showLoading = false;
       }
     })
   }
