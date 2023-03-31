@@ -27,33 +27,41 @@
     </div>
   </div>
 <div class="mb-2">
-<ng-container *ngIf="tableRow.length; else load">
-  <div class="report-body cursor-pointer px-3" *ngFor="let row of tableRow">
-    <hr>
-  <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 g-4">
-    <div class="col-xxl-3 d-flex">
-        <span>{{row?.tenant_name}}</span>
-    </div>
-
-    <div class="col-xxl-2 d-flex">
-      <span>{{row.tenant_code}}</span>
-
-    </div>
-    <div class="col-xxl-3 d-flex">
-      <span>{{row.tenant_email}}</span>
-
-    </div>
-    <div class="col-xxl-2 d-flex">
-      <label class="switch" >
-        <input type="checkbox" [checked]="row.status==='enable'" (click)="openDeleteModal(myDeleteModal, row.tenant_id, row.status)" >
-        <span class="slider round" ></span>
-      </label>
-    </div>
-    <div class="col-xxl-2 d-flex justify-content-center">
-      <i class="material-icons edit-icon cursor-pointer" (click)="openModal(myModal,row.tenant_id)">edit</i>
+<ng-container *ngIf="!showLoading; else load">
+  <div *ngIf="tableRow.length!==0">
+    <div class="report-body cursor-pointer px-3" *ngFor="let row of tableRow">
+      <hr>
+    <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 g-4">
+      <div class="col-xxl-3 d-flex">
+          <span>{{row?.tenant_name}}</span>
+      </div>
+  
+      <div class="col-xxl-2 d-flex">
+        <span>{{row.tenant_code}}</span>
+  
+      </div>
+      <div class="col-xxl-3 d-flex">
+        <span>{{row.tenant_email}}</span>
+  
+      </div>
+      <div class="col-xxl-2 d-flex">
+        <label class="switch" >
+          <input type="checkbox" [checked]="row.status==='enable'" (click)="openDeleteModal(myDeleteModal, row.tenant_id, row.status)" >
+          <span class="slider round" ></span>
+        </label>
+      </div>
+      <div class="col-xxl-2 d-flex justify-content-center">
+        <i class="material-icons edit-icon cursor-pointer" (click)="openModal(myModal,row.tenant_id)">edit</i>
+      </div>
     </div>
   </div>
-</div>
+  </div>
+  <div *ngIf="tableRow.length===0">
+    <hr/>
+    <div class="d-flex justify-content-center mt-4 mb-4">
+      <span><i>No Data to display</i></span>
+    </div>
+  </div>
 </ng-container>
 <ng-template #load>
   <hr>

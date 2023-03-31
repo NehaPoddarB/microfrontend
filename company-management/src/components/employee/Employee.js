@@ -143,29 +143,37 @@ const Employee = () => {
     setOpenSnackbar(false);
   };
   const getInfo = function getInfo1() {
-    return new Promise((resolve, reject) => {
-      fetch("http://localhost:5000/employees/", {
+    return new Promise(async (resolve, reject) => {
+      const response = await fetch("http://localhost:5000/employees/", {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         },
       })
-        .then(
-          response => response.json(),
-          () => {
-            reject()
-            return null
-          }
-        )
-        .then(data1 => {
-          if (data1) {
-            setTimeout(() => {
-              setData(data1.users)
-              setLoading(false)
-              resolve(data1)
-            }, 1000)
-          }
-        })
+      if (response.ok) {
+        const data1 = await response.json();
+        setTimeout(() => {
+          setData(data1.users)
+          setLoading(false)
+          resolve(data1)
+        }, 1000)
+      }
+      else if(response.statusText === "Unauthorized"){
+        const error = "Something went wrong Please login again"
+        setOpenSnackbar(true);
+        setLoading(false)
+        setSeveritySnackbar("error")
+        setMessage(error)
+        return reject(error);
+      }
+      else{
+        const error = await response.json();
+        setOpenSnackbar(true);
+        setLoading(false)
+        setSeveritySnackbar("error")
+        setMessage(error.message)
+        return reject(error);
+      }
     })
   }
   useEffect(() => {
