@@ -1,7 +1,9 @@
-.submit-btn{
-background-color: rgb(255, 86, 80);
-color: white;
-}
-.img-fluid{
-height: 600px !important;
-}
+.cascading-right {
+    margin-right: -50px;
+  }
+
+  @media (max-width: 991.98px) {
+    .cascading-right {
+      margin-right: 0;
+    }
+  }
