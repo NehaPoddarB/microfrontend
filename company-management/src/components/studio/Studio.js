@@ -11,7 +11,6 @@ import Switch from '@mui/material/Switch';
 import { pink } from '@mui/material/colors';
 import Backdrop from '@mui/material/Backdrop';
 import { ClassicSpinner } from "react-spinners-kit";
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 
 
 
@@ -252,24 +251,10 @@ const Studio = () => {
 
   return (
     <>
-      {studioStateData.length > 0 ? (<StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />)
-        : loading ? (loading && <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
-          <ClassicSpinner size={70} color="#000" loading={loading} />
-        </Backdrop>
-        ):<Container maxWidth="xs"> <Box sx={{display:'flex', marginTop:'5rem' }}>
-        <ErrorRoundedIcon fontSize="large" sx={{color:"rgb(255, 86, 80)", marginRight:1}}/>
-        <Typography
-            variant="h4"
-            fontWeight="bold"
-            mb={0.5}
-            alignItems="left"
-            alignContent="left"
-            sx={{ color: "rgb(255, 86, 80)", width: "100%" }}
-        >
-            No Studio Data Found
-        </Typography>
-        </Box>
-        </Container> }
+      {loading ? <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
+        <ClassicSpinner size={70} color="#000" loading={loading} />
+      </Backdrop>:(<StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />)}
+
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}

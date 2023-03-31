@@ -159,10 +159,11 @@ const Employee = () => {
         )
         .then(data1 => {
           if (data1) {
-            setTimeout(()=>{
+            setTimeout(() => {
               setData(data1.users)
               setLoading(false)
-              resolve(data1)},1000)
+              resolve(data1)
+            }, 1000)
           }
         })
     })
@@ -243,27 +244,11 @@ const Employee = () => {
     }
     )
   }
-  console.log(employeeStateData)
   return (
     <>
-      {employeeStateData.length > 0 ? (<StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee" />)
-        : loading ?(loading && <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
-          <ClassicSpinner size={70} color="#000" loading={loading} />
-        </Backdrop>
-        ): <Container maxWidth="sm"> <Box sx={{display:'flex', marginTop:'5rem' }}>
-        <ErrorRoundedIcon fontSize="large" sx={{color:"rgb(255, 86, 80)", marginRight:1}}/>
-        <Typography
-            variant="h4"
-            fontWeight="bold"
-            mb={0.5}
-            alignItems="left"
-            alignContent="left"
-            sx={{ color: "rgb(255, 86, 80)", width: "100%" }}
-        >
-            No Employee Data Found
-        </Typography>
-        </Box>
-        </Container>}
+      {loading ? <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
+        <ClassicSpinner size={70} color="#000" loading={loading} />
+      </Backdrop> : (<StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee" />)}
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}
