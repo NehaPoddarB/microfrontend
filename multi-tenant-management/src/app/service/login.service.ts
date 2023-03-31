@@ -31,7 +31,6 @@ export class LoginService {
         const expireIn:any = new Date(this.parseJwt(res.accessToken).exp *1000)
         const currentTime:any = new Date()
         this.expireTime = expireIn - currentTime;
-        console.log(expireIn,this.expireTime)
         this.setIntervalForRefresh()
       } else {
         localStorage.setItem('auth', 'unauthorized')

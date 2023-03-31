@@ -78,7 +78,7 @@ export default function StickyTable({ columns, rows, label, tableName, handleOpe
             overflowX: "auto",
             marginBottom: '4rem',
           }}>
-            {showText ? <Table stickyHeader aria-label="sticky table" sx={{ padding: '17px' }}>
+            {showText ? <Table stickyHeader aria-label="sticky table" sx={{ px: '17px', pt: '17px' }}>
               <TableHead >
                 <TableRow sx={{
                   "& th": {
