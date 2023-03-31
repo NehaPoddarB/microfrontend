@@ -23,18 +23,18 @@ const TableCards = ({ rows, columns }) => {
 
     return (
         <React.Fragment>
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: '11px', backgroundColor:'#fafafa'}}>
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: '11px', backgroundColor: '#fafafa' }}>
                 <Box sx={{ display: "flex" }}>
                     <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-                            {tableColumn.map((c) => {
-                                if (c.id !== 'actions') {
-                                    return <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", lineHeight: '34px' }}>
+                        {tableColumn.map((c) => {
+                            if (c.id !== 'actions') {
+                                return <Box key={c.id} sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", lineHeight: '34px' }}>
 
-                                        <Typography variant="h6" sx={{ paddingLeft: "1rem", color: 'black' }}> {c.label}:</Typography>
-                                        <Typography variant="body" sx={{ paddingLeft: "0.5rem", color: 'black', fontSize: '1rem' }}> {rows[c.id]} </Typography>
-                                    </Box>
-                                }
-                            })}
+                                    <Typography variant="h6" sx={{ paddingLeft: "1rem", color: 'black' }}> {c.label}:</Typography>
+                                    <Typography variant="body" sx={{ paddingLeft: "0.5rem", color: 'black', fontSize: '1rem' }}> {rows[c.id]} </Typography>
+                                </Box>
+                            }
+                        })}
                     </Box>
                 </Box>
                 <Box sx={{
@@ -55,27 +55,17 @@ const TableCards = ({ rows, columns }) => {
                         position: "absolute",
                         left: "-21px"
                     }} >
-                            {tableColumn.map((c) => {
-                                if (c.id === 'actions') {
-                                    return <Box
-                                        border={2}
-                                        borderColor='grey'
-                                        borderRadius='2rem'
-                                        sx={{
-                                            backgroundColor: 'black',
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignContent: "stretch",
-                                            justifyContent: "space-evenly",
-                                            alignItems: "stretch",
-                                            boxShadow: "10px 10px 10px #007fd1",
-                                            height: "100%",
-                                            width: "2.5rem",
-                                            marginLeft: "1rem",
-                                            paddingLeft: '6px'
-                                        }}><div style={{ boxShadow: '0px' }}> {rows[c.id]}</div><Typography variant="subtitle2" sx={{color:"white"}}>Edit</Typography></Box>
-                                }
-                            })}
+                        {tableColumn.map((c) => {
+                            if (c.id === 'actions') {
+                                return <Box key={c.id}>
+                                    <div style={{ boxShadow: '0px' }}> {rows[c.id]}</div><Typography variant="subtitle2"
+                                    sx={{
+                                        left: "20px",
+                                        position: "absolute",
+                                        marginTop: "9px", color: "black"
+                                    }}>Edit</Typography></Box>
+                            }
+                        })}
                     </Box> : null}
                 </Box>
             </Box>

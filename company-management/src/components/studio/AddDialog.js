@@ -86,7 +86,7 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
     };
     const confirmAddActionHandler = async () => {
         const newData = { studio_code: inputCode, studio_name: inputName, studioAdmin_email: inputEmail };
-        await fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
+        await fetch("http://localhost:5000/studios/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

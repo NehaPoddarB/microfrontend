@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { TenantService } from '../service/tenant.service';
-import '../../../../indexOne';
+import '../../../../library/indexOne';
 
 @Component({
   selector: 'app-home',
@@ -23,16 +23,23 @@ export class HomeComponent implements OnInit {
   TenantId: string | undefined;
   deleteId: any = '';
   statusMsg:any=''
+  showLoading: boolean = false;
   constructor(private TenantService: TenantService, private modalService: BsModalService ,private toastr:ToastrService) { }
 
   ngOnInit() {
-    this.getAllTenentData()
+    this.getAllTenentData();
   }
 
   getAllTenentData() {
+    this.showLoading = true;
     this.TenantService.getTenant().subscribe(res => {
       if (res) {
-        this.tableRow = res.tenants;
+        setTimeout(()=>{
+          this.tableRow = res.tenants;
+          this.showLoading = false;
+        },1000)
+        // this.tableRow = res.tenants;
+        // this.showLoading = false;
       }
     })
   }

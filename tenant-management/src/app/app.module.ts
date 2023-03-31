@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { CreateTenantComponent } from './create-tanent/create-tenant.component';
+// import { WebButton } from 'button/Button-web-component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-   CreateTenantComponent
+   CreateTenantComponent,
+  //  WebButton,
   ],
   imports: [
     BrowserModule,

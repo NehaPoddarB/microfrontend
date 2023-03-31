@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import StickyTable from '../table/StickyTable';
 import { Box, Button, Container, IconButton, Tooltip, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AddDialog from './AddDialog';
 import EditDialog from './EditDialog';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
@@ -11,6 +9,9 @@ import ToastMessage from '../snackbar/ToastMessage';
 import { alpha, styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { pink } from '@mui/material/colors';
+import Backdrop from '@mui/material/Backdrop';
+import { ClassicSpinner } from "react-spinners-kit";
+
 
 
 const Studio = () => {
@@ -30,6 +31,7 @@ const Studio = () => {
   const [data, setData] = useState([])
   const [message, setMessage] = useState('');
   const [severitySnackbar, setSeveritySnackbar] = useState('');
+  const [loading, setLoading] = useState(true);
 
   let color = "#5cb85c"
   const GreenSwitch = styled(Switch)(({ theme }) => ({
@@ -102,9 +104,9 @@ const Studio = () => {
       setMessage("Studio not edited Successfully");
     }
   }
-  const confirmDeleteActionHandler = async (studioData,value) => {
-    const newData = { studio_code: studioData.studio_code, studio_name: studioData.studio_name, studioAdmin_email: studioData.studioAdmin_email, status: value==='enable'? "enable" :"disable" };
-    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/${studioData.studio_id}`, {
+  const confirmDeleteActionHandler = async (studioData, value) => {
+    const newData = { studio_code: studioData.studio_code, studio_name: studioData.studio_name, studioAdmin_email: studioData.studioAdmin_email, status: value === 'enable' ? "enable" : "disable" };
+    await fetch(`http://localhost:5000/studios/${studioData.studio_id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -116,11 +118,11 @@ const Studio = () => {
         if (e.ok) {
           setSeveritySnackbar("success")
           setOpenSnackbar(true);
-          value==='disable'? setMessage('Studio Disabled Successfully') : setMessage('Studio Enabled Successfully')
+          value === 'disable' ? setMessage('Studio Disabled Successfully') : setMessage('Studio Enabled Successfully')
         } else {
           setOpenSnackbar(true);
           setSeveritySnackbar("error")
-          value==='enable'? setMessage('Studio not disabled') : setMessage('Studio not enabled')
+          value === 'enable' ? setMessage('Studio not disabled') : setMessage('Studio not enabled')
         }
       });
     getInfo();
@@ -130,10 +132,10 @@ const Studio = () => {
   };
   const switchEnableHandler = (value, item) => {
     if (value === "enable") {
-      confirmDeleteActionHandler(item,value);
+      confirmDeleteActionHandler(item, value);
     }
     else {
-      confirmDeleteActionHandler(item,value);
+      confirmDeleteActionHandler(item, value);
     }
   }
   const closeDeleteActionHandler = () => {
@@ -141,26 +143,37 @@ const Studio = () => {
     setOpenSnackbar(false);
   };
   const getInfo = function getInfo1() {
-    return new Promise((resolve, reject) => {
-      fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/", {
+    return new Promise(async (resolve, reject) => {
+      const response = await fetch("http://localhost:5000/studios/", {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         },
       })
-        .then(
-          response => response.json(),
-          () => {
-            reject()
-            return null
-          }
-        )
-        .then(data1 => {
-          if (data1) {
-            setData(data1.studios)
-            resolve(data1)
-          }
-        })
+      if (response.ok) {
+        const data1 = await response.json();
+        setTimeout(() => {
+          setData(data1.studios)
+          setLoading(false)
+          resolve(data1)
+        }, 1000)
+      }
+      else if(response.statusText === "Unauthorized"){
+        const error = "Something went wrong Please login again"
+        setOpenSnackbar(true);
+        setLoading(false)
+        setSeveritySnackbar("error")
+        setMessage(error)
+        return reject(error);
+      }
+      else{
+        const error = await response.json();
+        setOpenSnackbar(true);
+        setLoading(false)
+        setSeveritySnackbar("error")
+        setMessage(error.message)
+        return reject(error);
+      }
     })
   }
   useEffect(() => {
@@ -175,13 +188,13 @@ const Studio = () => {
       const studio_name = item.studio_name;
       const studio_code = item.studio_code;
       const studioAdmin_email = item.studioAdmin_email;
-      const status = item.status==='enable' ? (
+      const status = item.status === 'enable' ? (
         <Tooltip title={"Active"}>
-        <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked/>
+          <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked />
         </Tooltip>
       ) : (
         <Tooltip title={"Inactive"}>
-        <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
+          <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
         </Tooltip>
 
       );
@@ -206,7 +219,7 @@ const Studio = () => {
             >
               <Tooltip title={"Edit"}>
                 <Box sx={{
-                  width:"100%",
+                  width: "100%",
                   display: "inline-block",
                   borderRadius: "60px",
                   boxShadow: "0 0 2px #888",
@@ -243,9 +256,13 @@ const Studio = () => {
     }
     )
   }
+
   return (
     <>
-      <StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />
+      {loading ? <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
+        <ClassicSpinner size={70} color="#000" loading={loading} />
+      </Backdrop>:(<StickyTable columns={columns} rows={studioStateList} label="Studio Management" handleOpenAdd={handleOpenAdd} tableName="Studio" />)}
+
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}

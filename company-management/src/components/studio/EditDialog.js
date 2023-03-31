@@ -95,7 +95,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, status, getI
     }
     const confirmEditActionHandler = async () => {
         const newData = { studio_code: inputCode, studio_name: inputName, studioAdmin_email: inputEmail, status: inputStatus };
-        await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/studios/${id}`, {
+        await fetch(`http://localhost:5000/studios/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

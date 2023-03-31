@@ -6,8 +6,19 @@ import { ApiService } from './api.service';
 })
 export class LoginService {
  timer:any
+  expireTime: number=0;
 
   constructor(private router: Router, private apiService: ApiService) { }
+
+  parseJwt (token:any) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  
+    return JSON.parse(jsonPayload);
+  }
 
   checkCredentials(event: any) {
     this.apiService.postData(event).subscribe((res: any) => {
@@ -17,9 +28,10 @@ export class LoginService {
         localStorage.setItem('role', res.tenant_role)
         localStorage.setItem('refreshToken', res.refreshToken)
         this.router.navigate(['/home'])
-        this.timer =setInterval(() => {
-          this.refreshToken()
-        },140000);
+        const expireIn:any = new Date(this.parseJwt(res.accessToken).exp *1000)
+        const currentTime:any = new Date()
+        this.expireTime = expireIn - currentTime;
+        this.setIntervalForRefresh()
       } else {
         localStorage.setItem('auth', 'unauthorized')
       }
@@ -27,6 +39,12 @@ export class LoginService {
       localStorage.setItem('auth', 'unauthorized')
     }
     )
+  }
+  setIntervalForRefresh(){
+    this.timer =setInterval(() => {
+      this.refreshToken()
+    },this.expireTime-10000);
+
   }
   refreshToken() {
     let token = localStorage.getItem('refreshToken')

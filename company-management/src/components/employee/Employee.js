@@ -10,11 +10,15 @@ import ToastMessage from '../snackbar/ToastMessage';
 import { alpha, styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { pink } from '@mui/material/colors';
+import Backdrop from '@mui/material/Backdrop';
+import { ClassicSpinner } from "react-spinners-kit";
+import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
+
 
 const Employee = () => {
   const columns = [
     { id: 'employee_name', label: 'Name', minWidth: 300 },
-    { id: 'studio_code', label: 'Studio', minWidth: 300 },
+    { id: 'studio_name', label: 'Studio', minWidth: 300 },
     { id: 'employee_email', label: 'Email', minWidth: 300 },
     { id: 'status', label: 'Inactive / Active', minWidth: 300 },
     { id: 'actions', label: 'Actions', minWidth: 0 }
@@ -28,6 +32,7 @@ const Employee = () => {
   const [message, setMessage] = useState("");
   const [severitySnackbar, setSeveritySnackbar] = useState("");
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true);
 
   let color = "#5cb85c"
   const GreenSwitch = styled(Switch)(({ theme }) => ({
@@ -102,30 +107,30 @@ const Employee = () => {
 
   const switchEnableHandler = (value, item) => {
     if (value === "enable") {
-      confirmDeleteActionHandler(item,value);
+      confirmDeleteActionHandler(item, value);
     }
     else {
-      confirmDeleteActionHandler(item,value);
+      confirmDeleteActionHandler(item, value);
     }
   }
-  const confirmDeleteActionHandler = async (employeeData,value) => {
-    const newData = { studio_code: employeeData.studio_code, employee_name: employeeData.employee_name, employee_email: employeeData.employee_email, status: value==='enable'? "enable" :"disable" };
-    await fetch(`https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/${employeeData.employee_id}`, {
+  const confirmDeleteActionHandler = async (employeeData, value) => {
+    const newData = { studio_name: employeeData.studio_name, employee_name: employeeData.employee_name, employee_email: employeeData.employee_email, status: value === 'enable' ? "enable" : "disable" };
+    await fetch(`http://localhost:5000/employees/${employeeData.employee_id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token')
-    },
+      },
       body: JSON.stringify(newData)
     }).then((e) => {
       if (e.ok) {
         setSeveritySnackbar("success")
         setOpenSnackbar(true);
-        value==='disable'? setMessage('Employee Disabled Successfully') : setMessage('Studio Enabled Successfully')
+        value === 'disable' ? setMessage('Employee Disabled Successfully') : setMessage('Studio Enabled Successfully')
       } else {
         setOpenSnackbar(true);
         setSeveritySnackbar("error")
-        value==='enable'? setMessage('Employee not disabled') : setMessage('Employee not enabled')
+        value === 'enable' ? setMessage('Employee not disabled') : setMessage('Employee not enabled')
       }
     });
     getInfo()
@@ -138,52 +143,62 @@ const Employee = () => {
     setOpenSnackbar(false);
   };
   const getInfo = function getInfo1() {
-    return new Promise((resolve, reject) => {
-      fetch("https://84khoxe5a8.execute-api.ap-south-1.amazonaws.com/dev/employees/", {
+    return new Promise(async (resolve, reject) => {
+      const response = await fetch("http://localhost:5000/employees/", {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         },
       })
-        .then(
-          response => response.json(),
-          () => {
-            reject()
-            return null
-          }
-        )
-        .then(data1 => {
-          if (data1) {
-            setData(data1.users)
-            resolve(data1)
-          }
-        })
+      if (response.ok) {
+        const data1 = await response.json();
+        setTimeout(() => {
+          setData(data1.users)
+          setLoading(false)
+          resolve(data1)
+        }, 1000)
+      }
+      else if(response.statusText === "Unauthorized"){
+        const error = "Something went wrong Please login again"
+        setOpenSnackbar(true);
+        setLoading(false)
+        setSeveritySnackbar("error")
+        setMessage(error)
+        return reject(error);
+      }
+      else{
+        const error = await response.json();
+        setOpenSnackbar(true);
+        setLoading(false)
+        setSeveritySnackbar("error")
+        setMessage(error.message)
+        return reject(error);
+      }
     })
   }
   useEffect(() => {
     getInfo()
   }, [])
-
   let employeeStateData = data;
   let employeeStateList = [];
   if (employeeStateData != null) {
     employeeStateList = employeeStateData.map((item) => {
       const employee_name = item.employee_name;
-      const studio_code = item.studio_code;
+      const studio_name = item.studio_name;
       const employee_email = item.employee_email;
-      const status = item.status==='enable' ? (
+      const status = item.status === 'enable' ? (
         <Tooltip title={"Active"}>
-        <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked/>
+          <GreenSwitch onClick={() => switchEnableHandler("disable", item)} defaultChecked />
         </Tooltip>
       ) : (
         <Tooltip title={"Inactive"}>
-        <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
+          <RedSwitch onClick={() => switchEnableHandler("enable", item)} />
         </Tooltip>
       );
       return {
         ...item,
         employee_name,
-        studio_code,
+        studio_name,
         employee_email,
         status,
         actions: (
@@ -239,7 +254,9 @@ const Employee = () => {
   }
   return (
     <>
-      <StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee"/>
+      {loading ? <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open >
+        <ClassicSpinner size={70} color="#000" loading={loading} />
+      </Backdrop> : (<StickyTable columns={columns} rows={employeeStateList} label="Employee Management" handleOpenAdd={handleOpenAdd} tableName="Employee" />)}
       {openAdd && (<AddDialog
         handleAddClose={handleAddClose}
         openAdd={openAdd}
@@ -248,12 +265,13 @@ const Employee = () => {
       />
       )}
       {openEdit && (<EditDialog
-        code={dataEdit.studio_code}
+        code={dataEdit.studio_name}
         name={dataEdit.employee_name}
         email={dataEdit.employee_email}
         status={dataEdit.status}
         id={dataEdit.employee_id}
         openEdit={openEdit}
+        loading={loading}
         getInfo={getInfo}
         handleEditClose={handleEditClose}
         onEditQuestionComplete={(e) => handleCompleteEdit(e)}

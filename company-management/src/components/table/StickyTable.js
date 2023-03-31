@@ -11,10 +11,11 @@ import { Box, Button, Typography, Container } from '@mui/material';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import TableCards from '../TableCard/Tablecards';
 // import WebButton from 'button/Button-web-component';
-import '../../../../indexOne';
+import '../../../../library/indexOne';
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 
-export default function StickyTable({ columns, rows, label, handleOpenAdd, tableName }) {
+
+export default function StickyTable({ columns, rows, label, tableName, handleOpenAdd }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const theme = useTheme();
@@ -40,10 +41,11 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
         }}>
           {label}
         </Typography>
-        {/* <WebButton/> */}
-        <web-button-element onClick={
+        {/* <WebButton onClick={
             handleOpenAdd
-          }></web-button-element>
+          }/> */}
+        <web-button-element onClick={
+          handleOpenAdd} >+ {"Add"} {tableName}</web-button-element>
         {/* <Button
           variant='contained'
           color='info'
@@ -63,7 +65,7 @@ export default function StickyTable({ columns, rows, label, handleOpenAdd, table
         borderRadius: "0.75rem",
         marginLeft: "2rem",
         marginRight: "2rem",
-        marginTop:'-1rem'
+        marginTop: '-1rem'
       }}>
           <TableContainer sx={{
             width: "max-content",
