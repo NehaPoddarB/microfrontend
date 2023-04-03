@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { SuperAdminAuthGuard } from './service/super-admin-auth.guard';
 import { CompanyGuard } from './service/company.guard';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path:'', redirectTo:'login' , pathMatch:'full'},
@@ -43,6 +44,7 @@ const routes: Routes = [
       } as WebComponentWrapperOptions,
     },]
   },
+  { path:'**', component: PageNotFoundComponent , pathMatch:'full'},
 
 ];
 
