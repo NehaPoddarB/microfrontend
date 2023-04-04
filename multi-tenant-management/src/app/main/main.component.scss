@@ -1,408 +1,445 @@
  .img-logo {
- height: 45px;
- width: auto;
-margin-left: 30px;
-margin-top: 15px;
-border-radius: 0%;
-}
+   height: 45px;
+   width: auto;
+   margin-left: 30px;
+   margin-top: 15px;
+   border-radius: 0%;
+ }
 
-.header a {
-  color: black;
-  text-align: center;
-  padding: 8px;
-  text-decoration: none;
-  font-size: 18px;
-  line-height: 33px;
-  border-radius: 4px;
-  margin: 4px 10px 0px 8px;
-  height: max-content;
-  line-height: 1px;
-}
-
-
-.header a:hover {
-  color: black;
-  transition: all 0.5s;
-  width: fit-content;
-  height: fit-content;
-  padding:8px;
-  background-color: #d9e2e2;
-    transition: 0.7s;
-}
-
-.header a.active {
-  background-color: rgb(255, 86, 80);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
-  color: white;
-  transform: scale(0.8);
-  transition: all 0.5s;
-  color: white;
-}
+ .header a {
+   color: black;
+   text-align: center;
+   padding: 8px;
+   text-decoration: none;
+   font-size: 18px;
+   line-height: 33px;
+   border-radius: 4px;
+   margin: 4px 10px 0px 8px;
+   height: max-content;
+   line-height: 1px;
+ }
 
 
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
-$main-green: #79dd09 !default;
-$main-green-rgb-015: rgba(121, 221, 9, 0.1) !default;
-$main-yellow: #bdbb49 !default;
-$main-yellow-rgb-015: rgba(189, 187, 73, 0.1) !default;
-$main-red: #bd150b !default;
-$main-red-rgb-015: rgba(189, 21, 11, 0.1) !default;
-$main-blue: #0076bd !default;
-$main-blue-rgb-015: rgba(0, 118, 189, 0.1) !default;
+ .header a:hover {
+   color: black;
+   transition: all 0.5s;
+   width: fit-content;
+   height: fit-content;
+   padding: 8px;
+   background-color: #d9e2e2;
+   transition: 0.7s;
+ }
 
-body {
-	font-family: "Baloo 2", cursive;
-	font-size: 16px;
-	color: #ffffff;
-	text-rendering: optimizeLegibility;
-	font-weight: initial;
-}
+ .header a.active {
+   background-color: rgb(255, 86, 80);
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+   color: white;
+   transform: scale(0.8);
+   transition: all 0.5s;
+   color: white;
+ }
 
-.dark {
-	background: #110f16;
-}
+ @media screen and (max-width: 800px) {
+   .header a.active {
+     background-color: rgb(218, 213, 213);
+     box-shadow: 0 0px 0px transparent;
+     color: black;
+   }
+
+   .header a {
+     font-size: 18px;
+     color: black;
+
+   }
+
+   .navbar-collapse {
+     position: relative;
+     background-color: #f8f9fa;
+     right: 0;
+     left: 0;
+     text-align: center;
+     padding: 16px 0;
+   }
+
+   .nav-item {
+    margin-top: 0.50rem;
+
+   }
+ }
 
 
-.light {
-	background: #f3f5f7;
-}
+ @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
+ $main-green: #79dd09 !default;
+ $main-green-rgb-015: rgba(121, 221, 9, 0.1) !default;
+ $main-yellow: #bdbb49 !default;
+ $main-yellow-rgb-015: rgba(189, 187, 73, 0.1) !default;
+ $main-red: #bd150b !default;
+ $main-red-rgb-015: rgba(189, 21, 11, 0.1) !default;
+ $main-blue: #0076bd !default;
+ $main-blue-rgb-015: rgba(0, 118, 189, 0.1) !default;
 
-a, a:hover {
-	text-decoration: none;
-	transition: color 0.3s ease-in-out;
-}
+ body {
+   font-family: "Baloo 2", cursive;
+   font-size: 16px;
+   color: #ffffff;
+   text-rendering: optimizeLegibility;
+   font-weight: initial;
+ }
 
-#pageHeaderTitle {
-	margin: 7rem 0;
-	text-transform: uppercase;
-	text-align: center;
-	font-size: 2.5rem;
-}
+ .dark {
+   background: #110f16;
+ }
 
-/* Cards */
-.postcard {
-  flex-wrap: wrap;
-  display: flex;
-  
-  box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
-  border-radius: 10px;
-  margin: 0 0 2rem 0;
-  overflow: hidden;
-  position: relative;
-  color: #ffffff;
 
-	&.dark {
-		background-color: #18151f;
-	}
-	&.light {
-		background-color: #e1e5ea;
-	}
-	
-	.t-dark {
-		color: #18151f;
-	}
-	
-  a {
-    color: inherit;
-  }
-	
-	h1,	.h1 {
-		margin-bottom: 0.5rem;
-		font-weight: 500;
-		line-height: 1.2;
-	}
-	
-	.small {
-		font-size: 80%;
-	}
+ .light {
+   background: #f3f5f7;
+ }
 
-  .postcard__title {
-    font-size: 1.75rem;
-  }
+ a,
+ a:hover {
+   text-decoration: none;
+   transition: color 0.3s ease-in-out;
+ }
 
-  .postcard__img {
-    max-height: 180px;
-    width: 100%;
-    object-fit: cover;
-    position: relative;
-  }
+ #pageHeaderTitle {
+   margin: 7rem 0;
+   text-transform: uppercase;
+   text-align: center;
+   font-size: 2.5rem;
+ }
 
-  .postcard__img_link {
-    display: contents;
-  }
+ /* Cards */
+ .postcard {
+   flex-wrap: wrap;
+   display: flex;
 
-  .postcard__bar {
-    width: 50px;
-    height: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    background-color: #424242;
-    transition: width 0.2s ease;
-  }
+   box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+   border-radius: 10px;
+   margin: 0 0 2rem 0;
+   overflow: hidden;
+   position: relative;
+   color: #ffffff;
 
-  .postcard__text {
-    padding: 1.5rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+   &.dark {
+     background-color: #18151f;
+   }
 
-  .postcard__preview-txt {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: justify;
-    height: 100%;
-  }
+   &.light {
+     background-color: #e1e5ea;
+   }
 
-  .postcard__tagbox {
-    display: flex;
-    flex-flow: row wrap;
-    font-size: 14px;
-    margin: 20px 0 0 0;
-		padding: 0;
-    justify-content: center;
+   .t-dark {
+     color: #18151f;
+   }
 
-    .tag__item {
-      display: inline-block;
-      background: rgba(83, 83, 83, 0.4);
-      border-radius: 3px;
-      padding: 2.5px 10px;
-      margin: 0 5px 5px 0;
-      cursor: default;
-      user-select: none;
-      transition: background-color 0.3s;
+   a {
+     color: inherit;
+   }
 
-      &:hover {
-        background: rgba(83, 83, 83, 0.8);
-      }
-    }
-  }
+   h1,
+   .h1 {
+     margin-bottom: 0.5rem;
+     font-weight: 500;
+     line-height: 1.2;
+   }
 
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(-70deg, #424242, transparent 50%);
-    opacity: 1;
-    border-radius: 10px;
-  }
+   .small {
+     font-size: 80%;
+   }
 
-  &:hover .postcard__bar {
-    width: 100px;
-  }
-}
+   .postcard__title {
+     font-size: 1.75rem;
+   }
 
-@media screen and (min-width: 769px) {
-  .postcard {
-    flex-wrap: inherit;
+   .postcard__img {
+     max-height: 180px;
+     width: 100%;
+     object-fit: cover;
+     position: relative;
+   }
 
-    .postcard__title {
-      font-size: 2rem;
-    }
+   .postcard__img_link {
+     display: contents;
+   }
 
-    .postcard__tagbox {
-      justify-content: start;
-    }
+   .postcard__bar {
+     width: 50px;
+     height: 10px;
+     margin: 10px 0;
+     border-radius: 5px;
+     background-color: #424242;
+     transition: width 0.2s ease;
+   }
 
-    .postcard__img {
-      max-width: 300px;
-      max-height: 100%;
-      transition: transform 0.3s ease;
-    }
+   .postcard__text {
+     padding: 1.5rem;
+     position: relative;
+     display: flex;
+     flex-direction: column;
+   }
 
-    .postcard__text {
-      padding: 3rem;
-      width: 100%;
-    }
+   .postcard__preview-txt {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     text-align: justify;
+     height: 100%;
+   }
 
-    .media.postcard__text:before {
-      content: "";
-      position: absolute;
-      display: block;
-      background: #18151f;
-      top: -20%;
-      height: 130%;
-      width: 55px;
-    }
+   .postcard__tagbox {
+     display: flex;
+     flex-flow: row wrap;
+     font-size: 14px;
+     margin: 20px 0 0 0;
+     padding: 0;
+     justify-content: center;
 
-    &:hover .postcard__img {
-      transform: scale(1.1);
-    }
+     .tag__item {
+       display: inline-block;
+       background: rgba(83, 83, 83, 0.4);
+       border-radius: 3px;
+       padding: 2.5px 10px;
+       margin: 0 5px 5px 0;
+       cursor: default;
+       user-select: none;
+       transition: background-color 0.3s;
 
-    &:nth-child(2n+1) {
-      flex-direction: row;
-    }
+       &:hover {
+         background: rgba(83, 83, 83, 0.8);
+       }
+     }
+   }
 
-    &:nth-child(2n+0) {
-      flex-direction: row-reverse;
-    }
+   &:before {
+     content: "";
+     position: absolute;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     left: 0;
+     background-image: linear-gradient(-70deg, #424242, transparent 50%);
+     opacity: 1;
+     border-radius: 10px;
+   }
 
-    &:nth-child(2n+1) .postcard__text::before {
-      left: -12px !important;
-      transform: rotate(4deg);
-    }
+   &:hover .postcard__bar {
+     width: 100px;
+   }
+ }
 
-    &:nth-child(2n+0) .postcard__text::before {
-      right: -12px !important;
-      transform: rotate(-4deg);
-    }
-  }
-}
-@media screen and (min-width: 1024px){
-		.postcard__text {
-      padding: 2rem 3.5rem;
-    }
-		
-		.postcard__text:before {
-      content: "";
-      position: absolute;
-      display: block;
-      
-      top: -20%;
-      height: 130%;
-      width: 55px;
-    }
-	
-  .postcard.dark {
-		.postcard__text:before {
-			background: #18151f;
-		}
-  }
-	.postcard.light {
-		.postcard__text:before {
-			background: #e1e5ea;
-		}
-  }
-}
+ @media screen and (min-width: 769px) {
+   .postcard {
+     flex-wrap: inherit;
 
-/* COLORS */
-.postcard .postcard__tagbox .green.play:hover {
-	background: $main-green;
-	color: black;
-}
-.green .postcard__title:hover {
-	color: $main-green;
-}
-.green .postcard__bar {
-	background-color: $main-green;
-}
-.green::before {
-	background-image: linear-gradient(
-		-30deg,
-		$main-green-rgb-015,
-		transparent 50%
-	);
-}
-.green:nth-child(2n)::before {
-	background-image: linear-gradient(30deg, $main-green-rgb-015, transparent 50%);
-}
+     .postcard__title {
+       font-size: 2rem;
+     }
 
-.postcard .postcard__tagbox .blue.play:hover {
-	background: $main-blue;
-}
-.blue .postcard__title:hover {
-	color: $main-blue;
-}
-.blue .postcard__bar {
-	background-color: $main-blue;
-}
-.blue::before {
-	background-image: linear-gradient(-30deg, $main-blue-rgb-015, transparent 50%);
-}
-.blue:nth-child(2n)::before {
-	background-image: linear-gradient(30deg, $main-blue-rgb-015, transparent 50%);
-}
+     .postcard__tagbox {
+       justify-content: start;
+     }
 
-.postcard .postcard__tagbox .red.play:hover {
-	background: $main-red;
-}
-.red .postcard__title:hover {
-	color: $main-red;
-}
-.red .postcard__bar {
-	background-color: $main-red;
-}
-.red::before {
-	background-image: linear-gradient(-30deg, $main-red-rgb-015, transparent 50%);
-}
-.red:nth-child(2n)::before {
-	background-image: linear-gradient(30deg, $main-red-rgb-015, transparent 50%);
-}
+     .postcard__img {
+       max-width: 300px;
+       max-height: 100%;
+       transition: transform 0.3s ease;
+     }
 
-.postcard .postcard__tagbox .yellow.play:hover {
-	background: $main-yellow;
-	color: black;
-}
-.yellow .postcard__title:hover {
-	color: $main-yellow;
-}
-.yellow .postcard__bar {
-	background-color: $main-yellow;
-}
-.yellow::before {
-	background-image: linear-gradient(
-		-30deg,
-		$main-yellow-rgb-015,
-		transparent 50%
-	);
-}
-.yellow:nth-child(2n)::before {
-	background-image: linear-gradient(
-		30deg,
-		$main-yellow-rgb-015,
-		transparent 50%
-	);
-}
+     .postcard__text {
+       padding: 3rem;
+       width: 100%;
+     }
 
-@media screen and (min-width: 769px) {
-	.green::before {
-		background-image: linear-gradient(
-			-80deg,
-			$main-green-rgb-015,
-			transparent 50%
-		);
-	}
-	.green:nth-child(2n)::before {
-		background-image: linear-gradient(
-			80deg,
-			$main-green-rgb-015,
-			transparent 50%
-		);
-	}
+     .media.postcard__text:before {
+       content: "";
+       position: absolute;
+       display: block;
+       background: #18151f;
+       top: -20%;
+       height: 130%;
+       width: 55px;
+     }
 
-	.blue::before {
-		background-image: linear-gradient(
-			-80deg,
-			$main-blue-rgb-015,
-			transparent 50%
-		);
-	}
-	.blue:nth-child(2n)::before {
-		background-image: linear-gradient(80deg, $main-blue-rgb-015, transparent 50%);
-	}
+     &:hover .postcard__img {
+       transform: scale(1.1);
+     }
 
-	.red::before {
-		background-image: linear-gradient(-80deg, $main-red-rgb-015, transparent 50%);
-	}
-	.red:nth-child(2n)::before {
-		background-image: linear-gradient(80deg, $main-red-rgb-015, transparent 50%);
-	}
-	
-	.yellow::before {
-		background-image: linear-gradient(
-			-80deg,
-			$main-yellow-rgb-015,
-			transparent 50%
-		);
-	}
-	.yellow:nth-child(2n)::before {
-		background-image: linear-gradient(
-			80deg,
-			$main-yellow-rgb-015,
-			transparent 50%
-		);
-	}
-}
+     &:nth-child(2n+1) {
+       flex-direction: row;
+     }
+
+     &:nth-child(2n+0) {
+       flex-direction: row-reverse;
+     }
+
+     &:nth-child(2n+1) .postcard__text::before {
+       left: -12px !important;
+       transform: rotate(4deg);
+     }
+
+     &:nth-child(2n+0) .postcard__text::before {
+       right: -12px !important;
+       transform: rotate(-4deg);
+     }
+   }
+ }
+
+ @media screen and (min-width: 1024px) {
+   .postcard__text {
+     padding: 2rem 3.5rem;
+   }
+
+   .postcard__text:before {
+     content: "";
+     position: absolute;
+     display: block;
+
+     top: -20%;
+     height: 130%;
+     width: 55px;
+   }
+
+   .postcard.dark {
+     .postcard__text:before {
+       background: #18151f;
+     }
+   }
+
+   .postcard.light {
+     .postcard__text:before {
+       background: #e1e5ea;
+     }
+   }
+ }
+
+ /* COLORS */
+ .postcard .postcard__tagbox .green.play:hover {
+   background: $main-green;
+   color: black;
+ }
+
+ .green .postcard__title:hover {
+   color: $main-green;
+ }
+
+ .green .postcard__bar {
+   background-color: $main-green;
+ }
+
+ .green::before {
+   background-image: linear-gradient(-30deg,
+       $main-green-rgb-015,
+       transparent 50%);
+ }
+
+ .green:nth-child(2n)::before {
+   background-image: linear-gradient(30deg, $main-green-rgb-015, transparent 50%);
+ }
+
+ .postcard .postcard__tagbox .blue.play:hover {
+   background: $main-blue;
+ }
+
+ .blue .postcard__title:hover {
+   color: $main-blue;
+ }
+
+ .blue .postcard__bar {
+   background-color: $main-blue;
+ }
+
+ .blue::before {
+   background-image: linear-gradient(-30deg, $main-blue-rgb-015, transparent 50%);
+ }
+
+ .blue:nth-child(2n)::before {
+   background-image: linear-gradient(30deg, $main-blue-rgb-015, transparent 50%);
+ }
+
+ .postcard .postcard__tagbox .red.play:hover {
+   background: $main-red;
+ }
+
+ .red .postcard__title:hover {
+   color: $main-red;
+ }
+
+ .red .postcard__bar {
+   background-color: $main-red;
+ }
+
+ .red::before {
+   background-image: linear-gradient(-30deg, $main-red-rgb-015, transparent 50%);
+ }
+
+ .red:nth-child(2n)::before {
+   background-image: linear-gradient(30deg, $main-red-rgb-015, transparent 50%);
+ }
+
+ .postcard .postcard__tagbox .yellow.play:hover {
+   background: $main-yellow;
+   color: black;
+ }
+
+ .yellow .postcard__title:hover {
+   color: $main-yellow;
+ }
+
+ .yellow .postcard__bar {
+   background-color: $main-yellow;
+ }
+
+ .yellow::before {
+   background-image: linear-gradient(-30deg,
+       $main-yellow-rgb-015,
+       transparent 50%);
+ }
+
+ .yellow:nth-child(2n)::before {
+   background-image: linear-gradient(30deg,
+       $main-yellow-rgb-015,
+       transparent 50%);
+ }
+
+ @media screen and (min-width: 769px) {
+   .green::before {
+     background-image: linear-gradient(-80deg,
+         $main-green-rgb-015,
+         transparent 50%);
+   }
+
+   .green:nth-child(2n)::before {
+     background-image: linear-gradient(80deg,
+         $main-green-rgb-015,
+         transparent 50%);
+   }
+
+   .blue::before {
+     background-image: linear-gradient(-80deg,
+         $main-blue-rgb-015,
+         transparent 50%);
+   }
+
+   .blue:nth-child(2n)::before {
+     background-image: linear-gradient(80deg, $main-blue-rgb-015, transparent 50%);
+   }
+
+   .red::before {
+     background-image: linear-gradient(-80deg, $main-red-rgb-015, transparent 50%);
+   }
+
+   .red:nth-child(2n)::before {
+     background-image: linear-gradient(80deg, $main-red-rgb-015, transparent 50%);
+   }
+
+   .yellow::before {
+     background-image: linear-gradient(-80deg,
+         $main-yellow-rgb-015,
+         transparent 50%);
+   }
+
+   .yellow:nth-child(2n)::before {
+     background-image: linear-gradient(80deg,
+         $main-yellow-rgb-015,
+         transparent 50%);
+   }
+ }

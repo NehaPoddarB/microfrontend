@@ -2,10 +2,10 @@
   <div class="container-fluid" style="font-size: large;">
     <a class="navbar-brand" href="/home"> <img class="img-logo"
         src="https://www.knoldus.com/wp-content/uploads/Knoldus-logo.png" alt="logo" /></a>
-    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" (click)="toggleNevbar()">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+    <div class="collapse navbar-collapse" id="navbarResponsive" [ngClass]="{'show': nevbarOpen}">
       <div class="header" style="margin-left: auto;">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item active">
