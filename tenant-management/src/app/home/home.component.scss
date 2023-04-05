@@ -14,7 +14,7 @@
 }
 ::ng-deep .create-modal{
   top: 10%;
-   width: 50% !important;
+   width: 94% !important;
     min-height: 50%;
      .modal-content{
         top:0;
@@ -26,7 +26,7 @@
 
 ::ng-deep .delete-modal{
   top: 30%;
-   width: 30% !important;
+   width: 94% !important;
     min-height: 50%;
      .modal-content{
         top:0;
@@ -93,4 +93,50 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.accordion-card{
+  display: none;
+}
+
+@media screen and (max-width:780px){
+  .table-container{
+    border: 0;
+  }
+  .card-body{
+    background-color: #fafafa;
+  }
+  .accordion-card{
+    display: flex;
+    justify-content: center;
+  }
+  .table-view{
+    display: none;
+  }
+  input:checked + .slider {
+    background-color: #5bc268;
+    height: 1.5rem;
+    width: 53px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+    height: 17px;
+    width: 19px;
+  }
+  .edit-icon{
+    margin-left: 0.8rem;
+  }
+
+  .slider{
+    height: 1.5rem;
+    width: 53px;
+  }
+  
+}
+
+@media screen and (min-width:500px) and (max-width:680px){
+  .table-card{
+    width:28rem;
+  }
 }

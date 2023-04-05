@@ -1,14 +1,15 @@
 <div class="d-flex justify-content-between" style="margin-top: 10rem; margin-left: 3rem; margin-right: 3rem; ">
-<h3 class="fw-bold title">Tenant Management</h3>
-<!-- <button class="btn btn-primary" (click)="openModal(myModal)">+Add Tenant</button> -->
-<web-button-element (click)="openModal(myModal)">+ Add Tenant</web-button-element>
-<!-- <WebButton></WebButton> -->
+  <h3 class="fw-bold title" style="margin: 25px 0 auto;">Tenant Management</h3>
+  <!-- <button class="btn btn-primary" (click)="openModal(myModal)">+Add Tenant</button> -->
+  <web-button-element (click)="openModal(myModal)">+ Add Tenant</web-button-element>
+  <!-- <WebButton></WebButton> -->
 </div>
 
-<div class="card mx-5 mb-3 px-3" style="border-radius: 1rem;">
-  <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 g-4 my-2 px-3">
+<div class="card mx-5 mb-2 px-3 table-container" style="border-radius: 1rem;">
+  <div class="row row-cols-5 row-cols-sm-5 row-cols-md-5 row-cols-lg-5 g-5 px-2 table-view" style="margin-top: -1.5rem;
+  margin-bottom: 0.25rem!important;">
     <div class="col-xxl-3 d-flex">
-        <span class="fw-bold">Name</span>
+      <span class="fw-bold">Name</span>
     </div>
 
     <div class="col-xxl-2 d-flex">
@@ -26,55 +27,77 @@
       <span class="fw-bold">Actions</span>
     </div>
   </div>
-<div class="mb-2">
-<ng-container *ngIf="!showLoading; else load">
-  <div *ngIf="tableRow.length!==0">
-    <div class="report-body cursor-pointer px-3" *ngFor="let row of tableRow">
+  <div class="mb-2">
+    <ng-container *ngIf="!showLoading; else load">
+      <div *ngIf="tableRow.length!==0">
+        <div class="report-body cursor-pointer px-2 table-view" *ngFor="let row of tableRow">
+          <hr>
+          <div class="row row-cols-5 row-cols-sm-5 row-cols-md-5 row-cols-lg-5 g-5">
+            <div class="col-xxl-3 d-flex">
+              <span>{{row?.tenant_name}}</span>
+            </div>
+
+            <div class="col-xxl-2 d-flex">
+              <span>{{row.tenant_code}}</span>
+
+            </div>
+            <div class="col-xxl-3 d-flex">
+              <span>{{row.tenant_email}}</span>
+
+            </div>
+            <div class="col-xxl-2 d-flex">
+              <label class="switch">
+                <input type="checkbox" [checked]="row.status==='enable'"
+                  (click)="openDeleteModal(myDeleteModal, row.tenant_id, row.status)">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-xxl-2 d-flex justify-content-center">
+              <i class="material-icons edit-icon cursor-pointer" (click)="openModal(myModal,row.tenant_id)">edit</i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="tableRow.length===0">
+        <hr />
+        <div class="d-flex justify-content-center mt-4 mb-4">
+          <span><i>No Data to display</i></span>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #load>
       <hr>
-    <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4 g-4">
-      <div class="col-xxl-3 d-flex">
-          <span>{{row?.tenant_name}}</span>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
       </div>
-  
-      <div class="col-xxl-2 d-flex">
-        <span>{{row.tenant_code}}</span>
-  
-      </div>
-      <div class="col-xxl-3 d-flex">
-        <span>{{row.tenant_email}}</span>
-  
-      </div>
-      <div class="col-xxl-2 d-flex">
-        <label class="switch" >
-          <input type="checkbox" [checked]="row.status==='enable'" (click)="openDeleteModal(myDeleteModal, row.tenant_id, row.status)" >
-          <span class="slider round" ></span>
+    </ng-template>
+  </div>
+  <div class="accordion-card" *ngFor="let row of tableRow">
+  <div class="card mt-2 table-card" style="width: 20rem; ">
+    <div class="card-body">
+      <h5 class="card-title">Name: {{row?.tenant_name}} </h5>
+      <p class="card-text">Code: {{row.tenant_code}}</p>
+      <p class="card-text">Email: {{row.tenant_email}}</p>
+      <div class="">
+        <div>Inactive / Active: 
+        <label class="switch">
+          <input type="checkbox" [checked]="row.status==='enable'"
+            (click)="openDeleteModal(myDeleteModal, row.tenant_id, row.status)">
+          <span class="slider round"></span>
         </label>
       </div>
-      <div class="col-xxl-2 d-flex justify-content-center">
-        <i class="material-icons edit-icon cursor-pointer" (click)="openModal(myModal,row.tenant_id)">edit</i>
+      <div class="d-flex align-items-center">Edit:
+        <i class="material-icons edit-icon cursor-pointer ml-1" (click)="openModal(myModal,row.tenant_id)">edit</i>
+      </div>
       </div>
     </div>
   </div>
-  </div>
-  <div *ngIf="tableRow.length===0">
-    <hr/>
-    <div class="d-flex justify-content-center mt-4 mb-4">
-      <span><i>No Data to display</i></span>
-    </div>
-  </div>
-</ng-container>
-<ng-template #load>
-  <hr>
-  <div class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-      <span class="sr-only"></span>
-    </div>
-  </div>
-</ng-template>
 </div>
 
 <ng-template #myModal>
-<app-create-tenant [TenantId]="TenantId" (submitSuccess)="submited($event)"></app-create-tenant>
+  <app-create-tenant [TenantId]="TenantId" (submitSuccess)="submited($event)"></app-create-tenant>
 </ng-template>
 
 <ng-template #myDeleteModal>
