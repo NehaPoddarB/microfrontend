@@ -18,7 +18,7 @@ export default function Header() {
         exclusive
         onChange={handleChange}
         aria-label="Platform"
-        sx={{marginTop:6, marginLeft:'2rem'}}
+        sx={{marginTop:"9rem", marginLeft:'2rem'}}
       >
         <ToggleButton value="studio"><Link to="/home/company/studio" style={{ textDecoration: 'none',color:'black' }}>Studio</Link></ToggleButton>
         <ToggleButton value="employee"><Link to="/home/company/employee" style={{ textDecoration: 'none', color:'black' }}>Employee</Link></ToggleButton>

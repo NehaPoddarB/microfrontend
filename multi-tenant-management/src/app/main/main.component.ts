@@ -17,6 +17,8 @@ export class MainComponent {
     fragment: 'ignored'
   };
   modalRef: BsModalRef | undefined;
+  nevbarOpen=false;
+
 
   auth=localStorage.getItem('role');
   constructor(private router:Router,private loginService:LoginService , private toastr:ToastrService,
@@ -41,4 +43,9 @@ export class MainComponent {
   closeModal(){
   this.modalService?.hide();
   }
+
+ toggleNevbar(){
+  this.nevbarOpen = !this.nevbarOpen;
+}
+
 }
