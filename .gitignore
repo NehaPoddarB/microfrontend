@@ -116,4 +116,5 @@ company-management/public
 tenant-management/package-lock.json
 multi-tenant-management/package-lock.json
 company-management/package-lock.json
+library/web-button-component/package-lock.json
 # react-web-mfe/package-lock.json

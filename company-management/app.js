@@ -7,6 +7,7 @@ import Header from "/src/components/header/Header";
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route, Routes } from 'react-router-dom';
+import {defineCustomElements} from "web-button-component/loader"
 
 const themeDark = createTheme({ palette: { background: { default: "#fff", }, } });
 const App = () => (
@@ -30,5 +31,5 @@ class ReactMfe extends HTMLElement {
       </MuiThemeProvider>, this);
   }
 }
-
+defineCustomElements(window);
 customElements.define('react-element', ReactMfe);

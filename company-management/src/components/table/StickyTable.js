@@ -11,7 +11,7 @@ import { Box, Button, Typography, Container } from '@mui/material';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import TableCards from '../TableCard/Tablecards';
 // import WebButton from 'button/Button-web-component';
-import '../../../../library/indexOne';
+// import '../../../../library/indexOne';
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 
 
@@ -22,11 +22,11 @@ export default function StickyTable({ columns, rows, label, tableName, handleOpe
   const theme = useTheme();
   const showText = useMediaQuery(theme.breakpoints.up('md'));
 
-  React.useEffect(()=>{
-    if(rows.length === 0){
+  React.useEffect(() => {
+    if (rows.length === 0) {
       setNoDataText(true)
     }
-  },[rows])
+  }, [rows])
   return (
     <>
       <Box sx={{
@@ -50,8 +50,10 @@ export default function StickyTable({ columns, rows, label, tableName, handleOpe
         {/* <WebButton onClick={
             handleOpenAdd
           }/> */}
-        <web-button-element onClick={
-          handleOpenAdd} >+ {"Add"} {tableName}</web-button-element>
+        <my-button-component onClick={handleOpenAdd} btntext={`+ Add ${tableName}`}></my-button-component>
+
+        {/* <web-button-element onClick={
+          handleOpenAdd} >+ {"Add"} {tableName}</web-button-element> */}
         {/* <Button
           variant='contained'
           color='info'
@@ -125,27 +127,27 @@ export default function StickyTable({ columns, rows, label, tableName, handleOpe
                       </TableRow>
                     );
                   })}
-              </TableBody> 
+              </TableBody>
             }
           </Table> : (rows.map((row) => (
             <TableCards key={row.code} rows={row} columns={columns} />
           )))}
         </TableContainer>
-        {noDataText &&   <Container maxWidth="xs"> <Box sx={{ display: 'flex', marginTop: '1rem' }}>
-                 <ErrorRoundedIcon fontSize="medium" color="error" sx={{  marginRight: 1 }} />
-                 <Typography
-                   variant="h6"
-                   fontWeight="400"
-                   mb={0.5}
-                   color="error"
-                   alignItems="left"
-                   alignContent="left"
-                   sx={{  width: "100%" }}
-                 >
-                   No {tableName} Found
-                 </Typography>
-               </Box>
-               </Container>}
+        {noDataText && <Container maxWidth="xs"> <Box sx={{ display: 'flex', marginTop: '1rem' }}>
+          <ErrorRoundedIcon fontSize="medium" color="error" sx={{ marginRight: 1 }} />
+          <Typography
+            variant="h6"
+            fontWeight="400"
+            mb={0.5}
+            color="error"
+            alignItems="left"
+            alignContent="left"
+            sx={{ width: "100%" }}
+          >
+            No {tableName} Found
+          </Typography>
+        </Box>
+        </Container>}
       </Paper>
     </>
   );
