@@ -3,7 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { TenantService } from '../service/tenant.service';
-import '../../../../library/indexOne';
 
 @Component({
   selector: 'app-home',
