@@ -1,5 +1,10 @@
 # Micro frontend with Multi Tenant Management
 
+**Prerequisite**
+1. Make sure you have installed the latest Node.js.
+2. Angular CLI 14** and higher.
+3. Basic knowledge of JavaScript, React.js, Angular & Webpack.
+
 **Important**: This code is written in Angular CLI 14** and higher. We have created a Tenant Management System where there will be an Admin who can only create tenants, and Tenants can use this application to Sign in and Add their studios. Under those studios, they can add the Employees and do the CRUD operations.
 
 ## Part 1: Steps to run
@@ -169,5 +174,19 @@ Now, let's try it out!
     npm start (for company-management app)
     ```
 
+2. To install Stencil globally run this command:
+   ```
+   npm install -g stencil
+   ```
+   
+   2.1  To run ``Stencil library`` do:
+   ```
+   npm install
+   npm start
+   ```
 
+   2.2 To create another web component:
 
+   ```
+   npx stencil generate component-namne
+   ```

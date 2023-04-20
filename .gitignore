@@ -41,6 +41,7 @@ build/Release
 multi-tenant-management/node_modules/
 tenant-management/node_modules/
 company-management/node_modules/
+library/nash-components/node_modules
 # react-web-mfe/node_modules/
 vue-mfe
 jspm_packages/
@@ -85,6 +86,10 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+library/nash-components/loader
+library/nash-components/www
+
+
 
 # Gatsby files
 .cache/
@@ -116,5 +121,5 @@ company-management/public
 tenant-management/package-lock.json
 multi-tenant-management/package-lock.json
 company-management/package-lock.json
-library/web-button-component/package-lock.json
+library/nash-components/package-lock.json
 # react-web-mfe/package-lock.json
