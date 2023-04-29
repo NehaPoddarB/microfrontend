@@ -229,6 +229,22 @@ const Studio = () => {
                 </Box>
               </Tooltip>
             </Button>
+            {/* <nash-button type="basic" color="primary" onClick={() => {
+                setOpenEdit(true);
+                editData(item);
+              }}>
+            <Tooltip title={"Edit"}>
+                <Box sx={{
+                  width: "100%",
+                  display: "inline-block",
+                  borderRadius: "60px",
+                  boxShadow: "0 0 2px #888",
+                  padding: "0.5em 0.6em"
+                }} >
+                  <ModeRoundedIcon />
+                </Box>
+              </Tooltip>
+            </nash-button> */}
             {/* <Button
               size="large"
               variant="text"

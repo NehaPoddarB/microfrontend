@@ -1,8 +1,9 @@
 <div class="d-flex justify-content-between" style="margin-top: 10rem; margin-left: 3rem; margin-right: 3rem; ">
-  <h3 class="fw-bold title" style="margin: 25px 0 auto;">Tenant Management</h3>
+  <h3 class="fw-bold title" style="margin: 8px 0px 21px 0px;">Tenant Management</h3>
   <!-- <button class="btn btn-primary" (click)="openModal(myModal)">+Add Tenant</button> -->
   <!-- <web-button-element (click)="openModal(myModal)">+ Add Tenant</web-button-element> -->
-  <my-button-component (click)="openModal(myModal)" btntext="+ Add Tenant"></my-button-component>
+  <!-- <my-button-component (click)="openModal(myModal)" btntext="+ Add Tenant"></my-button-component> -->
+  <nash-button type="raised" color="primary" (click)="openModal(myModal)">+ Add Tenant</nash-button>
 
   <!-- <WebButton></WebButton> -->
 </div>
@@ -106,8 +107,10 @@
   <div class="mt-4 mb-4 p-4 d-flex flex-column justify-content-center align-items-center">
     <span class="text-bold">{{statusMsg}}</span>
     <div class="mt-4 d-flex justify-content-between">
-      <button class="btn btn-primary mx-2 btn-width" (click)="deleteTenant()">Yes</button>
-      <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button>
+      <!-- <button class="btn btn-primary mx-2 btn-width" (click)="deleteTenant()">Yes</button>
+      <button class="btn btn-secondary mx-2 btn-width" (click)="closeModal()">No</button> -->
+      <nash-button transform="uppercase" type="raised" color="primary" (click)="deleteTenant()" style="margin-right:2rem;">Yes</nash-button>
+      <nash-button transform="uppercase" type="raised" color="secondary" (click)="closeModal()">No</nash-button>
     </div>
   </div>
 </ng-template>

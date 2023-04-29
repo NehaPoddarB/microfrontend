@@ -17,15 +17,14 @@
 
               <div class="form-outline mb-4">
                 <label class="form-label" for="form2Example27">Password</label>
-                <input formControlName="password" type="password" id="form2Example27" class="form-control form-control-lg" [ngClass]="{'is-invalid':(loginForm.get('password')?.touched && loginForm.get('password')?.invalid) || isValid}" />
+                <input formControlName="password" type="password" id="form2Example27" class="form-control form-control-lg" [ngClass]="{'is-invalid':(loginForm.get('password')?.touched && loginForm.get('password')?.invalid) || isValid}" style=" margin-bottom: 3rem;" />
                 <small class="text-danger" *ngIf="isValid === 'unauthorized'">
                   Invalid email or password.
                 </small>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-block mb-4 mt-4"  (click)="login()" style="width:100%;">
-               Login
-              </button>              
+              <nash-button transform="uppercase" type="raised" color="primary"  (click)="login()" style="margin-left: -1rem; margin-right: -1rem; margin-bottom: 1.5rem; margin-top: 1.5rem;" >Login</nash-button>
+           
             </form>
           </div>
         </div>

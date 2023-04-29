@@ -25,7 +25,7 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
     };
     const onCodeChange = (event) => {
         setCode(event.target.value)
-        if (event.target.value.length >0) {
+        if (event.target.value.length > 0) {
             setValidCode(false)
         }
         else {
@@ -34,7 +34,7 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
     }
     const onNameChange = (event) => {
         setName(event.target.value)
-        if (event.target.value.length >0) {
+        if (event.target.value.length > 0) {
             setValidName(false)
         }
         else {
@@ -174,7 +174,7 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
                         <Button
                             variant="contained"
                             onClick={openConfirmationDialogHandler}
-                            disabled={!inputName || !inputCode || !inputEmail || validEmail || !correctEmail }
+                            disabled={!inputName || !inputCode || !inputEmail || validEmail || !correctEmail}
                             sx={{
                                 color: '#fff', fontWeight: "500", backgroundColor: 'rgb(255, 86, 80)', ':hover': {
                                     boxShadow: 10,
@@ -184,19 +184,7 @@ const AddDialog = ({ openAdd, handleAddClose, getInfo, onAddQuestionComplete }) 
                         >
                             Submit
                         </Button>
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={handleAddClose}
-                            sx={{
-                                margin: "20", backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
-                                    boxShadow: 10,
-                                    backgroundColor: 'black'
-                                }
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        <nash-button transform='uppercase' type="raised" color="secondary" onClick={handleAddClose}>Cancel</nash-button>
                     </Stack>
                     {open && <ConfirmationDialog title={"Are You Sure"} body={"You want to Add this?"} open={open} onConfirmAction={confirmAddActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={"Cancel"} confirmLabel={"Confirm"} />}
                 </Box>

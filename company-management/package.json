@@ -27,6 +27,7 @@
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
     "copy-webpack-plugin": "^8.1.1",
+    "nash-web-components": "^0.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^6.3.0",

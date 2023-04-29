@@ -198,7 +198,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, status, getI
                             onClick={openConfirmationDialogHandler}
                             disabled={!inputName || !inputCode || !inputEmail  || validEmail || !correctEmail }
                             sx={{
-                                color: '#fff', backgroundColor: 'rgb(255, 86, 80)', fontWeight: "500", ':hover': {
+                                color: '#fff', backgroundColor: 'rgb(255, 86, 80)',height:'2.5rem', ':hover': {
                                     boxShadow: 10,
                                     backgroundColor: 'rgb(255, 86, 80)'
                                 }
@@ -206,20 +206,7 @@ const EditDialog = ({ openEdit, handleEditClose, code, name, email, status, getI
                         >
                             Submit
                         </Button>
-                        <Button
-                            color="primary"
-                            variant="contained"
-
-                            onClick={handleEditClose}
-                            sx={{
-                                margin: "20", backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
-                                    boxShadow: 10,
-                                    backgroundColor: 'black'
-                                }
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        <nash-button transform='uppercase' type="raised" color="secondary" onClick={handleEditClose}>Cancel</nash-button>
                     </Stack>
                     {open && <ConfirmationDialog title={"Are You Sure"} body={"You want to edit this?"} open={open} onConfirmAction={confirmEditActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={"Cancel"} confirmLabel={"Confirm"} />}
                 </Box>

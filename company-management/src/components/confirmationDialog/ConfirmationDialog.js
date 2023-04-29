@@ -1,6 +1,6 @@
 import React from "react";
 import Dialog from "@mui/material/Dialog";
-import { Box, Button, Card, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 
 
 export default function ConfirmationDialog({ title, body, open, onConfirmAction, onCancelAction, cancelLabel, confirmLabel }) {
@@ -37,28 +37,8 @@ export default function ConfirmationDialog({ title, body, open, onConfirmAction,
                             {body}
                         </Typography>
                         <Stack direction="row" spacing={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={onConfirmHandler}
-                                sx={{ innerWidth: "10",backgroundColor: 'rgb(255, 86, 80)', color: '#fff', fontWeight: "500", ':hover': {
-                                    boxShadow: 10,
-                                    backgroundColor:'rgb(255, 86, 80)'
-                                }}}
-                            >
-                                {confirmLabel}
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={onCancelAction}
-                                sx={{ margin: "20",backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
-                                    boxShadow: 10,
-                                    backgroundColor:'black'
-                                } }}
-                            >
-                                {cancelLabel}
-                            </Button>
+                            <nash-button transform="uppercase" type="raised" color="danger" onClick={onConfirmHandler}>{confirmLabel}</nash-button>
+                            <nash-button transform="uppercase" type="raised" color="secondary" onClick={onCancelAction}>{cancelLabel}</nash-button>
                         </Stack>
                     </Box>
                 </Card>
