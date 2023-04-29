@@ -50,7 +50,8 @@ export default function StickyTable({ columns, rows, label, tableName, handleOpe
         {/* <WebButton onClick={
             handleOpenAdd
           }/> */}
-        <my-button-component onClick={handleOpenAdd} btntext={`+ Add ${tableName}`}></my-button-component>
+            <nash-button transform='capitalize' type="raised" color="primary" onClick={handleOpenAdd}>+ {"Add"} {tableName}</nash-button>
+        {/* <my-button-component onClick={handleOpenAdd} btntext={`+ Add ${tableName}`}></my-button-component> */}
 
         {/* <web-button-element onClick={
           handleOpenAdd} >+ {"Add"} {tableName}</web-button-element> */}

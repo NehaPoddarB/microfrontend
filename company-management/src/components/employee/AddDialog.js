@@ -221,19 +221,7 @@ const AddDialog = ({ openAdd, handleAddClose, onAddQuestionComplete, getInfo }) 
                         >
                             Submit
                         </Button>
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            onClick={handleAddClose}
-                            sx={{
-                                margin: "20", backgroundColor: "black", color: '#fff', fontWeight: "500", ':hover': {
-                                    boxShadow: 10,
-                                    backgroundColor: 'black'
-                                }
-                            }}
-                        >
-                            Cancel
-                        </Button>
+                        <nash-button transform='uppercase' type="raised" color="secondary" onClick={handleAddClose}>Cancel</nash-button>
                     </Stack>
                     {open && <ConfirmationDialog title={"Are You Sure"} body={"You want to Add this?"} open={open} onConfirmAction={confirmEditActionHandler} onCancelAction={closeDeleteActionHandler} cancelLabel={"Cancel"} confirmLabel={"Confirm"} />}
                 </Box>

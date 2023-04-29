@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { MyButtonComponent } from '../my-button-component';
+import { NashButton } from '../nash-button';
 
-describe('my-button-component', () => {
+describe('nash-button', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [MyButtonComponent],
-      html: `<my-button-component></my-button-component>`,
+      components: [NashButton],
+      html: `<nash-button></nash-button>`,
     });
     expect(page.root).toEqualHtml(`
-      <my-button-component>
+      <nash-button>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </my-button-component>
+      </nash-button>
     `);
   });
 });

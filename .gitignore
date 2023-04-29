@@ -42,6 +42,7 @@ multi-tenant-management/node_modules/
 tenant-management/node_modules/
 company-management/node_modules/
 library/nash-components/node_modules
+library/web-button-component/node_modules/
 # react-web-mfe/node_modules/
 vue-mfe
 jspm_packages/
